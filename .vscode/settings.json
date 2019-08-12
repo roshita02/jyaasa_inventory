@@ -1,3 +1,5 @@
 {
-    "ruby.rubocop.configFilePath": "/home/roshita/.rvm/gems/ruby-2.6.3/bin/rubocop"
+    "ruby.rubocop.useBundler": true,
+    "ruby.rubocop.configFilePath": "/home/roshita/.rvm/gems/ruby-2.6.3/bin/rubocop",
+    "ruby.rubocop.executePath": "/home/roshita/.rvm/gems/ruby-2.6.3/bin/rubocop"
 }
