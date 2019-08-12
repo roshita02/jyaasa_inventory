@@ -57,3 +57,4 @@ gem 'activeadmin'
 gem 'active_skin'
 gem 'devise'
 gem "ransack", git: "https://github.com/activerecord-hackery/ransack"
+gem 'devise_invitable'
