@@ -12,5 +12,5 @@ ActiveAdmin.register Employee do
   #   permitted << :other if params[:action] == 'create' && current_user.admin?
   #   permitted
   # end
-  
+  permit_params :first_name, :last_name, :email, :password
 end
