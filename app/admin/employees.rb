@@ -23,7 +23,8 @@ ActiveAdmin.register Employee do
   end
 
   collection_action :send_invitation, method: :post do
-    @employee = Employee.invite!({ email: params[:employee][:email] }, current_employee)
+    @employee = Employee.invite!({ email: params[:employee][:email] },
+                                 current_employee)
     if @employee.errors.empty?
       flash[:success] = 'Employee has been successfully invited.'
       redirect_to admin_employees_path
