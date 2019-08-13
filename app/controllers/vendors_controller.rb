@@ -1,9 +1,9 @@
-class VendorsController < InheritedResources::Base
+# frozen_string_literal: true
 
+class VendorsController < InheritedResources::Base
   private
 
-    def vendor_params
-      params.require(:vendor).permit(:name, :pan_no)
-    end
-
+  def vendor_params
+    params.require(:vendor).permit(:name, :pan_no)
+  end
 end

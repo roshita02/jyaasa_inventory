@@ -1,6 +1,15 @@
 # frozen_string_literal: true
 
-class Employees::RegistrationsController < Devise::RegistrationsController
+# Controller for employee registration
+class EmployeesRegistrationsController < Devise::RegistrationsController
+  def sign_up_params
+    params.require(:employee).permit(:first_name, :last_name, :email)
+  end
+
+  def account_update_params
+    params.require(:employee).permit(:first_name, :last_name, :email)
+  end
+
   # before_action :configure_sign_up_params, only: [:create]
   # before_action :configure_account_update_params, only: [:update]
 
