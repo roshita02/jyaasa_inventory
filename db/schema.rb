@@ -12,7 +12,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20_190_812_161_343) do
+ActiveRecord::Schema.define(version: 20_190_816_050_455) do
   # These are extensions that must be enabled in order to support this database
   enable_extension 'plpgsql'
 
@@ -66,6 +66,14 @@ ActiveRecord::Schema.define(version: 20_190_812_161_343) do
     t.index ['invited_by_id'], name: 'index_employees_on_invited_by_id'
     t.index %w[invited_by_type invited_by_id], name: 'index_employees_on_invited_by_type_and_invited_by_id'
     t.index ['reset_password_token'], name: 'index_employees_on_reset_password_token', unique: true
+  end
+
+  create_table 'items', force: :cascade do |t|
+    t.string 'name'
+    t.string 'type'
+    t.integer 'rate'
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
   end
 
   create_table 'vendors', force: :cascade do |t|
