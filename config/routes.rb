@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  resources :items
   devise_for :employees, controllers: { invitations: 'employees_invitations' }
   resources :vendors
   devise_for :admin_users, ActiveAdmin::Devise.config
