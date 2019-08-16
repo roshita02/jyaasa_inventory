@@ -3,4 +3,5 @@
 # Model for base class item
 class Item < ApplicationRecord
   validates_presence_of :name, :rate
+  belongs_to :vendor
 end
