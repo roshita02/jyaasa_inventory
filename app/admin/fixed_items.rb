@@ -13,5 +13,5 @@ ActiveAdmin.register FixedItem do
   #   permitted
   # end
   menu :parent => "Items"
-  permit_params :name, :quantity, :rate, :vendor_id
+  permit_params :name, :quantity, :rate, :vendor_id, :category_id
 end

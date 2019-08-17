@@ -13,5 +13,5 @@ ActiveAdmin.register NonFixedItem do
   #   permitted
   # end
   menu :parent => "Items"
-  permit_params :name, :quantity, :vendor_id, :rate
+  permit_params :name, :quantity, :vendor_id, :rate, :category_id
 end
