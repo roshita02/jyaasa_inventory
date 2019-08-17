@@ -3,5 +3,5 @@
 # Model for fixed item inheriting from Item
 class FixedItem < Item
   belongs_to :vendor
-  validates_presence_of :rate
+  validates_presence_of :rate 
 end

@@ -316,6 +316,7 @@ ActiveAdmin.setup do |config|
   config.namespace :admin do |admin|
     admin.build_menu do |menu|
       menu.add :label => "Items"
+      menu.add :label => "Category"
     end
   end
 end
