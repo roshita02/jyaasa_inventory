@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-
 ActiveAdmin.setup do |config|
   # == Site Title
   #
@@ -126,7 +125,7 @@ ActiveAdmin.setup do |config|
   # This allows your users to comment on any resource registered with Active Admin.
   #
   # You can completely disable comments:
-  # config.comments = false
+  config.comments = false
   #
   # You can change the name under which comments are registered:
   # config.comments_registration_name = 'AdminComment'
@@ -314,4 +313,10 @@ ActiveAdmin.setup do |config|
   # You can inherit it with own class and inject it for all resources
   #
   # config.order_clause = MyOrderClause
+  config.namespace :admin do |admin|
+    admin.build_menu do |menu|
+      menu.add :label => "Items"
+      menu.add :label => "Category"
+    end
+  end
 end

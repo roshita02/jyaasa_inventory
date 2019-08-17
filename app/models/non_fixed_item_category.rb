@@ -1,0 +1,2 @@
+class NonFixedItemCategory < Category
+end
