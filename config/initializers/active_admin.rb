@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-
 ActiveAdmin.setup do |config|
   # == Site Title
   #
@@ -314,4 +313,9 @@ ActiveAdmin.setup do |config|
   # You can inherit it with own class and inject it for all resources
   #
   # config.order_clause = MyOrderClause
+  config.namespace :admin do |admin|
+    admin.build_menu do |menu|
+      menu.add :label => "Items"
+    end
+  end
 end

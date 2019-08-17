@@ -2,5 +2,5 @@
 
 # Model for fixed item inheriting from Item
 class FixedItem < Item
-  has_many :vendor
+  belongs_to :vendor
 end
