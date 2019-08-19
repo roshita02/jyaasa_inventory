@@ -3,6 +3,18 @@
 ActiveAdmin.register FixedItem do
   menu parent: 'Items'
   permit_params :name, :quantity, :rate, :vendor_id, :category_id
+  index do
+    column :id 
+    column :name
+    column :category
+    column :quantity
+    column :vendor
+    column :rate
+    column "Total amount" do |fixedItem|
+      fixedItem.quantity * fixedItem.rate
+    end
+    actions
+  end
   form do |f|
     f.inputs 'Fixed Item' do
       f.input :name

@@ -3,6 +3,17 @@
 ActiveAdmin.register NonFixedItem do
   menu parent: 'Items'
   permit_params :name, :quantity, :vendor_id, :rate, :category_id
+  index do
+    column :id 
+    column :name
+    column :category
+    column :quantity
+    column :rate
+    column "Total amount" do |nonFixedItem|
+      nonFixedItem.quantity * nonFixedItem.rate
+    end
+    actions
+  end
   form do |f|
     f.inputs 'Non Fixed Item' do
       f.input :name
