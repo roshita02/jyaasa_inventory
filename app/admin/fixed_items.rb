@@ -10,8 +10,8 @@ ActiveAdmin.register FixedItem do
     column :quantity
     column :vendor
     column :rate
-    column "Total amount" do |fixedItem|
-      fixedItem.quantity * fixedItem.rate
+    column 'Total amount' do |fixeditem|
+      fixeditem.quantity * fixeditem.rate
     end
     actions
   end
@@ -28,4 +28,9 @@ ActiveAdmin.register FixedItem do
     end
     f.actions
   end
+  filter :name
+  filter :category_id, label: 'Category', as: :select, collection: FixedItemCategory.all
+  filter :quantity
+  filter :rate
+  filter :vendor
 end

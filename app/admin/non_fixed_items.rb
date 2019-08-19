@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# NonFixedItem 
 ActiveAdmin.register NonFixedItem do
   menu parent: 'Items'
   permit_params :name, :quantity, :vendor_id, :rate, :category_id
@@ -9,8 +10,8 @@ ActiveAdmin.register NonFixedItem do
     column :category
     column :quantity
     column :rate
-    column "Total amount" do |nonFixedItem|
-      nonFixedItem.quantity * nonFixedItem.rate
+    column 'Total amount' do |nonfixeditem|
+      nonfixeditem.quantity * nonfixeditem.rate
     end
     actions
   end
@@ -27,4 +28,9 @@ ActiveAdmin.register NonFixedItem do
       f.actions
     end
   end
+  filter :name
+  filter :category_id, label: 'Category', as: :select, collection: NonFixedItemCategory.all
+  filter :quantity
+  filter :rate
+  filter :vendor
 end
