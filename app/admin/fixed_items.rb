@@ -1,10 +1,11 @@
 # frozen_string_literal:true
 
+# Activeadmin for FixedItem
 ActiveAdmin.register FixedItem do
   menu parent: 'Items'
   permit_params :name, :quantity, :rate, :vendor_id, :category_id
   index do
-    column :id 
+    column :id
     column :name
     column :category
     column :quantity
@@ -14,6 +15,9 @@ ActiveAdmin.register FixedItem do
       fixeditem.quantity * fixeditem.rate
     end
     actions
+    div class: 'my-panel' do
+      h3 "Total items: #{collection.pluck(:quantity).reduce(:+)}"
+    end
   end
   form do |f|
     f.inputs 'Fixed Item' do

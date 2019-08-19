@@ -13,6 +13,9 @@ ActiveAdmin.register NonFixedItem do
     column 'Total amount' do |nonfixeditem|
       nonfixeditem.quantity * nonfixeditem.rate
     end
+    div class: 'my-panel' do
+      h3 "Total items: #{collection.pluck(:quantity).reduce(:+)}"
+    end
     actions
   end
   form do |f|

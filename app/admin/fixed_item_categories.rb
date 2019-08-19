@@ -15,4 +15,13 @@ ActiveAdmin.register FixedItemCategory do
     end
     f.actions
   end
+  show do
+    attributes_table do
+      row :name
+      row :depreciation_rate
+      row 'Items' do
+        FixedItemCategory.find(params[:id]).items
+      end
+    end
+  end
 end
