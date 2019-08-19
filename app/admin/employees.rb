@@ -2,18 +2,16 @@
 
 ActiveAdmin.register Employee do
   permit_params :email
-  permit_params :first_name
-  permit_params :last_name
-  filter :first_name
-  filter :last_name
   filter :email
+  filter :invitation_sent_at
+  filter :invitation_accepted_at
   index do
-    column :first_name
-    column :last_name
     column :email
+    column :invitation_sent_at
+    column :invitation_accepted_at
     actions
   end
-
+  config.remove_action_item(:new)
   action_item :new do
     link_to 'Invite New Employee', new_invitation_admin_employees_path
   end

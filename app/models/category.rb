@@ -1,3 +1,16 @@
-class Category < ApplicationRecord  
+# frozen_string_literal: true
+
+# == Schema Information
+#
+# Table name: categories
+#
+#  id                :bigint           not null, primary key
+#  name              :string
+#  type              :string
+#  depreciation_rate :float
+#  created_at        :datetime         not null
+#  updated_at        :datetime         not null
+# Model for Category
+class Category < ApplicationRecord
   validates_presence_of :name
 end
