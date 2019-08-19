@@ -3,5 +3,8 @@
 require 'rails_helper'
 
 RSpec.describe Vendor, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  it "is not valid without name" do
+    vendor = Vendor.new(name: nil)
+    expect(vendor).to_not be_valid
+  end
 end

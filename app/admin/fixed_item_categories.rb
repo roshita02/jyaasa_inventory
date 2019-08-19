@@ -1,17 +1,18 @@
-ActiveAdmin.register FixedItemCategory do
+# frozen_string_literal: true
 
-  # See permitted parameters documentation:
-  # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
-  #
-  # permit_params :list, :of, :attributes, :on, :model
-  #
-  # or
-  #
-  # permit_params do
-  #   permitted = [:permitted, :attributes]
-  #   permitted << :other if params[:action] == 'create' && current_user.admin?
-  #   permitted
-  # end
-  menu :parent => "Category"
+ActiveAdmin.register FixedItemCategory do
+  menu parent: 'Category'
   permit_params :name, :depreciation_rate
+  index do
+    column :name
+    column :depreciation_rate
+    actions
+  end
+  form do |f|
+    f.inputs 'Fixed item category' do
+      f.input :name
+      f.input :depreciation_rate
+    end
+    f.actions
+  end
 end
