@@ -13,5 +13,5 @@
 #
 # Inherited from Category
 class NonFixedItemCategory < Category
-  has_many :items, foreign_key: 'category_id'
+  
 end

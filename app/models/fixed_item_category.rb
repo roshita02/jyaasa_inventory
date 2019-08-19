@@ -15,5 +15,4 @@
 # STI model for Fixed item category
 class FixedItemCategory < Category
   validates_presence_of :depreciation_rate
-  has_many :items, foreign_key: 'category_id'
 end

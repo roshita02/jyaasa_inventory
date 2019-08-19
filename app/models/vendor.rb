@@ -13,4 +13,5 @@
 # Model for vendor
 class Vendor < ApplicationRecord
   validates_presence_of :name, :pan_no
+  has_many :items
 end
