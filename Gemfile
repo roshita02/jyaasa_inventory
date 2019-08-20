@@ -60,5 +60,6 @@ gem 'activeadmin'
 gem 'devise'
 gem 'devise_invitable'
 gem 'figaro'
+gem 'analytics-ruby'
 gem 'ransack', git: 'https://github.com/activerecord-hackery/ransack'
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]

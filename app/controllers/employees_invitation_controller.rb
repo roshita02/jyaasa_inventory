@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # Employee_invitation
-class EmployeesInvitationsController < Devise::InvitationsController
+class EmployeesInvitationController < Devise::InvitationsController
   def update
     super
   end
@@ -15,7 +15,7 @@ class EmployeesInvitationsController < Devise::InvitationsController
   def accept_resource
     resource = resource_class.accept_invitation!(update_resource_params)
     # Report accepting invitation to analytics
-    Analytics.report('invite.accept', resource.id)
+    # Analytics.report('invite.accept', resource.id)
     resource
   end
 end
