@@ -84,6 +84,7 @@ GEM
       zeitwerk (~> 2.1, >= 2.1.8)
     addressable (2.6.0)
       public_suffix (>= 2.0.2, < 4.0)
+    analytics-ruby (2.2.7)
     annotate (2.7.5)
       activerecord (>= 3.2, < 7.0)
       rake (>= 10.4, < 13.0)
@@ -315,6 +316,7 @@ PLATFORMS
 DEPENDENCIES
   active_skin
   activeadmin
+  analytics-ruby
   annotate
   bootsnap (>= 1.4.2)
   byebug
