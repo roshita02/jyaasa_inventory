@@ -3,14 +3,15 @@
 # Activeadmin for FixedItem
 ActiveAdmin.register FixedItem do
   menu parent: 'Items'
-  permit_params :name, :quantity, :rate, :vendor_id, :category_id
-  index do
+  permit_params :name, :quantity, :rate, :vendor_id, :category_id, :purchased_date
+    index do
     column :id
     column :name
     column :category
     column :quantity
     column :vendor
     column :rate
+    column :purchased_date
     column 'Total amount' do |fixeditem|
       fixeditem.quantity * fixeditem.rate
     end
@@ -29,6 +30,7 @@ ActiveAdmin.register FixedItem do
       li do
         link_to 'Add new Vendor', new_admin_vendor_path
       end
+      f.input :purchased_date, as: :datepicker
     end
     f.actions
   end
@@ -37,4 +39,5 @@ ActiveAdmin.register FixedItem do
   filter :quantity
   filter :rate
   filter :vendor
+  filter :purchased_date
 end

@@ -3,7 +3,7 @@
 # NonFixedItem 
 ActiveAdmin.register NonFixedItem do
   menu parent: 'Items'
-  permit_params :name, :quantity, :vendor_id, :rate, :category_id
+  permit_params :name, :quantity, :vendor_id, :rate, :category_id, :purchased_date
   index do
     column :id 
     column :name
@@ -28,6 +28,7 @@ ActiveAdmin.register NonFixedItem do
       li do
         link_to 'Add new Vendor', new_admin_vendor_path
       end
+      f.input :purchased_date, as: :datepicker
       f.actions
     end
   end
@@ -36,4 +37,5 @@ ActiveAdmin.register NonFixedItem do
   filter :quantity
   filter :rate
   filter :vendor
+  filter :purchased_date
 end
