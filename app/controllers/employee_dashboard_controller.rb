@@ -1,5 +1,9 @@
 class EmployeeDashboardController < ApplicationController
   def index
-    @email = current_employee.email
+    if employee_signed_in?
+      @email = current_employee.email
+    else
+      redirect_to new_employee_session_path
+    end
   end
 end
