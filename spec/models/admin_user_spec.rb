@@ -3,5 +3,12 @@
 require 'rails_helper'
 
 RSpec.describe AdminUser, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  it 'should have email address' do
+    admin = AdminUser.new(email: nil)
+    expect(admin).to_not be_valid
+  end
+  it 'should have a password' do
+    admin = AdminUser.new(password: nil)
+    expect(admin).to_not be_valid
+  end
 end
