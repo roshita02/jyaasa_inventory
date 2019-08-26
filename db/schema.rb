@@ -91,9 +91,9 @@ ActiveRecord::Schema.define(version: 20_190_826_075_328) do
     t.integer 'rate'
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
+    t.bigint 'vendor_id'
     t.integer 'quantity'
     t.bigint 'category_id'
-    t.bigint 'vendor_id'
     t.date 'purchased_date'
     t.index ['category_id'], name: 'index_items_on_category_id'
     t.index ['vendor_id'], name: 'index_items_on_vendor_id'
