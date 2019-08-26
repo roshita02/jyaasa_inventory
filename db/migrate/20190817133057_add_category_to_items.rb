@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddCategoryToItems < ActiveRecord::Migration[6.0]
   def change
     add_reference :items, :category, null: true, foreign_key: true

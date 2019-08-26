@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Item Requests</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Item</th>
+      <th>Quantity</th>
+      <th>Reason</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @item_requests.each do |item_request| %>
+      <tr>
+        <td><%= item_request.item %></td>
+        <td><%= item_request.quantity %></td>
+        <td><%= item_request.reason %></td>
+        <td><%= link_to 'Show', item_request %></td>
+        <td><%= link_to 'Edit', edit_item_request_path(item_request) %></td>
+        <td><%= link_to 'Destroy', item_request, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Item Request', new_item_request_path %>

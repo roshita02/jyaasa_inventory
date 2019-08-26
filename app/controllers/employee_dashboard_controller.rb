@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class EmployeeDashboardController < ApplicationController
   def index
     if employee_signed_in?

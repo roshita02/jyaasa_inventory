@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 ActiveAdmin.setup do |config|
   # == Site Title
   #
@@ -173,7 +174,7 @@ ActiveAdmin.setup do |config|
 
   # == Setting a Favicon
   #
-  #config.favicon = 'favicon.ico'
+  # config.favicon = 'favicon.ico'
 
   # == Meta Tags
   #
