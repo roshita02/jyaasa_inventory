@@ -61,6 +61,6 @@ gem 'analytics-ruby'
 gem 'devise'
 gem 'devise_invitable'
 gem 'figaro'
+gem 'rails_best_practices', '~> 1.15', '>= 1.15.7'
 gem 'ransack', git: 'https://github.com/activerecord-hackery/ransack'
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
-gem 'rails_best_practices', '~> 1.15', '>= 1.15.7'
