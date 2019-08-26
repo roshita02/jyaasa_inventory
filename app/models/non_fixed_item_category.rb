@@ -13,5 +13,4 @@
 #
 # Inherited from Category
 class NonFixedItemCategory < Category
-  
 end

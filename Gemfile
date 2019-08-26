@@ -32,9 +32,9 @@ gem 'bootsnap', '>= 1.4.2', require: false
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
+  gem 'annotate'
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
   gem 'rspec-rails', '~> 3.8'
-  gem 'annotate'
 end
 
 group :development do
@@ -57,10 +57,10 @@ end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'active_skin'
 gem 'activeadmin'
+gem 'analytics-ruby'
 gem 'devise'
 gem 'devise_invitable'
 gem 'figaro'
-gem 'analytics-ruby'
+gem 'rails_best_practices', '~> 1.15', '>= 1.15.7'
 gem 'ransack', git: 'https://github.com/activerecord-hackery/ransack'
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
-

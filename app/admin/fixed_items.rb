@@ -4,7 +4,7 @@
 ActiveAdmin.register FixedItem do
   menu parent: 'Items'
   permit_params :name, :quantity, :rate, :vendor_id, :category_id, :purchased_date
-    index do
+  index do
     column :id
     column :name
     column :category

@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
-# NonFixedItem 
+# NonFixedItem
 ActiveAdmin.register NonFixedItem do
   menu parent: 'Items'
   permit_params :name, :quantity, :vendor_id, :rate, :category_id, :purchased_date
   index do
-    column :id 
+    column :id
     column :name
     column :category
     column :quantity

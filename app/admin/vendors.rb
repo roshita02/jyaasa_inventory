@@ -3,7 +3,7 @@
 # ActiveAdmin for Vendor
 ActiveAdmin.register Vendor do
   permit_params :name, :pan_no
-  show do 
+  show do
     attributes_table do
       row :name
       row :pan_no
