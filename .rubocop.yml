@@ -3,4 +3,4 @@ Metrics/LineLength:
     - '/home/roshita/Documents/projects/jyaasa_inventory/db/schema.rb'
   Max: 120
 Metrics/BlockLength:
-  Max: 100000
+  Max: 1000
