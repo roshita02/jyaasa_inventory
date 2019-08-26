@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Controller for vendor
 class VendorsController < InheritedResources::Base
   private
 

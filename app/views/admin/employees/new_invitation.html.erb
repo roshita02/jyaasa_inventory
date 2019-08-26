@@ -1,7 +1,5 @@
 <h2>Send invitation</h2>
-
 <%= form_for @employee, :url => send_invitation_admin_employees_path do |f| %>
-   
    <table style='width: 50%'>
      <tr>
       <td><%= f.label :first_name %></td>
@@ -15,7 +13,6 @@
       <td><%= f.label :email %></td>
       <td><%= f.text_field :email, :required => true %></td>
     </tr>
-   </table>
-   
-  <%= f.submit  "Send an Invitation" %>
+   </table>  
+  <%= f.submit "Send an Invitation" %>
 <% end %>
