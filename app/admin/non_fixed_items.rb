@@ -24,9 +24,13 @@ ActiveAdmin.register NonFixedItem do
       f.input :category_id, label: 'Category', as: :select, collection: NonFixedItemCategory.all, prompt: 'Select one'
       f.input :quantity
       f.input :rate
-      f.input :vendor_id, label: 'Vendor', as: :select, collection: Vendor.all, prompt: 'Select one'
       li do
-        link_to 'Add new Vendor', new_admin_vendor_path
+        ul do
+          f.input :vendor_id, label: 'Vendor', as: :select, collection: Vendor.all, prompt: 'Select one'
+        end
+        ul do
+          link_to 'Add new Vendor', new_admin_vendor_path
+        end
       end
       f.input :purchased_date, as: :datepicker
       f.actions

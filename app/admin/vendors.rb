@@ -22,4 +22,27 @@ ActiveAdmin.register Vendor do
       f.cancel_link(:back)
     end
   end
+  controller do
+    def new
+      @vendor = Vendor.new
+      @first_value = request.referer
+      session[:passed_variable] = @first_value
+    end
+
+    def create
+      @vendor = Vendor.create(vendor_params)
+      @first_value = session[:passed_variable]
+      if @vendor.save
+        redirect_to(@first_value)
+      else
+        render :new
+      end
+    end
+
+    private
+
+    def vendor_params
+      params.require(:vendor).permit(:name, :pan_no)
+    end
+  end
 end
