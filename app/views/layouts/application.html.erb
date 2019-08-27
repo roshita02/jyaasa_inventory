@@ -9,7 +9,29 @@
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body>
+  <body>     
+   <nav class="navbar navbar-fixed-top" >
+      <div class="container">
+        <div class="navbar-header">
+          <%= link_to "Jyaasa Inventory", root_path, class: "navbar-brand text-uppercase" %>          
+        </div>
+        <% if employee_signed_in? %>
+          <div class="collapse navbar-collapse" id="navbar-collapse">
+            <div class="navbar-nav navbar-right nav btn">
+              <%= link_to edit_employee_registration_path, class: "btn btn-default" do %>
+              <i class="fas fa-user-edit"></i> 
+              Edit Profile
+              <% end %>  
+            
+              <%= link_to destroy_employee_session_path, :method => 'delete' , class: "btn btn-default" do%>
+              <i class="glyphicon glyphicon-log-out"></i> 
+              Logout
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </nav> 
     <%= yield %>
   </body>
 </html>
