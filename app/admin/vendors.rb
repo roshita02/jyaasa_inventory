@@ -12,4 +12,14 @@ ActiveAdmin.register Vendor do
       end
     end
   end
+  form do |f|
+    f.inputs 'New Item' do
+      f.input :name
+      f.input :pan_no
+    end
+    f.actions do
+      f.action :submit
+      f.cancel_link(:back)
+    end
+  end
 end
