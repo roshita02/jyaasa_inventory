@@ -4,22 +4,19 @@
   <title>Employee</title>
 </head>
 <body>
-<h1> Welcome to your dashboard </h1>
-<h4><%= @email %></h4><br>
-  <%= link_to destroy_employee_session_path, :method => 'delete' , class: "btn btn-default" do%>
-    <i class="glyphicon glyphicon-log-out"></i> 
-    Logout
-  <% end %>
-  <%= link_to edit_employee_registration_path do %>
-    Edit Profile
-  <% end %>  
-<h3>Item Requests</h3>
-<%= link_to new_item_request_path  do %>
-  Request an Item
-<% end %> <br>
+    
+    <div class="container">
+      <h1> Welcome to your dashboard </h1>  
+      <h4><%= @email %></h4><br>
+      <h3>Item Requests</h3>
+      <%= link_to new_item_request_path  do %>
+      Request an Item
+      <% end %> <br>
 
-<%= link_to item_requests_path do %>
-  Your Item Requests
-<% end %>
+      <%= link_to item_requests_path do %>
+      Your Item Requests
+      <% end %> 
+       
+    </div>
 </body>
 </html>
