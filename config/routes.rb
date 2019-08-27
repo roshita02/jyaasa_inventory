@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  resources :item_requests
+  resources :items
   devise_for :employees, controllers: { sessions: 'employees/sessions', invitations: 'employees_invitation' }
   resources :vendors
   resources :employee_dashboard

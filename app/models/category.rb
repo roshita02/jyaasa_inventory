@@ -10,6 +10,7 @@
 #  depreciation_rate :float
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
+
 # Model for Category
 class Category < ApplicationRecord
   validates_presence_of :name

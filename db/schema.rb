@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-ActiveRecord::Schema.define(version: 20_190_821_045_222) do
+ActiveRecord::Schema.define(version: 20_190_826_075_328) do
   # These are extensions that must be enabled in order to support this database
   enable_extension 'plpgsql'
 
@@ -64,15 +64,24 @@ ActiveRecord::Schema.define(version: 20_190_821_045_222) do
     t.index ['reset_password_token'], name: 'index_employees_on_reset_password_token', unique: true
   end
 
+  create_table 'item_requests', force: :cascade do |t|
+    t.string 'item'
+    t.integer 'quantity'
+    t.text 'reason'
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+    t.integer 'employee_id'
+  end
+
   create_table 'items', force: :cascade do |t|
     t.string 'name'
     t.string 'type'
     t.integer 'rate'
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
+    t.bigint 'vendor_id'
     t.integer 'quantity'
     t.bigint 'category_id'
-    t.bigint 'vendor_id'
     t.date 'purchased_date'
     t.index ['category_id'], name: 'index_items_on_category_id'
     t.index ['vendor_id'], name: 'index_items_on_vendor_id'

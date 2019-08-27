@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Controller for Item
+# Controller for items
 class ItemsController < InheritedResources::Base
   private
 

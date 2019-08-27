@@ -13,6 +13,13 @@
   <%= link_to edit_employee_registration_path do %>
     Edit Profile
   <% end %>  
-<h3>Your Items</h3>
+<h3>Item Requests</h3>
+<%= link_to new_item_request_path  do %>
+  Request an Item
+<% end %>
+
+<%= link_to item_requests_path do %>
+  Your Item Requests
+<% end %>
 </body>
 </html>
