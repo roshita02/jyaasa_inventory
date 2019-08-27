@@ -21,10 +21,10 @@ ActiveAdmin.register NonFixedItem do
   form do |f|
     f.inputs 'Non Fixed Item' do
       f.input :name
-      f.input :category_id, label: 'Category', as: :select, collection: NonFixedItemCategory.all
+      f.input :category_id, label: 'Category', as: :select, collection: NonFixedItemCategory.all, prompt: 'Select one'
       f.input :quantity
       f.input :rate
-      f.input :vendor_id, label: 'Vendor', as: :select, collection: Vendor.all
+      f.input :vendor_id, label: 'Vendor', as: :select, collection: Vendor.all, prompt: 'Select one'
       li do
         link_to 'Add new Vendor', new_admin_vendor_path
       end

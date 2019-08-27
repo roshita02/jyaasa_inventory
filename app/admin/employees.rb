@@ -8,8 +8,6 @@ ActiveAdmin.register Employee do
   filter :invitation_sent_at
   filter :invitation_accepted_at
   index do
-    column :first_name
-    column :last_name
     column :email
     column :invitation_sent_at
     column :invitation_accepted_at
