@@ -23,10 +23,10 @@ ActiveAdmin.register FixedItem do
   form do |f|
     f.inputs 'Fixed Item' do
       f.input :name
-      f.input :category_id, label: 'Category', as: :select, collection: FixedItemCategory.all
+      f.input :category_id, label: 'Category', as: :select, collection: FixedItemCategory.all, include_blank: false
       f.input :quantity
       f.input :rate
-      f.input :vendor_id, label: 'Vendor', as: :select, collection: Vendor.all
+      f.input :vendor_id, label: 'Vendor', as: :select, collection: Vendor.all, placeholder: 'Select'
       li do
         link_to 'Add new Vendor', new_admin_vendor_path
       end
