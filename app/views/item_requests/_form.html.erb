@@ -12,21 +12,22 @@
   <% end %>
 
   <div class="field">
-    <%= form.label :item %>
+    <%= form.label :item %><br />
     <%= form.text_field :item %>
   </div>
 
   <div class="field">
-    <%= form.label :quantity %>
+    <%= form.label :quantity %><br />
     <%= form.number_field :quantity %>
   </div>
 
   <div class="field">
-    <%= form.label :reason %>
+    <%= form.label :reason %><br />
     <%= form.text_area :reason %>
   </div>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit 'Submit' %>
+     <%= link_to 'Cancel', employee_dashboard_index_path, class: 'btn btn-default' %>
   </div>
 <% end %>

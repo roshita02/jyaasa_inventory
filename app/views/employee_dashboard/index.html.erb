@@ -5,8 +5,13 @@
 </head>
 <body>    
     <div class="container">
+    <p id="notice"><%= notice %></p>
       <h1> Welcome to your dashboard </h1>  
       <h4><%= @email %></h4><br>
+
+      <%= link_to 'Change password',edit_employee_registration_path, class: "btn btn-default" %>
+      <%= link_to 'Logout',destroy_employee_session_path, :method => 'delete' , class: "btn btn-default" %>
+
       <h3>Item Requests</h3>
       <%= link_to new_item_request_path  do %>
       Request an Item

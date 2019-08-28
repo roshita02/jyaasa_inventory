@@ -17,7 +17,7 @@
 @import "bootstrap";
 
 .navbar {
-  background: #4A274F;
+  background: #E64a21;
 }
 
 .navbar .navbar-nav {
@@ -32,9 +32,22 @@
 	letter-spacing: 1px;
 	font-size: 20px;
 	color: #ffffff;
+	text-decoration: none;
 }
 
 .navbar-right {
 	margin-right: 0;
 }
+
+body {
+	padding-top: 70px;
+	background: #F0F0F0;
+}
+
+.custom-panel-position{
+	margin: auto;
+	margin-top: 100px;
+	width: 400px;
+}
+
 

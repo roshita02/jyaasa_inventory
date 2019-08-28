@@ -1,7 +1,11 @@
-<h1> Jyaasa Inventory System</h1>
-<%= link_to employee_dashboard_index_path do%>
-           Employee
-<% end %>
-<%= link_to  new_admin_user_session_path do%>
-           Admin
-<% end %>
+<div class="panel panel-default custom-panel-position" style="width: 300px;">
+  <div class="panel-heading text-center">
+    <h4><strong><i class="glyphicon glyphicon-log-in"></i> Login</strong></h4>
+  </div>
+  <div class="panel-body">
+    <div class= "actions">
+      <%= link_to "Admin", new_admin_user_session_path , class: "btn btn-light btn-lg" %>
+      <%= link_to "Employee", employee_dashboard_index_path, class: "btn btn-light btn-lg pull-right" %>
+    </div>
+  </div>
+</div>
