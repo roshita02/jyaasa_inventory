@@ -2,24 +2,29 @@
 <html lang="en">
 <head>
   <title>Employee</title>
+  <style>
+    * {
+    box-sizing: border-box;
+    }
+  </style>
 </head>
 <body>    
     <div class="container">
-    <p id="notice"><%= notice %></p>
-      <h1> Welcome to your dashboard </h1>  
-      <h4><%= @email %></h4><br>
+      <p id="notice"><%= notice %></p>
+      <div class="greeting"></div>
+      <div align="center">
+        <div class="oneline">
+          <p> Your Items </p>
+        </div>
 
-      <%= link_to 'Change password',edit_employee_registration_path, class: "btn btn-default" %>
-      <%= link_to 'Logout',destroy_employee_session_path, :method => 'delete' , class: "btn btn-default" %>
+        <div class="oneline">
+          <p> <%= link_to 'Request an Item',new_item_request_path %> </p>
+        </div>
 
-      <h3>Item Requests</h3>
-      <%= link_to new_item_request_path  do %>
-      Request an Item
-      <% end %> <br>
-
-      <%= link_to item_requests_path do %>
-      Your Item Requests
-      <% end %>       
+        <div class="oneline">
+          <p> <%= link_to 'Your Item Requests', item_requests_path %> </p>
+        </div>
+      </div>   
     </div>
 </body>
 </html>
