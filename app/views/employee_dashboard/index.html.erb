@@ -2,29 +2,34 @@
 <html lang="en">
 <head>
   <title>Employee</title>
-  <style>
-    * {
-    box-sizing: border-box;
-    }
-  </style>
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
 </head>
-<body>    
-    <div class="container">
-      <p id="notice"><%= notice %></p>
-      <div class="greeting"></div>
-      <div align="center">
-        <div class="oneline">
-          <p> Your Items </p>
+<body>      
+<div class="container">
+  <div class="greeting"></div>
+    <div class="row" style="padding-top:100px;">
+        <div class="col-md-4 col-xl-3">
+            <div class="card bg-c-blue order-card">
+                <div class="card-block">
+                   <h3 class="m-b-20"><%= link_to 'Request an Item',new_item_request_path %> </h3>
+                </div>
+            </div>
         </div>
-
-        <div class="oneline">
-          <p> <%= link_to 'Request an Item',new_item_request_path %> </p>
+        
+        <div class="col-md-4 col-xl-3">
+            <div class="card bg-c-green order-card">
+                <div class="card-block">
+                  <h3 class="m-b-20">Your Items </h3>
+                </div>
+            </div>
         </div>
-
-        <div class="oneline">
-          <p> <%= link_to 'Your Item Requests', item_requests_path %> </p>
+        
+        <div class="col-md-4 col-xl-3">
+            <div class="card bg-c-yellow order-card">
+                <div class="card-block">
+                    <h3 class="m-b-20"><%= link_to 'Your Item Requests', item_requests_path %> </h3>
+                </div>
+            </div>
         </div>
-      </div>   
-    </div>
 </body>
 </html>

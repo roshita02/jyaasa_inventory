@@ -10,7 +10,6 @@ class ItemRequestsController < InheritedResources::Base
 
   def create
     @item_request = ItemRequest.new(item_request_params)
-    @email = current_employee.email
     @item_request.employee = current_employee
     if @item_request.save
       flash[:success] = 'Request made successfully'

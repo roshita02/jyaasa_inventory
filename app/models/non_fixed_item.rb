@@ -4,16 +4,16 @@
 #
 # Table name: items
 #
-#  id          :bigint           not null, primary key
-#  name        :string
-#  type        :string
-#  rate        :integer
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
-#  quantity    :integer
-#  category_id :bigint
-#  vendor_id   :bigint
+#  id             :bigint           not null, primary key
+#  name           :string
+#  type           :string
+#  rate           :integer
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  vendor_id      :bigint
+#  quantity       :integer
+#  category_id    :bigint
+#  purchased_date :date
 #
-# Model for non-fixed item inheriting from Item
 class NonFixedItem < Item
 end

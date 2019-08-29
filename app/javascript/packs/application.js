@@ -9,6 +9,7 @@ require("@rails/activestorage").start()
 require("channels");
 //= require jquery
 //= require jquery_ujs
+//= require parsley
 //= require bootstrap
 
 $(document).on('turbolinks:load', function(){
@@ -16,7 +17,7 @@ $(document).on('turbolinks:load', function(){
       $(this).find('.dropdown-menu').first().stop(true, true).delay(250).slideDown();
   }, function() {
       $(this).find('.dropdown-menu').first().stop(true, true).delay(100).slideUp()
-  });
+	});
 })
 
 $(document).ready(function(){

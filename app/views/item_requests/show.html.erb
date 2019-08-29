@@ -1,7 +1,6 @@
-<p id="notice"><%= notice %></p>
-
+<h3>Requested Item</h3><br>
 <p>
-  <strong>Item:</strong>
+  <strong>Item name:</strong>
   <%= @item_request.item %>
 </p>
 
@@ -11,9 +10,13 @@
 </p>
 
 <p>
-  <strong>Reason:</strong>
+  <strong>Reason of need:</strong>
   <%= @item_request.reason %>
 </p>
 
-<%= link_to 'Edit', edit_item_request_path(@item_request) %> |
+<p>
+  <strong>Requested at:</strong>
+  <%= @item_request.created_at %>
+</p>
+
 <%= link_to 'Back', item_requests_path %>

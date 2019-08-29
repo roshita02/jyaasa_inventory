@@ -23,7 +23,6 @@
 #  invited_by_id          :bigint
 #  invitations_count      :integer          default(0)
 #
-# Employee model
 class Employee < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
