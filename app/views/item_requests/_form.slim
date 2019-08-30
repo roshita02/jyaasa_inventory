@@ -1,0 +1,19 @@
+=form_for @item_request,:html => {"data-parsley-validate" => true, class: 'form'} do |f|
+  .panel-body
+    .form-group
+      =f.label :item
+      br
+      =f.text_field :item, class: "form-control", autocomplete: :off, required: true
+    .form-group
+      = f.label :quantity
+      br
+      = f.number_field :quantity, min: "1", class: "form-control", autocomplete: :off,required: true
+
+    .field
+      = f.label :reason, "Reason of need"
+      br
+      = f.text_area :reason, class: "form-control", required: true
+    hr
+    .actions
+      = f.submit 'Submit', class: 'btn btn-success'
+      = link_to 'Cancel', employee_dashboard_index_path, class: 'btn btn-default'

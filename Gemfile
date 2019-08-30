@@ -63,4 +63,5 @@ gem 'figaro'
 gem 'parsley-rails'
 gem 'rails_best_practices', '~> 1.15', '>= 1.15.7'
 gem 'ransack', git: 'https://github.com/activerecord-hackery/ransack'
+gem 'slim', '~> 3.0', '>= 3.0.6'
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]

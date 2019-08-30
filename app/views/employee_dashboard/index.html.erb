@@ -6,20 +6,19 @@
 </head>
 <body>      
 <div class="container">
-  <div class="greeting"></div>
-    <div class="row" style="padding-top:100px;">
+    <div class="row">
         <div class="col-md-4 col-xl-3">
             <div class="card bg-c-blue order-card">
                 <div class="card-block">
-                   <h3 class="m-b-20"><%= link_to 'Request an Item',new_item_request_path %> </h3>
+                   <h4 class="m-b-20"><%= link_to 'Request an Item',new_item_request_path %> </h4>
                 </div>
             </div>
         </div>
-        
+
         <div class="col-md-4 col-xl-3">
             <div class="card bg-c-green order-card">
                 <div class="card-block">
-                  <h3 class="m-b-20">Your Items </h3>
+                  <h4 class="m-b-20">Your Items </h4>
                 </div>
             </div>
         </div>
@@ -27,9 +26,40 @@
         <div class="col-md-4 col-xl-3">
             <div class="card bg-c-yellow order-card">
                 <div class="card-block">
-                    <h3 class="m-b-20"><%= link_to 'Your Item Requests', item_requests_path %> </h3>
+                    <h4 class="m-b-20"><%= link_to 'Your Item Requests', item_requests_path %> </h4>
                 </div>
             </div>
         </div>
+    </div>
+    <div class="container">
+    <div class="row">
+        <h3>Recent Activity</h3>
+        <table class="table table-striped"> 
+            <thead>
+                <tr>
+                <th>Item name</th>
+                <th>Quantity</th>
+                <th>Status</th>
+                <th>Requested Date</th>
+                <th>Accepted Date</th>
+                <th colspan="3">Action</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <% @item_requests.each do |item_request| %>
+                    <tr>
+                        <td><%= item_request.item %></td>
+                        <td><%= item_request.quantity %></td>
+                        <td><%= item_request.status %></td>
+                        <td><%= item_request.created_at.to_date %></td>
+                        <td>--</td>
+                        <td><%= link_to 'Show', item_request %></td>
+                    </tr>
+                <% end %>
+            </tbody>
+        </table>
+    </div>
+</div>
 </body>
 </html>

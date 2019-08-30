@@ -3,12 +3,12 @@
     <h4><strong>Forgot your password?</strong></h4>
   </div>
   <div class="panel-body">
-    <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+    <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { "data-parsley-validate" => true, method: :post }) do |f| %>
       <%= render "devise/shared/error_messages", resource: resource %>
 
       <div class="form-group">
         <%= f.label :email %><br />
-        <%= f.email_field :email, autofocus: true, autocomplete: "email",class:"form-control"%>
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", class:"form-control", required: true, type: 'email' %>
       </div><hr>
 
       <div class="actions text-left">

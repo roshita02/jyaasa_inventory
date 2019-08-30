@@ -13,9 +13,9 @@
 #  employee_id :integer
 #
 
-
 # Model for Item request
 class ItemRequest < ApplicationRecord
   belongs_to :employee
   validates_presence_of :item, :quantity, :reason
+  enum status: { approved: 1, rejected: 0, pending: 2 }
 end
