@@ -11,6 +11,7 @@ require("channels");
 //= require jquery_ujs
 //= require parsley
 //= require bootstrap
+//= require bootstrap-dropdown 
 
 $(document).on('turbolinks:load', function(){
   $('.navbar .dropdown').hover(function() {
