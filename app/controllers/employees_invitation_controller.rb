@@ -21,7 +21,11 @@ class EmployeesInvitationController < Devise::InvitationsController
   end
 
   def update_resource_params
-    devise_parameter_sanitizer.sanitize(:accept_invitation)
+    params.require(resource_name).permit(
+      :invitation_token,
+      :password,
+      :password_confirmation
+    )
   end
 
   def configure_permitted_parameters

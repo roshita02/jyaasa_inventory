@@ -4,6 +4,7 @@ ActiveAdmin.register Employee do
   permit_params :email
   permit_params :first_name
   permit_params :last_name
+  permit_params :invitation_token
   filter :email
   filter :first_name
   filter :last_name
