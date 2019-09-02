@@ -16,15 +16,31 @@
 //
 //   .status_tag { background: #6090DB; }
 
-.btn-success { 
-  color: #ffffff; 
-  background-color: green; 
- }
- .btn-danger { 
-  color: #ffffff; 
-  background-color: red; 
- }
- .btn-primary { 
-  color: #ffffff; 
-  background-color:#428bca;  
- }
+.btn{
+  border-radius: 3px;
+  color: white !important;
+  text-align: center;
+  text-decoration: none !important;
+  font-size: 12px;
+  padding: 5px 10px !important;
+  -webkit-transition-duration: 0.4s;
+  transition-duration: 0.4s;
+}
+.btn-success {
+  background-color: #4CAF50;
+}
+.btn-danger {
+  background-color: #f44336; 
+}
+.btn-primary {
+  background-color: #008CBA; 
+}
+.btn-success:hover {
+  background-color: #4CAF50 !important;
+}
+.btn-danger:hover {
+  background-color: #f44336; 
+}
+.btn-primary:hover {
+  background-color: #008CBA !important;
+}

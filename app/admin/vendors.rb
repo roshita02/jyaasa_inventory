@@ -3,6 +3,13 @@
 # ActiveAdmin for Vendor
 ActiveAdmin.register Vendor do
   permit_params :name, :pan_no
+  index do
+    selectable_column
+    column :id 
+    column :name
+    column :pan_no
+    actions
+  end
   show do
     attributes_table do
       row :name

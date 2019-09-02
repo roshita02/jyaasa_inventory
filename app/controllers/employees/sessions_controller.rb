@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # Controller for employee session
-class EmployeesSessionsController < Devise::SessionsController
+class Employees::SessionsController < Devise::SessionsController
   # before_action :configure_sign_in_params, only: [:create]
 
   # GET /resource/sign_in

@@ -25,8 +25,14 @@ ActiveAdmin.register_page 'Dashboard' do
     # content
     columns do
       column do
+        panel 'Item Requests' do
+          h2 ItemRequest.all.where('status': 'pending').count
+        end
+      end
+
+      column do
         panel 'Fixed Items' do
-          h2 FixedItem.count
+           h2 FixedItem.count
         end
       end
 
@@ -39,12 +45,6 @@ ActiveAdmin.register_page 'Dashboard' do
       column do
         panel 'Employees' do
           h2 Employee.count
-        end
-      end
-
-      column do
-        panel 'Item Requests' do
-          h2 ItemRequest.all.where('status': 'pending').count
         end
       end
 

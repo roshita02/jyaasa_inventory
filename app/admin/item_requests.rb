@@ -16,13 +16,13 @@ ActiveAdmin.register ItemRequest do
     column :item
     column :quantity
     # column :status
-    column('Actions')do |item_request|
+    column('Action')do |item_request|
       if item_request.status == 'pending'
-        (link_to 'Approve', approve_admin_item_request_path(item_request), :method => :patch, class: 'btn-success', style: "color:white")  + "\t\t" +
-        (link_to 'Reject', reject_admin_item_request_path(item_request), :method => :patch, class: 'btn-danger', style: "color:white") + "\t\t" +
-        (link_to 'View', admin_item_request_path(item_request), :method => :put, class: 'btn-primary', style: "color:white")
+        (link_to 'Approve', approve_admin_item_request_path(item_request), :method => :patch, class: 'btn btn-success')  + "\t\t" +
+        (link_to 'Reject', reject_admin_item_request_path(item_request), :method => :patch, class: 'btn btn-danger') + "\t\t" +
+        (link_to 'View', admin_item_request_path(item_request), :method => :put, class: 'btn btn-primary')
       else
-        (link_to 'View', admin_item_request_path(item_request), :method => :put, class: 'btn-primary', style: "color:white")
+        (link_to 'View', admin_item_request_path(item_request), :method => :put, class: 'btn btn-primary')
       end
     end
   end
