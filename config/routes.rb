@@ -2,7 +2,7 @@
 
 Rails.application.routes.draw do
   resources :item_requests
-  devise_for :employees, controllers: { sessions: 'employees/sessions', invitations: 'employees_invitation' }
+  devise_for :employees, controllers: { sessions: 'employees/sessions', invitations: 'employees_invitation', registrations: 'registrations' }
   resources :vendors
   resources :employee_dashboard
   devise_for :admin_users, ActiveAdmin::Devise.config

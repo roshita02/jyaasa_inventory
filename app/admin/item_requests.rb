@@ -8,7 +8,10 @@ ActiveAdmin.register ItemRequest do
   permit_params :item, :quantity, :status, :reason, :employee_id
   index do
     selectable_column
-    column :employee
+    column :employee_id do |i|
+      "#{i.employee.first_name} #{i.employee.last_name}"
+      # "#{self.firstname} #{self.lastname}"
+    end
     column :item
     column :quantity
     # column :status 
