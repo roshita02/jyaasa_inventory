@@ -6,6 +6,7 @@ ActiveAdmin.register ItemRequest do
   scope :rejected
   actions :all, :except => [:new, :edit, :destroy]
   permit_params :item, :quantity, :status, :reason, :employee_id
+  config.clear_action_items!
   index do
     selectable_column
     column :employee_id do |i|
@@ -14,11 +15,14 @@ ActiveAdmin.register ItemRequest do
     end
     column :item
     column :quantity
-    # column :status 
-    actions defaults: true do |item_request|
+    # column :status
+    column('Actions')do |item_request|
       if item_request.status == 'pending'
-        (link_to 'Approve', approve_admin_item_request_path(item_request), :method => :patch) + "\t" +
-        (link_to 'Reject', reject_admin_item_request_path(item_request), :method => :patch)
+        (link_to 'Approve', approve_admin_item_request_path(item_request), :method => :patch, class: 'btn-success', style: "color:white")  + "\t\t" +
+        (link_to 'Reject', reject_admin_item_request_path(item_request), :method => :patch, class: 'btn-danger', style: "color:white") + "\t\t" +
+        (link_to 'View', admin_item_request_path(item_request), :method => :put, class: 'btn-primary', style: "color:white")
+      else
+        (link_to 'View', admin_item_request_path(item_request), :method => :put, class: 'btn-primary', style: "color:white")
       end
     end
   end

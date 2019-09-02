@@ -19,7 +19,7 @@ class ItemRequest < ApplicationRecord
   belongs_to :employee
   validates_presence_of :item, :quantity, :reason
   enum status: { approved: 1, rejected: 0, pending: 2 }
-  scope :pending, -> {where(:status => 'pending')}
-  scope :approved, -> {where(:status => 'approved')}
-  scope :rejected, -> {where(:status => 'rejected')}
+  scope :pending, -> { where(status: 'pending') }
+  scope :approved, -> { where(status: 'approved') }
+  scope :rejected, -> { where(status: 'rejected') }
 end

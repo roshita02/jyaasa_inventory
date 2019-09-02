@@ -25,26 +25,32 @@ ActiveAdmin.register_page 'Dashboard' do
     # content
     columns do
       column do
-        panel 'Vendors' do
-          # para "number"
+        panel 'Fixed Items' do
+          h2 FixedItem.count
         end
       end
 
       column do
-        panel 'Products' do
-          # para "number"
+        panel 'Non Fixed Items' do
+          h2 NonFixedItem.count
         end
       end
 
       column do
         panel 'Employees' do
-          # para "Welcome"
+          h2 Employee.count
         end
       end
 
       column do
-        panel 'Requests' do
-          # para "Welcome"
+        panel 'Item Requests' do
+          h2 ItemRequest.all.where('status': 'pending').count
+        end
+      end
+
+      column do
+        panel 'Vendors' do
+          h2 Vendor.count
         end
       end
     end
