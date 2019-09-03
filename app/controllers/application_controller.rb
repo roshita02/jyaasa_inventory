@@ -8,6 +8,6 @@ class ApplicationController < ActionController::Base
   protected
 
   def configure_permitted_parameters
-    devise_parameter_sanitizer.permit :accept_invitation, keys: [:email, :first_name, :last_name, :raw_invitation_token]
+    devise_parameter_sanitizer.permit :accept_invitation, keys: %i[email first_name last_name raw_invitation_token]
   end
 end

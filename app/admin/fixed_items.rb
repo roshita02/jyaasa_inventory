@@ -8,10 +8,11 @@ ActiveAdmin.register FixedItem do
     column :id
     column :name
     column :category
-    column :quantity
+    column 'Total Quantity', :quantity
+    column 'Assigned Quantity', :assigned_quantity
     column :vendor
     column :rate
-    column :purchased_date
+    # column :purchased_date
     column 'Total amount' do |fixeditem|
       fixeditem.quantity * fixeditem.rate
     end

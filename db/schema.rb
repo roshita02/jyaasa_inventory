@@ -12,7 +12,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20_190_830_054_943) do
+ActiveRecord::Schema.define(version: 20_190_903_082_513) do
   # These are extensions that must be enabled in order to support this database
   enable_extension 'plpgsql'
 
@@ -76,6 +76,16 @@ ActiveRecord::Schema.define(version: 20_190_830_054_943) do
     t.index ['reset_password_token'], name: 'index_employees_on_reset_password_token', unique: true
   end
 
+  create_table 'item_assignments', force: :cascade do |t|
+    t.integer 'quantity'
+    t.bigint 'employee_id', null: false
+    t.bigint 'item_id', null: false
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+    t.index ['employee_id'], name: 'index_item_assignments_on_employee_id'
+    t.index ['item_id'], name: 'index_item_assignments_on_item_id'
+  end
+
   create_table 'item_requests', force: :cascade do |t|
     t.string 'item'
     t.integer 'quantity'
@@ -96,6 +106,7 @@ ActiveRecord::Schema.define(version: 20_190_830_054_943) do
     t.integer 'quantity'
     t.bigint 'category_id'
     t.date 'purchased_date'
+    t.integer 'assigned_quantity'
     t.index ['category_id'], name: 'index_items_on_category_id'
     t.index ['vendor_id'], name: 'index_items_on_vendor_id'
   end
@@ -107,6 +118,8 @@ ActiveRecord::Schema.define(version: 20_190_830_054_943) do
     t.datetime 'updated_at', precision: 6, null: false
   end
 
+  add_foreign_key 'item_assignments', 'employees'
+  add_foreign_key 'item_assignments', 'items'
   add_foreign_key 'items', 'categories'
   add_foreign_key 'items', 'vendors'
 end

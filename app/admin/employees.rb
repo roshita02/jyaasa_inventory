@@ -45,10 +45,10 @@ ActiveAdmin.register Employee do
       row :first_name
       row :last_name
       row :email
-      row('Invitation Sent at') { |employee| employee.invitation_sent_at }
-      row('Invitation Accepted at') { |employee| employee.invitation_accepted_at }
+      row('Invitation Sent at', &:invitation_sent_at)
+      row('Invitation Accepted at', &:invitation_accepted_at)
       row :invited_by
       row :invitation_token
     end
-  end  
+  end
 end

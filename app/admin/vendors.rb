@@ -5,7 +5,7 @@ ActiveAdmin.register Vendor do
   permit_params :name, :pan_no
   index do
     selectable_column
-    column :id 
+    column :id
     column :name
     column :pan_no
     actions
