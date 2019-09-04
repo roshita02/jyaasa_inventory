@@ -42,7 +42,7 @@ ActiveAdmin.register ItemAssignment do
     end
   end
 
-  # filter :employee_id, as: :select, collection: Employee.all.map { |employee| [employee.email, employee.id] }
-  # filter :item_id, as: :select, collection: FixedItem.all.map { |fixeditem| [fixeditem.name, fixeditem.id] }
+  filter :employee_id, as: :select, collection: Employee.all.map { |employee| [employee.email, employee.id] }
+  filter :item_id, as: :select, collection: FixedItem.all.map { |fixeditem| [fixeditem.name, fixeditem.id] }
   filter :created_at
 end

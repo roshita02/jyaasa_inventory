@@ -40,7 +40,7 @@ ActiveAdmin.register FixedItem do
     f.actions
   end
   filter :name
-  # filter :category_id, label: 'Category', as: :select, collection: FixedItemCategory.all
+  filter :category_id, label: 'Category', as: :select, collection: proc { FixedItemCategory.all.map{ |i| [i.name, i.id] } }
   filter :quantity
   filter :rate
   filter :vendor

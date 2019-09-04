@@ -59,7 +59,7 @@ development:
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: jyaasa_inventory_test11
+  database: jyaasa_inventory_test
   username: roshita
   password: laptop01
 
