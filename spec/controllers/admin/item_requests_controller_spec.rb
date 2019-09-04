@@ -9,7 +9,7 @@ RSpec.describe Admin::ItemRequestsController, type: :controller do
   end
 
   describe 'GET #index' do
-    it 'returns http success' do 
+    it 'returns http success' do
       expect(response).to have_http_status(:success)
     end
   end
