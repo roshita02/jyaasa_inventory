@@ -37,7 +37,7 @@ ActiveAdmin.register NonFixedItem do
     end
   end
   filter :name
-  filter :category_id, label: 'Category', as: :select, collection: NonFixedItemCategory.all
+  # filter :category_id, label: 'Category', as: :select, collection: NonFixedItemCategory.all
   filter :quantity
   filter :rate
   filter :vendor

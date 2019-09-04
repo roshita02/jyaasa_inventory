@@ -3,5 +3,18 @@
 require 'rails_helper'
 
 RSpec.describe ItemRequest, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  it 'should have item name' do
+    request = ItemRequest.new(item: nil)
+    expect(request).to_not be_valid
+  end
+  
+  it 'should have quantity' do
+    request = ItemRequest.new(quantity: nil)
+    expect(request).to_not be_valid
+  end
+  
+  it 'should have reason' do
+    request = ItemRequest.new(reason: nil)
+    expect(request).to_not be_valid
+  end
 end
