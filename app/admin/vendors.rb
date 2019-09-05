@@ -40,6 +40,7 @@ ActiveAdmin.register Vendor do
       @vendor = Vendor.create(vendor_params)
       @first_value = session[:passed_variable]
       if @vendor.save
+        flash[:success] = 'Successfully created new vendor'
         redirect_to(@first_value)
       else
         render :new
