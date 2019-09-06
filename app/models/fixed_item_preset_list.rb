@@ -1,0 +1,2 @@
+class FixedItemPresetList < ItemPresetList
+end

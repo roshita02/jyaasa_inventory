@@ -20,4 +20,5 @@ class Item < ApplicationRecord
   belongs_to :vendor, optional: true
   belongs_to :category
   has_many :item_assignment
+  belongs_to :item_preset_list
 end
