@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-FactoryBot.define do 
+FactoryBot.define do
   factory :item_request do
     item { 'Mouse' }
     quantity { '2' }

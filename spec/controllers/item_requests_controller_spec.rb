@@ -8,10 +8,10 @@ RSpec.describe ItemRequestsController, type: :controller do
   describe 'POST #create' do
     it 'creates item requests' do
       sign_in employee
-      expect {
+      expect do
         post :create,
-        params: { item_request: FactoryBot.attributes_for(:item_request) } 
-      }.to change(ItemRequest, :count).by(1)
+             params: { item_request: FactoryBot.attributes_for(:item_request) }
+      end.to change(ItemRequest, :count).by(1)
     end
   end
 
