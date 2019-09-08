@@ -14,5 +14,5 @@
 class Vendor < ApplicationRecord
   validates_presence_of :name, :pan_no
   validates_length_of :pan_no, is: 8
-  has_many :items
+  has_many :purchase
 end

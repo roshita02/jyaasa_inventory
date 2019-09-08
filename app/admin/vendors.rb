@@ -15,7 +15,7 @@ ActiveAdmin.register Vendor do
       row :name
       row :pan_no
       row 'Items' do
-        Item.all.where(vendor_id: Vendor.find(params[:id]))
+        Purchase.all.where(vendor_id: Vendor.find(params[:id]))
       end
     end
   end
