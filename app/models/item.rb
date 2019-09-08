@@ -20,5 +20,5 @@ class Item < ApplicationRecord
   belongs_to :vendor, optional: true
   belongs_to :category
   has_many :item_assignment
-  belongs_to :asset
+  has_many :purchase
 end
