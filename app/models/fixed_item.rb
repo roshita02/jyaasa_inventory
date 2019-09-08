@@ -18,5 +18,4 @@
 
 # Model for fixed item inheriting from Item
 class FixedItem < Item
-  validates_presence_of :rate, :purchased_date
 end
