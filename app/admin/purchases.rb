@@ -14,7 +14,7 @@ ActiveAdmin.register Purchase do
   form do |f|
     f.inputs 'Purchase' do
       f.input :item_id, label: 'Item', as: :select, collection: Item.all, prompt: 'Select one'
-      #f.input :category_id, label: 'Category', as: :select, collection: FixedItemCategory.all, prompt: 'Select one'
+      # f.input :category_id, label: 'Category', as: :select, collection: FixedItemCategory.all, prompt: 'Select one'
       f.input :quantity
       f.input :rate
       li do
@@ -40,10 +40,10 @@ ActiveAdmin.register Purchase do
       else
         render 'new'
       end
-  
     end
 
     private
+
     def purchase_params
       params.require(:purchase).permit(:item_id, :vendor_id, :quantity, :rate, :purchased_date)
     end
