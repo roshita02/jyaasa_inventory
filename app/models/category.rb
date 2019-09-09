@@ -15,5 +15,4 @@
 class Category < ApplicationRecord
   validates_presence_of :name
   has_many :items, foreign_key: 'category_id'
-  has_many :asset
 end

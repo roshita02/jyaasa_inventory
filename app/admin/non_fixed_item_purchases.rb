@@ -5,6 +5,7 @@ ActiveAdmin.register NonFixedItemPurchase do
     column :purchased_date
     column :item
     column :quantity
+    actions
   end
 
   form do |f|
@@ -43,4 +44,7 @@ ActiveAdmin.register NonFixedItemPurchase do
       params.require(:non_fixed_item_purchase).permit(:item_id, :quantity, :purchased_date, :vendor_id)
     end
   end
+  
+  filter :item_id, label: 'Item', as: :select, collection: proc { NonFixedItem.all.map { |i| [i.name, i.id] } }
+  filter :purchased_date
 end

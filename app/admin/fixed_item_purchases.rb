@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 ActiveAdmin.register FixedItemPurchase do
-  menu parent: 'Purchases' 
+  menu parent: 'Purchases'
   permit_params :item_id, :vendor_id, :quantity, :rate, :purchased_date
   index do
     column :purchased_date
@@ -7,11 +9,9 @@ ActiveAdmin.register FixedItemPurchase do
     column :vendor
     column :quantity
     column :rate
-    # column 'Total amount' do |purchase|
-     # purchase.quantity * purchase.rate
-    # end
+    actions
   end
-  
+
   form do |f|
     f.inputs 'Purchase' do
       f.input :item_id, label: 'Item', as: :select, collection: FixedItem.all, prompt: 'Select one'
@@ -48,5 +48,9 @@ ActiveAdmin.register FixedItemPurchase do
     def purchase_params
       params.require(:fixed_item_purchase).permit(:item_id, :vendor_id, :quantity, :rate, :purchased_date)
     end
-  end 
+  end
+
+  filter :item_id, label: 'Item', as: :select, collection: proc { FixedItem.all.map { |i| [i.name, i.id] } }
+  filter :vendor_id
+  filter :purchased_date
 end
