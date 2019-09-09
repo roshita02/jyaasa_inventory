@@ -13,13 +13,13 @@ ActiveAdmin.register FixedItem do
     column :vendor
     column :rate
     # column :purchased_date
-    column 'Total amount' do |fixeditem|
-      fixeditem.quantity * fixeditem.rate
-    end
+   # column 'Total amount' do |fixeditem|
+    #  fixeditem.quantity * fixeditem.rate
+    #end
     actions
-    div class: 'my-panel' do
-      h3 "Total items: #{collection.pluck(:quantity).reduce(:+)}"
-    end
+   # div class: 'my-panel' do
+    #  h3 "Total items: #{collection.pluck(:quantity).reduce(:+)}"
+    #end
   end
   form do |f|
     f.inputs 'Fixed Item' do
