@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 ActiveAdmin.register NonFixedItemPurchase do
   menu parent: 'Purchases'
-  permit_params :item_id, :quantity, :purchased_date, :vendor_id
+  permit_params :item_id, :quantity, :purchased_date, :vendor_id, :category_id
   index do
     column :purchased_date
     column :item
@@ -10,9 +12,16 @@ ActiveAdmin.register NonFixedItemPurchase do
 
   form do |f|
     f.inputs 'Purchase' do
-      f.input :item_id, label: 'Item', as: :select, collection: NonFixedItem.all, prompt: 'Select one'
-      # f.input :category_id, label: 'Category', as: :select, collection: FixedItemCategory.all, prompt: 'Select one'
-      f.input :quantity
+      f.input :category_id, label: 'Category', as: :select, collection: NonFixedItemCategory.all, prompt: 'Select one',input_html: { class: 'categorylist'}
+      li do
+        ul do
+          f.input :item_id, label: 'Item', as: :select, collection: NonFixedItem.all, prompt: 'Select one', input_html: { class: 'itemfilterlist' }
+        end
+        ul do
+          link_to 'Add new Item', new_admin_non_fixed_item_path
+        end
+      end
+      f.input :quantity, min: '0'
       li do
         ul do
           f.input :vendor_id, label: 'Vendor', as: :select, collection: Vendor.all, prompt: 'Select one'
@@ -23,7 +32,10 @@ ActiveAdmin.register NonFixedItemPurchase do
       end
       f.input :purchased_date, as: :datepicker
     end
-    f.actions
+    f.actions do
+      f.action :submit
+      f.cancel_link(:back)
+    end
   end
 
   controller do
@@ -44,7 +56,7 @@ ActiveAdmin.register NonFixedItemPurchase do
       params.require(:non_fixed_item_purchase).permit(:item_id, :quantity, :purchased_date, :vendor_id)
     end
   end
-  
+
   filter :item_id, label: 'Item', as: :select, collection: proc { NonFixedItem.all.map { |i| [i.name, i.id] } }
   filter :purchased_date
 end

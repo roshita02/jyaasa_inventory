@@ -2,7 +2,7 @@
 
 ActiveAdmin.register FixedItemPurchase do
   menu parent: 'Purchases'
-  permit_params :item_id, :vendor_id, :quantity, :rate, :purchased_date
+  permit_params :category_id, :item_id, :vendor_id, :quantity, :rate, :purchased_date
   index do
     column :purchased_date
     column :item
@@ -14,9 +14,17 @@ ActiveAdmin.register FixedItemPurchase do
 
   form do |f|
     f.inputs 'Purchase' do
-      f.input :item_id, label: 'Item', as: :select, collection: FixedItem.all, prompt: 'Select one'
-      # f.input :category_id, label: 'Category', as: :select, collection: FixedItemCategory.all, prompt: 'Select one'
-      f.input :quantity
+      f.input :category_id, label: 'Category', as: :select, collection: FixedItemCategory.all, prompt: 'Select one',input_html: { class: 'categorylist'}
+      li do
+        ul do
+          f.input :item_id, label: 'Item', as: :select, collection: FixedItem.all, prompt: 'Select one', input_html: { class: 'itemfilterlist' }
+        end
+        ul do
+          link_to 'Add new Item', new_admin_fixed_item_path
+        end
+      end
+      # f.input :category_id, as: :select, collection: FixedItemCategory.select(:id, :name),input_html: {onchange: remote_request(:post, :change_items,{category_id: "$('#fixed_item_purchase_category_id').val()"}, :item_id)  
+      f.input :quantity, min: '0'
       f.input :rate
       li do
         ul do
@@ -43,10 +51,18 @@ ActiveAdmin.register FixedItemPurchase do
       end
     end
 
+    def item_list
+      category = Category.find(params[:category_id])
+      items = category.items.map { |i| [i.name] }
+      respond_to do |format|
+        format.json {render json: items, status: :ok}
+      end
+    end
+
     private
 
     def purchase_params
-      params.require(:fixed_item_purchase).permit(:item_id, :vendor_id, :quantity, :rate, :purchased_date)
+      params.require(:fixed_item_purchase).permit(:item_id, :vendor_id, :quantity, :rate, :purchased_date, :category_id)
     end
   end
 
