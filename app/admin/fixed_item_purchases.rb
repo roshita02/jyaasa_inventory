@@ -2,7 +2,7 @@
 
 ActiveAdmin.register FixedItemPurchase do
   menu parent: 'Purchases'
-  permit_params :category_id, :item_id, :vendor_id, :quantity, :rate, :purchased_date
+  permit_params :category_id, :item_id, :vendor_id, :quantity, :rate, :purchased_date, :item_name
   index do
     column :purchased_date
     column :item
@@ -40,7 +40,7 @@ ActiveAdmin.register FixedItemPurchase do
   end
 
   controller do
-    def create
+    def create    
       @purchase = FixedItemPurchase.new(purchase_params)
       if @purchase.save
         @item = Item.find_by_id(params[:fixed_item_purchase][:item_id])
@@ -53,7 +53,7 @@ ActiveAdmin.register FixedItemPurchase do
 
     def item_list
       category = Category.find(params[:category_id])
-      items = category.items.map { |i| [i.name] }
+      items = category.items.map { |i| [i.id, i.name]} 
       respond_to do |format|
         format.json {render json: items, status: :ok}
       end
