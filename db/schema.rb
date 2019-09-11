@@ -12,7 +12,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20_190_909_084_134) do
+ActiveRecord::Schema.define(version: 20_190_911_050_436) do
   # These are extensions that must be enabled in order to support this database
   enable_extension 'plpgsql'
 
@@ -104,9 +104,9 @@ ActiveRecord::Schema.define(version: 20_190_909_084_134) do
     t.datetime 'updated_at', precision: 6, null: false
     t.bigint 'vendor_id'
     t.integer 'quantity'
-    t.bigint 'category_id'
     t.date 'purchased_date'
     t.integer 'assigned_quantity'
+    t.bigint 'category_id'
     t.index ['category_id'], name: 'index_items_on_category_id'
     t.index ['vendor_id'], name: 'index_items_on_vendor_id'
   end
@@ -119,7 +119,8 @@ ActiveRecord::Schema.define(version: 20_190_909_084_134) do
     t.bigint 'vendor_id'
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
-    t.bigint 'category_id'
+    t.string 'type'
+    t.bigint 'category_id', null: false
     t.index ['category_id'], name: 'index_purchases_on_category_id'
     t.index ['item_id'], name: 'index_purchases_on_item_id'
     t.index ['vendor_id'], name: 'index_purchases_on_vendor_id'
