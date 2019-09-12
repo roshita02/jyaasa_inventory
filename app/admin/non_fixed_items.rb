@@ -36,6 +36,14 @@ ActiveAdmin.register NonFixedItem do
       end
     end
   end
+  show do
+    attributes_table do
+      row :name
+      row :category
+      row :quantity
+    end
+  end
+
   filter :name
   filter :category_id, label: 'Category', as: :select, collection: proc { NonFixedItemCategory.all.map { |i| [i.name, i.id] } }
   filter :quantity

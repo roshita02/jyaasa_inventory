@@ -36,6 +36,15 @@ ActiveAdmin.register FixedItem do
     end
   end
 
+  show do
+    attributes_table do
+      row :name
+      row :category
+      row :quantity
+      row :assigned_quantity
+    end
+  end
+
   filter :name
   filter :category_id, label: 'Category', as: :select, collection: proc { FixedItemCategory.all.map { |i| [i.name, i.id] } }
   filter :quantity
