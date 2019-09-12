@@ -45,6 +45,24 @@ ActiveAdmin.register FixedItem do
     end
   end
 
+  controller do
+    def update
+      @item = FixedItem.find(params[:id])
+      if @item.update(item_params)
+        redirect_to admin_fixed_items_path
+      else
+        flash[:error] = 'Item update unsuccessful'
+        redirect_to edit_admin_fixed_item_path
+      end
+    end
+
+    private
+
+    def item_params
+      params.require(:fixed_item).permit(:name, :category_id)
+    end
+  end
+
   filter :name
   filter :category_id, label: 'Category', as: :select, collection: proc { FixedItemCategory.all.map { |i| [i.name, i.id] } }
   filter :quantity

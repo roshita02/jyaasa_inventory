@@ -12,22 +12,28 @@ ActiveAdmin.register Vendor do
     actions
   end
   show do
-    attributes_table do
-      row :name
-      row :pan_no
-      # row 'Items' do
-        # FixedItemPurchase.all.where(vendor_id: Vendor.find(params[:id]))
-        # NonFixedItemPurchase.all.where(vendor_id: Vendor.find(params[:id]))
-      # end
-    end
+    columns do
+      column do
+        attributes_table do
+          row :name
+          row :pan_no
+          # row 'Items' do
+          # FixedItemPurchase.all.where(vendor_id: Vendor.find(params[:id]))
+          # NonFixedItemPurchase.all.where(vendor_id: Vendor.find(params[:id]))
+          # end
+        end
+      end
 
-    panel "Purchased Items history" do
-      table_for vendor.purchase do
-        column :purchased_date
-        column :item
-        column :category
-        column :quantity
-        column :rate
+      column do
+        panel "Purchased Items history" do
+          table_for vendor.purchase do
+            column :purchased_date
+            column :item
+            column :category
+            column :quantity
+            column :rate
+          end
+        end
       end
     end
   end

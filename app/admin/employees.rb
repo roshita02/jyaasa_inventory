@@ -2,15 +2,15 @@
 
 ActiveAdmin.register Employee do
   menu priority: 6
-  permit_params :email
-  permit_params :first_name
-  permit_params :last_name
-  permit_params :invitation_token
+  # config.clear_action_items!
+  actions :all, except: %i[new edit]
+  permit_params :email, :first_name, :last_name, :invitation_token
   filter :email
   filter :first_name
   filter :last_name
   filter :invitation_sent_at
   filter :invitation_accepted_at
+
   index do
     column 'Name' do |employee|
       "#{employee.first_name} #{employee.last_name}"
@@ -20,7 +20,7 @@ ActiveAdmin.register Employee do
     column :invitation_accepted_at
     actions
   end
-  config.clear_action_items!
+
   action_item :new do
     link_to 'Invite New Employee', new_invitation_admin_employees_path
   end
