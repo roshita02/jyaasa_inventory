@@ -23,7 +23,10 @@ ActiveAdmin.register NonFixedItem do
     f.inputs 'Non Fixed Item' do
       f.input :name
       f.input :category_id, label: 'Category', as: :select, collection: NonFixedItemCategory.all, prompt: 'Select one'
-      f.actions
+      f.actions do
+        f.action :submit
+        f.cancel_link(:back)
+      end
     end
   end
   filter :name

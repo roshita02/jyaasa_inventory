@@ -4,6 +4,7 @@ ActiveAdmin.register NonFixedItemPurchase do
   menu parent: 'Purchases'
   permit_params :item_id, :quantity, :purchased_date, :category_id
   index do
+    selectable_column
     column :purchased_date
     column :item
     column :quantity
@@ -24,21 +25,16 @@ ActiveAdmin.register NonFixedItemPurchase do
       f.input :quantity, min: '0'
       f.input :purchased_date, as: :datepicker
     end
-    f.actions do
-      f.action :submit
-      f.cancel_link(:back)
-    end
+    f.actions
   end
 
   controller do
     def create
-      @purchase = NonFixedItemPurchase.create(purchase_params)
+      @purchase = NonFixedItemPurchase.new(purchase_params)
       if @purchase.save
-        @item = Item.find_by_id(params[:non_fixed_item_purchase][:item_id])
-        @item.increment!(:quantity, params[:non_fixed_item_purchase][:quantity].to_i)
         redirect_to admin_non_fixed_item_purchases_path
       else
-        render :new
+        super
       end
     end
 
@@ -51,4 +47,5 @@ ActiveAdmin.register NonFixedItemPurchase do
 
   filter :item_id, label: 'Item', as: :select, collection: proc { NonFixedItem.all.map { |i| [i.name, i.id] } }
   filter :purchased_date
+
 end

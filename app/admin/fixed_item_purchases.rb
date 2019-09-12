@@ -40,17 +40,6 @@ ActiveAdmin.register FixedItemPurchase do
   end
 
   controller do
-    def create
-      @purchase = FixedItemPurchase.create(purchase_params)
-      if @purchase.save
-        @item = Item.find_by_id(params[:fixed_item_purchase][:item_id])
-        @item.increment!(:quantity, params[:fixed_item_purchase][:quantity].to_i)
-        redirect_to admin_fixed_item_purchases_path
-      else
-        render :new
-      end
-    end
-
     def item_list
       category = Category.find(params[:category_id])
       items = category.items.map { |i| [i.id, i.name] }
@@ -59,6 +48,15 @@ ActiveAdmin.register FixedItemPurchase do
       end
     end
 
+    def create
+      @purchase = FixedItemPurchase.new(purchase_params)
+      if @purchase.save
+        redirect_to admin_fixed_item_purchases_path
+      else
+        super
+      end
+    end
+  
     private
 
     def purchase_params

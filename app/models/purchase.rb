@@ -5,5 +5,33 @@ class Purchase < ApplicationRecord
   belongs_to :item
   belongs_to :vendor, optional: true
   belongs_to :category
-  validates_presence_of :quantity 
+  validates_presence_of :quantity
+
+  after_create :increase_quantity
+  after_destroy :decrease_quantity
+  before_update :get_old_quantity
+  after_update :update_quantity
+
+  def increase_quantity
+    incr_quantity = self.quantity
+    self.item.increment(:quantity, incr_quantity)
+    item.save
+  end
+
+  def decrease_quantity
+    dec_quantity = self.quantity
+    self.item.decrement!(:quantity, dec_quantity)
+    item.save
+  end
+
+  def get_old_quantity
+    @old_quantity = self.quantity_was    
+  end 
+
+  def update_quantity
+    updated_quantity = self.quantity
+    item = self.item
+    item.quantity = (item.quantity - @old_quantity) + updated_quantity
+    item.save 
+  end
 end
