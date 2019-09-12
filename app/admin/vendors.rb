@@ -15,12 +15,23 @@ ActiveAdmin.register Vendor do
     attributes_table do
       row :name
       row :pan_no
-      row 'Items' do
-        FixedItemPurchase.all.where(vendor_id: Vendor.find(params[:id]))
-        NonFixedItemPurchase.all.where(vendor_id: Vendor.find(params[:id]))
+      # row 'Items' do
+        # FixedItemPurchase.all.where(vendor_id: Vendor.find(params[:id]))
+        # NonFixedItemPurchase.all.where(vendor_id: Vendor.find(params[:id]))
+      # end
+    end
+
+    panel "Purchased Items history" do
+      table_for vendor.purchase do
+        column :purchased_date
+        column :item
+        column :category
+        column :quantity
+        column :rate
       end
     end
   end
+
   form do |f|
     f.inputs 'New Item' do
       f.input :name
@@ -31,6 +42,7 @@ ActiveAdmin.register Vendor do
       f.cancel_link(:back)
     end
   end
+
   controller do
     def new
       @vendor = Vendor.new
