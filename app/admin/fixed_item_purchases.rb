@@ -44,6 +44,17 @@ ActiveAdmin.register FixedItemPurchase do
     end
   end
 
+  show do
+    attributes_table do
+      row :item
+      row :category
+      row :quantity
+      row :rate
+      row :vendor
+      row :purchased_date
+    end
+  end
+
   controller do
     def item_list
       category = Category.find(params[:category_id])

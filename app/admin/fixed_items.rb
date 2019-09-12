@@ -35,6 +35,7 @@ ActiveAdmin.register FixedItem do
       f.cancel_link(:back)
     end
   end
+
   filter :name
   filter :category_id, label: 'Category', as: :select, collection: proc { FixedItemCategory.all.map { |i| [i.name, i.id] } }
   filter :quantity

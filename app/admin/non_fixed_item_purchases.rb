@@ -33,6 +33,15 @@ ActiveAdmin.register NonFixedItemPurchase do
     end
   end
 
+  show do
+    attributes_table do
+      row :item
+      row :category
+      row :quantity
+      row :purchased_date
+    end
+  end
+
   controller do
     def create
       @purchase = NonFixedItemPurchase.new(purchase_params)
