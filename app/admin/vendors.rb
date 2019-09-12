@@ -2,6 +2,7 @@
 
 # ActiveAdmin for Vendor
 ActiveAdmin.register Vendor do
+  menu priority: 5 
   permit_params :name, :pan_no
   index do
     selectable_column

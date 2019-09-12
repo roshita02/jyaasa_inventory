@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
 ActiveAdmin.register NonFixedItemPurchase do
-  menu parent: 'Purchases'
+  # menu parent: 'Purchases'
+  menu false
+  config.clear_action_items!
   permit_params :item_id, :quantity, :purchased_date, :category_id
   index do
     selectable_column
@@ -25,14 +27,17 @@ ActiveAdmin.register NonFixedItemPurchase do
       f.input :quantity, min: '0'
       f.input :purchased_date, as: :datepicker
     end
-    f.actions
+    f.actions do
+      f.action :submit
+      f.cancel_link(:back)
+    end
   end
 
   controller do
     def create
       @purchase = NonFixedItemPurchase.new(purchase_params)
       if @purchase.save
-        redirect_to admin_non_fixed_item_purchases_path
+        redirect_to admin_non_fixed_items_path
       else
         super
       end

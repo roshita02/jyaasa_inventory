@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 ActiveAdmin.register Employee do
+  menu priority: 6
   permit_params :email
   permit_params :first_name
   permit_params :last_name

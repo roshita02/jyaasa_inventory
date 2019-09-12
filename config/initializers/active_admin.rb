@@ -315,8 +315,8 @@ ActiveAdmin.setup do |config|
   # config.order_clause = MyOrderClause
   config.namespace :admin do |admin|
     admin.build_menu do |menu|
-      menu.add label: 'Items'
-      menu.add label: 'Category'
+      menu.add label: 'Items', priority: 3
+      menu.add label: 'Category', priority: 2
     end
   end
 end

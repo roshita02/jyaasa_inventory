@@ -4,6 +4,16 @@
 ActiveAdmin.register FixedItem do
   menu parent: 'Items'
   permit_params :name, :quantity, :category_id
+  config.clear_action_items!
+  action_item :new do
+    link_to 'New Purchase', new_admin_fixed_item_purchase_path
+  end
+  action_item :new do
+    link_to 'Purchase list', admin_fixed_item_purchases_path
+  end
+  action_item :new do
+    link_to 'Assign Item', new_admin_item_assignment_path
+  end
   index do
     column :id
     column :name

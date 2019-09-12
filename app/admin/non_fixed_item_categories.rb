@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 ActiveAdmin.register NonFixedItemCategory do
-  menu parent: 'Category'
+  menu parent: 'Category', priority: 2
   permit_params :name
   index do
     column :name

@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 ActiveAdmin.register AdminUser do
+  menu label: 'Admins', priority: 7
   permit_params :email, :password, :password_confirmation
-
   index do
     selectable_column
     id_column

@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
 ActiveAdmin.register FixedItemPurchase do
-  menu parent: 'Purchases'
+  # menu parent: 'Purchases'
+  menu false
+  config.clear_action_items!
   permit_params :category_id, :item_id, :vendor_id, :quantity, :rate, :purchased_date
   index do
     column :purchased_date
@@ -36,7 +38,10 @@ ActiveAdmin.register FixedItemPurchase do
       end
       f.input :purchased_date, as: :datepicker
     end
-    f.actions
+    f.actions do
+      f.action :submit
+      f.cancel_link(:back)
+    end
   end
 
   controller do
@@ -51,7 +56,7 @@ ActiveAdmin.register FixedItemPurchase do
     def create
       @purchase = FixedItemPurchase.new(purchase_params)
       if @purchase.save
-        redirect_to admin_fixed_item_purchases_path
+        redirect_to admin_fixed_items_path
       else
         super
       end

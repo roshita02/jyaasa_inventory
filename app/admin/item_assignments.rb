@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 ActiveAdmin.register ItemAssignment do
+  menu false
+  config.clear_action_items!
   permit_params :employee_id, :item_id, :quantity
   index do
     column :employee
@@ -28,10 +30,11 @@ ActiveAdmin.register ItemAssignment do
           @used_item.increment!(:assigned_quantity, params[:item_assignment][:quantity].to_i)
           redirect_to admin_item_assignments_path
         else
-          render 'new'
+          redirect_to new_admin_item_assignment_path
         end
       else
-        flash[:alert] = 'The quantity you entered is not currently available'
+        flash[:error] = 'The quantity you entered is not currently available'
+        redirect_to new_admin_item_assignment_path
       end
     end
 
