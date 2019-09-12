@@ -51,7 +51,7 @@ ActiveAdmin.register ItemRequest do
       row :reason
     end
   end
-  
+
   filter :employee_id, as: :select, collection: Employee.all.map { |employee| [employee.email, employee.id] }
   filter :item
   filter :created_at, label: 'Requested at'

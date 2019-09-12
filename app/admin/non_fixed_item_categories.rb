@@ -20,7 +20,7 @@ ActiveAdmin.register NonFixedItemCategory do
         NonFixedItemCategory.find(params[:id]).items
       end
     end
-    panel "Items" do
+    panel 'Items' do
       table_for non_fixed_item_category.items do
         column :name
       end

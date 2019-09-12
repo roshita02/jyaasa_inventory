@@ -61,5 +61,4 @@ ActiveAdmin.register NonFixedItemPurchase do
 
   filter :item_id, label: 'Item', as: :select, collection: proc { NonFixedItem.all.map { |i| [i.name, i.id] } }
   filter :purchased_date
-
 end

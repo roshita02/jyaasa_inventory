@@ -72,7 +72,7 @@ ActiveAdmin.register FixedItemPurchase do
         super
       end
     end
-  
+
     private
 
     def purchase_params

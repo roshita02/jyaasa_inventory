@@ -2,7 +2,7 @@
 
 # ActiveAdmin for Vendor
 ActiveAdmin.register Vendor do
-  menu priority: 5 
+  menu priority: 5
   permit_params :name, :pan_no
   index do
     selectable_column
@@ -25,7 +25,7 @@ ActiveAdmin.register Vendor do
       end
 
       column do
-        panel "Purchased Items history" do
+        panel 'Purchased Items history' do
           table_for vendor.purchase do
             column :purchased_date
             column :item

@@ -20,10 +20,10 @@ ActiveAdmin.register FixedItemCategory do
       row :name
       row :depreciation_rate
       # row 'Items' do
-        # FixedItemCategory.find(params[:id]).items
+      # FixedItemCategory.find(params[:id]).items
       # end
     end
-    panel "Items" do
+    panel 'Items' do
       table_for fixed_item_category.items do
         column :name
       end

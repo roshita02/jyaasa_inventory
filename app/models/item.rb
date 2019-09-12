@@ -21,4 +21,5 @@ class Item < ApplicationRecord
   belongs_to :category
   has_many :item_assignment
   has_many :purchase
+  has_many :withdraw
 end

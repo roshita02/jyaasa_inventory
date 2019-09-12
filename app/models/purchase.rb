@@ -13,25 +13,25 @@ class Purchase < ApplicationRecord
   after_update :update_quantity
 
   def increase_quantity
-    incr_quantity = self.quantity
-    self.item.increment(:quantity, incr_quantity)
+    incr_quantity = quantity
+    item.increment(:quantity, incr_quantity)
     item.save
   end
 
   def decrease_quantity
-    dec_quantity = self.quantity
-    self.item.decrement!(:quantity, dec_quantity)
+    dec_quantity = quantity
+    item.decrement!(:quantity, dec_quantity)
     item.save
   end
 
   def get_old_quantity
-    @old_quantity = self.quantity_was    
-  end 
+    @old_quantity = quantity_was
+  end
 
   def update_quantity
-    updated_quantity = self.quantity
+    updated_quantity = quantity
     item = self.item
     item.quantity = (item.quantity - @old_quantity) + updated_quantity
-    item.save 
+    item.save
   end
 end
