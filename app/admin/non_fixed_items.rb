@@ -11,13 +11,15 @@ ActiveAdmin.register NonFixedItem do
   action_item :new do
     link_to 'Purchase list', admin_non_fixed_item_purchases_path
   end
+  action_item :withdraw do
+    link_to 'Withdraw', new_admin_withdraw_path
+  end
   index do
     column :id
     column :name
     column :category
-    column 'Total Quantity', :quantity
-    column 'Withdrawn Quantity'
-    column 'Available Quantity'
+    column 'Withdrawn Quantity', :withdrawn_quantity
+    column 'Available Quantity', :quantity
     # div class: 'my-panel' do
     # h3 "Total items: #{collection.pluck(:quantity).reduce(:+)}"
     # end
