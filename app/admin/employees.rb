@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 ActiveAdmin.register Employee do
-  menu priority: 6
+  menu priority: 8
   # config.clear_action_items!
   actions :all, except: %i[new edit]
   permit_params :email, :first_name, :last_name, :invitation_token

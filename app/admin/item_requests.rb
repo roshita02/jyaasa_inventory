@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 ActiveAdmin.register ItemRequest do
-  menu priority: 4
+  menu priority: 3
   scope :pending, default: true
   scope :approved
   scope :rejected

@@ -18,7 +18,10 @@ ActiveAdmin.register ItemAssignment do
       f.input :item_id, label: 'Item', as: :select, collection: FixedItem.all, prompt: 'Select one'
       f.input :quantity
     end
-    actions
+    f.actions do
+      f.action :submit
+      f.cancel_link(:back)
+    end
   end
 
   controller do
@@ -29,7 +32,7 @@ ActiveAdmin.register ItemAssignment do
           if @item_assignment.save
             @used_item = Item.find_by_id(params[:item_assignment][:item_id])
             @used_item.increment!(:assigned_quantity, params[:item_assignment][:quantity].to_i)
-            redirect_to admin_item_assignments_path
+            redirect_to admin_fixed_items_path
           else
             redirect_to new_admin_item_assignment_path
           end
@@ -47,6 +50,17 @@ ActiveAdmin.register ItemAssignment do
     def item_assignment_params
       params.require(:item_assignment).permit(:item_id, :employee_id, :quantity)
     end
+  end
+
+  csv do
+    column :employee do |i|
+      "#{i.employee.first_name} #{i.employee.last_name}"
+    end
+    column :item do |i|
+      "#{i.item.name}"
+    end
+    column :quantity
+    column :created_at
   end
 
   filter :employee_id, as: :select, collection: Employee.all.map { |employee| [employee.email, employee.id] }

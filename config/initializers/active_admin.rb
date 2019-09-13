@@ -315,8 +315,11 @@ ActiveAdmin.setup do |config|
   # config.order_clause = MyOrderClause
   config.namespace :admin do |admin|
     admin.build_menu do |menu|
-      menu.add label: 'Items', priority: 3
-      menu.add label: 'Category', priority: 2
+      menu.add label: 'Items', priority: 2
+      menu.add label: 'Category', priority: 6
+      menu.add label: 'Withdrawals', priority: 5, url: '/admin/withdraws'
+      menu.add label: 'Item Assignments', priority: 4, url: '/admin/item_assignments'
+      # menu.add label: 'Purchase', priority: 9
     end
   end
 end

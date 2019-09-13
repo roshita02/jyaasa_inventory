@@ -2,10 +2,9 @@
 
 # ActiveAdmin for Vendor
 ActiveAdmin.register Vendor do
-  menu priority: 5
+  menu priority: 7
   permit_params :name, :pan_no
   index do
-    selectable_column
     column :id
     column :name
     column :pan_no
@@ -57,7 +56,7 @@ ActiveAdmin.register Vendor do
     end
 
     def create
-      @vendor = Vendor.create(vendor_params)
+      @vendor = Vendor.new(vendor_params)
       @first_value = session[:passed_variable]
       if @vendor.save
         flash[:success] = 'Successfully created new vendor'

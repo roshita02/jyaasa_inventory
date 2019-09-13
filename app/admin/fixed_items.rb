@@ -12,7 +12,7 @@ ActiveAdmin.register FixedItem do
     link_to 'Purchase list', admin_fixed_item_purchases_path
   end
   action_item :new do
-    link_to 'Assign Item', new_admin_item_assignment_path
+    link_to 'Assign an Item', new_admin_item_assignment_path
   end
   index do
     column :id
@@ -61,6 +61,24 @@ ActiveAdmin.register FixedItem do
   end
 
   controller do
+
+    def new
+      super
+      @first_value = request.referer
+      session[:passed_variable] = @first_value
+    end
+
+    def create
+      @item = FixedItem.new(item_params)
+      @first_value = session[:passed_variable]
+      if @item.save
+        flash[:success] = 'Successfully created new fixed item'
+        redirect_to(@first_value)
+      else
+        redirect_to new_admin_fixed_item_path
+      end
+    end
+
     def update
       @item = FixedItem.find(params[:id])
       if @item.update(item_params)

@@ -3,13 +3,23 @@
 ActiveAdmin.register Withdraw do
   menu false
   permit_params :item_id, :quantity
+  config.clear_action_items!
+
+  index do
+    column :item
+    column :quantity
+    column 'Withdraw date', :created_at
+  end
 
   form do |f|
     f.inputs 'Withdraw an Item' do
       f.input :item_id, label: 'Item', as: :select, collection: NonFixedItem.all.map { |i| [i.name, i.id] }, prompt: 'Select one'
       f.input :quantity
     end
-    f.actions
+    f.actions do
+      f.action :submit
+      f.cancel_link(:back)
+    end
   end
 
   controller do
