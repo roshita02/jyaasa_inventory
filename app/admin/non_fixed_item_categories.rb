@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 ActiveAdmin.register NonFixedItemCategory do
-  menu parent: 'Category', priority: 2
+  menu parent: 'Category'
   permit_params :name
   index do
     column :name
@@ -14,15 +14,22 @@ ActiveAdmin.register NonFixedItemCategory do
     f.actions
   end
   show do
-    attributes_table do
-      row :name
-      row 'Items' do
-        NonFixedItemCategory.find(params[:id]).items
+    columns do
+      column do
+        attributes_table do
+          row :name
+          row 'Items' do
+            NonFixedItemCategory.find(params[:id]).items
+          end
+        end
       end
-    end
-    panel 'Items' do
-      table_for non_fixed_item_category.items do
-        column :name
+
+      column do
+        panel 'Items' do
+          table_for non_fixed_item_category.items do
+            column :name
+          end
+        end
       end
     end
   end

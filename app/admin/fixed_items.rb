@@ -37,11 +37,26 @@ ActiveAdmin.register FixedItem do
   end
 
   show do
-    attributes_table do
-      row :name
-      row :category
-      row :quantity
-      row :assigned_quantity
+    columns do
+      column do
+        attributes_table do
+          row :name
+          row :category
+          row :quantity
+          row :assigned_quantity
+        end
+      end
+
+      column do
+        panel 'Item assignment' do
+          table_for fixed_item.item_assignment do
+            column :employee_id do |i|
+              "#{i.employee.first_name} #{i.employee.last_name}"
+            end
+            column :quantity
+          end
+        end
+      end
     end
   end
 
