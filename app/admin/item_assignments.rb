@@ -4,11 +4,19 @@ ActiveAdmin.register ItemAssignment do
   menu false
   config.clear_action_items!
   permit_params :employee_id, :item_id, :quantity
+  scope :assigned, default: true
+  scope :returned
   index do
     column :employee
     column :item
     column :quantity
     column 'Assigned at', :created_at
+    column('Status') do |item_assignment|
+      if item_assignment.status == 'assigned'
+        (link_to 'Returned', returned_admin_item_assignment_path(item_assignment), method: :patch, class: 'btn btn-success') 
+      end
+    end
+    column :returned_date
     actions
   end
 
@@ -22,6 +30,17 @@ ActiveAdmin.register ItemAssignment do
       f.action :submit
       f.cancel_link(:back)
     end
+  end
+
+  member_action :returned, method: :patch do
+    item_assignment = ItemAssignment.find(params[:id])
+    item_assignment.update_attribute :status, 'returned'
+    item_assignment.update_attribute :returned_date, Time.now
+    borrowed_qty = ItemAssignment.find_by_id(params[:id]).quantity.to_i
+    @borrowed_item = ItemAssignment.find_by_id(params[:id]).item
+    @borrowed_item.increment!(:quantity, borrowed_qty)
+    @borrowed_item.decrement!(:assigned_quantity, borrowed_qty)
+    redirect_to admin_item_assignments_path, notice: 'Item marked as returned!'
   end
 
   controller do
@@ -51,6 +70,8 @@ ActiveAdmin.register ItemAssignment do
       params.require(:item_assignment).permit(:item_id, :employee_id, :quantity)
     end
   end
+
+ 
 
   csv do
     column :employee do |i|
