@@ -3,7 +3,7 @@
 ActiveAdmin.register ItemAssignment do
   menu false
   config.clear_action_items!
-  permit_params :employee_id, :item_id, :quantity, :status, :returned_date
+  permit_params :employee_id, :category_id, :item_id, :quantity, :status, :returned_date
   scope :assigned, default: true
   scope :returned
   index do
@@ -28,11 +28,12 @@ ActiveAdmin.register ItemAssignment do
   form do |f|
     f.inputs  'Assign Item' do
       f.input :employee_id, label: 'Employee', as: :select, collection: Employee.all.map { |employee| [employee.email, employee.id] }, prompt: 'Select one'
-      f.input :item_id, label: 'Item', as: :select, collection: FixedItem.all, prompt: 'Select one'
+      f.input :category_id, label: 'Category', as: :select, collection: FixedItemCategory.all, prompt: 'Select one', input_html: { class: 'categorylist' }
+      f.input :item_id, label: 'Item', as: :select, collection: FixedItem.all.map { |i| [i.name, i.id] }, prompt: 'Select one', input_html: { class: 'itemfilterlist' }
       f.input :quantity
     end
     f.actions do
-      f.action :submit
+      f.action :submit, label: 'Assign'
       f.cancel_link(:back)
     end
   end
@@ -73,7 +74,7 @@ ActiveAdmin.register ItemAssignment do
     private
 
     def item_assignment_params
-      params.require(:item_assignment).permit(:item_id, :employee_id, :quantity, :status, :returned_date)
+      params.require(:item_assignment).permit(:category_id, :item_id, :employee_id, :quantity, :status, :returned_date)
     end
   end
 

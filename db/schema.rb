@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_15_213820) do
+ActiveRecord::Schema.define(version: 2019_09_16_104346) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -83,6 +83,8 @@ ActiveRecord::Schema.define(version: 2019_09_15_213820) do
     t.datetime "updated_at", precision: 6, null: false
     t.integer "status", default: 1
     t.date "returned_date"
+    t.bigint "category_id"
+    t.index ["category_id"], name: "index_item_assignments_on_category_id"
     t.index ["employee_id"], name: "index_item_assignments_on_employee_id"
     t.index ["item_id"], name: "index_item_assignments_on_item_id"
   end
@@ -142,9 +144,12 @@ ActiveRecord::Schema.define(version: 2019_09_15_213820) do
     t.bigint "item_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "category_id"
+    t.index ["category_id"], name: "index_withdraws_on_category_id"
     t.index ["item_id"], name: "index_withdraws_on_item_id"
   end
 
+  add_foreign_key "item_assignments", "categories"
   add_foreign_key "item_assignments", "employees"
   add_foreign_key "item_assignments", "items"
   add_foreign_key "items", "categories"
@@ -152,5 +157,6 @@ ActiveRecord::Schema.define(version: 2019_09_15_213820) do
   add_foreign_key "purchases", "categories"
   add_foreign_key "purchases", "items"
   add_foreign_key "purchases", "vendors"
+  add_foreign_key "withdraws", "categories"
   add_foreign_key "withdraws", "items"
 end
