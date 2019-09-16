@@ -10,11 +10,23 @@
 // Active Admin's got SASS!
 @import "active_admin/mixins";
 @import "active_admin/base";
+
+$skinActiveColor: #ee4b00;
+$skinLogo: url("jyaasa-logo.png");
+
 @import "active_skin";
+
 // Overriding any non-variable SASS must be done after the fact.
 // For example, to change the default status-tag color:
 //
 //   .status_tag { background: #6090DB; }
+
+#header h1.site_title {
+  background-size: 105px;
+  background-repeat: no-repeat;
+  background-position-x: center;
+  padding-left: 100px;
+}
 
 .btn{
   border-radius: 3px;
