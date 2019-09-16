@@ -2,7 +2,7 @@
 
 ActiveAdmin.register Withdraw do
   menu false
-  permit_params :item_id, :quantity
+  permit_params :category_id, :item_id, :quantity
   config.clear_action_items!
 
   index do
@@ -13,7 +13,8 @@ ActiveAdmin.register Withdraw do
 
   form do |f|
     f.inputs 'Withdraw an Item' do
-      f.input :item_id, label: 'Item', as: :select, collection: NonFixedItem.all.map { |i| [i.name, i.id] }, prompt: 'Select one'
+      f.input :category_id, label: 'Category', as: :select, collection: NonFixedItemCategory.all, prompt: 'Select one', input_html: { class: 'categorylist' }
+      f.input :item_id, label: 'Item', as: :select, collection: NonFixedItem.all.map { |i| [i.name, i.id] }, prompt: 'Select one', input_html: { class: 'itemfilterlist' }
       f.input :quantity
     end
     f.actions do
@@ -47,7 +48,7 @@ ActiveAdmin.register Withdraw do
     private
 
     def withdraw_params
-      params.require(:withdraw).permit(:item_id, :quantity)
+      params.require(:withdraw).permit(:category_id, :item_id, :quantity)
     end
   end
 end
