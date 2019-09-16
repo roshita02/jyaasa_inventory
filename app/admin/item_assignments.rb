@@ -23,6 +23,7 @@ ActiveAdmin.register ItemAssignment do
         (link_to 'View', admin_item_assignment_path(item_assignment), class: 'btn btn-primary')
       end
     end
+    actions
   end
 
   form do |f|
@@ -55,6 +56,8 @@ ActiveAdmin.register ItemAssignment do
           if @item_assignment.save
             @used_item = Item.find_by_id(params[:item_assignment][:item_id])
             @used_item.increment!(:assigned_quantity, params[:item_assignment][:quantity].to_i)
+            ItemAssignmentMailer.new_assignment(@item_assignment, @used_item).deliver_now
+            flash[:success] = 'Item assignment successful'
             redirect_to admin_fixed_items_path
           else
             redirect_to new_admin_item_assignment_path
