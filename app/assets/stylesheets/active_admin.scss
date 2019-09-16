@@ -21,11 +21,31 @@ $skinLogo: url("jyaasa-logo.png");
 //
 //   .status_tag { background: #6090DB; }
 
+
 #header h1.site_title {
   background-size: 105px;
   background-repeat: no-repeat;
   background-position-x: center;
   padding-left: 100px;
+}
+
+form{
+  input[type=text], input[type=number], input[type=date], textarea {
+    width: 150px;
+  }
+}
+
+.status_tag {
+  background: darken($secondary-color, 15%);
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  padding: 3px 5px 2px 5px;
+  font-size: 0.8em;
+
+  &.ok, &.green { background: #8daa92; }
+  &.warning, &.orange { background: #e29b20; }
+  &.error, &.errored, &.red { background: #d45f53; }
 }
 
 .btn{
