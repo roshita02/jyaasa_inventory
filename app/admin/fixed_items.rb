@@ -48,12 +48,13 @@ ActiveAdmin.register FixedItem do
       end
 
       column do
-        panel 'Item assignment' do
+        panel 'Item use history' do
           table_for fixed_item.item_assignment do
-            column :employee_id do |i|
-              "#{i.employee.first_name} #{i.employee.last_name}"
+            column :employee_id do |i|                
+              "#{i.employee.first_name.capitalize} #{i.employee.last_name.capitalize}"
             end
             column :quantity
+            column(:status) {|item_assignment| status_tag(item_assignment.status)}
           end
         end
       end

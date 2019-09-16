@@ -10,9 +10,8 @@ ActiveAdmin.register ItemRequest do
   permit_params :item, :quantity, :status, :reason, :employee_id
 
   index do
-    selectable_column
     column :employee_id do |i|
-      "#{i.employee.first_name} #{i.employee.last_name}"
+      "#{i.employee.first_name.capitalize} #{i.employee.last_name.capitalize}"
       # "#{self.firstname} #{self.lastname}"
     end
     column :item
@@ -32,6 +31,7 @@ ActiveAdmin.register ItemRequest do
   member_action :approve, method: :patch do
     item_request = ItemRequest.find(params[:id])
     item_request.update_attribute :status, 'approved'
+    item_request.update_attribute :approved_date, Time.now
     redirect_to admin_item_requests_path, notice: 'Approved!'
   end
 
