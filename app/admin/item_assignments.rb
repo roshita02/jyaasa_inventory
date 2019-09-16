@@ -3,21 +3,26 @@
 ActiveAdmin.register ItemAssignment do
   menu false
   config.clear_action_items!
-  permit_params :employee_id, :item_id, :quantity
+  permit_params :employee_id, :item_id, :quantity, :status, :returned_date
   scope :assigned, default: true
   scope :returned
   index do
     column :employee
     column :item
     column :quantity
-    column 'Assigned at', :created_at
-    column('Status') do |item_assignment|
+    column 'Assigned date' do |item_assignment|
+      item_assignment.created_at.to_date
+    end
+
+    column :returned_date unless params['scope'] == 'assigned'
+    column('Action') do |item_assignment|
       if item_assignment.status == 'assigned'
-        (link_to 'Returned', returned_admin_item_assignment_path(item_assignment), method: :patch, class: 'btn btn-success') 
+        (link_to 'View', admin_item_assignment_path(item_assignment), class: 'btn btn-primary') + "\t\t" +
+        (link_to 'Mark as returned', returned_admin_item_assignment_path(item_assignment), method: :patch, class: 'btn btn-success', data: { confirm: 'Are you sure? '}) 
+      else
+        (link_to 'View', admin_item_assignment_path(item_assignment), class: 'btn btn-primary')
       end
     end
-    column :returned_date
-    actions
   end
 
   form do |f|
@@ -38,7 +43,6 @@ ActiveAdmin.register ItemAssignment do
     item_assignment.update_attribute :returned_date, Time.now
     borrowed_qty = ItemAssignment.find_by_id(params[:id]).quantity.to_i
     @borrowed_item = ItemAssignment.find_by_id(params[:id]).item
-    @borrowed_item.increment!(:quantity, borrowed_qty)
     @borrowed_item.decrement!(:assigned_quantity, borrowed_qty)
     redirect_to admin_item_assignments_path, notice: 'Item marked as returned!'
   end
@@ -67,7 +71,7 @@ ActiveAdmin.register ItemAssignment do
     private
 
     def item_assignment_params
-      params.require(:item_assignment).permit(:item_id, :employee_id, :quantity)
+      params.require(:item_assignment).permit(:item_id, :employee_id, :quantity, :status, :returned_date)
     end
   end
 

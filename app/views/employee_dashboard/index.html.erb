@@ -53,7 +53,7 @@
                         <td><%= item_request.quantity %></td>
                         <td><%= item_request.status %></td>
                         <td><%= item_request.created_at.to_date %></td>
-                        <td><%= @date %></td>
+                        <td><%= item_request.approved_date %></td>
                         <td><%= link_to 'Show', item_request %></td>
                     </tr>
                 <% end %>

@@ -54,7 +54,7 @@ ActiveAdmin.register FixedItem do
                 "#{i.employee.first_name.capitalize} #{i.employee.last_name.capitalize}"
               end
               column :quantity
-              column :status
+              column(:status) {|item_assignment| status_tag(item_assignment.status)}
           end
         end
       end
