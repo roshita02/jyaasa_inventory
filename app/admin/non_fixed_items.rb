@@ -57,7 +57,7 @@ ActiveAdmin.register NonFixedItem do
       end
     end
   end
-  
+
   show do
     attributes_table do
       row :name

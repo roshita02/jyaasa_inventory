@@ -62,7 +62,6 @@ ActiveAdmin.register FixedItem do
   end
 
   controller do
-
     def new
       super
       @first_value = request.referer

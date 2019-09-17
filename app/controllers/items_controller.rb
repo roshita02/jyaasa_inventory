@@ -2,6 +2,12 @@
 
 # Controller for items
 class ItemsController < InheritedResources::Base
+  before_action :authenticate_employee!
+
+  def index
+    @items = ItemAssignment.all.where(current_employee.id == :employee_id)
+  end
+
   private
 
   def item_params
