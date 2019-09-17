@@ -62,10 +62,8 @@ ActiveAdmin.register NonFixedItem do
     def item_params
       params.require(:non_fixed_item).permit(:name, :category_id)
     end
-
-
   end
-  
+
   show do
     attributes_table do
       row :name

@@ -1,31 +1,27 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Items</h1>
+<h1>Your Items</h1>
 
-<table>
+<table class="table table-striped" style="width: 50%"> 
   <thead>
     <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Rate</th>
-      <th colspan="3"></th>
+      <th>Item name</th>
+      <th>Assigned Quantity</th>
+      <th>Status</th>
+      <th>Assigned date</th>   
+      <th>Returned date</th>   
     </tr>
   </thead>
 
   <tbody>
     <% @items.each do |item| %>
       <tr>
-        <td><%= item.name %></td>
-        <td><%= item.type %></td>
-        <td><%= item.rate %></td>
-        <td><%= link_to 'Show', item %></td>
-        <td><%= link_to 'Edit', edit_item_path(item) %></td>
-        <td><%= link_to 'Destroy', item, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= Item.find(item.item_id).name %></td>
+        <td><%= item.quantity %></td>
+        <td><%= item.status %></td>
+        <td><%= item.created_at.to_date %></td>
+        <td><%= item.returned_date %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
-
-<br>
-
-<%= link_to 'New Item', new_item_path %>

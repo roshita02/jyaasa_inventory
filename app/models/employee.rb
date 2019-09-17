@@ -29,4 +29,6 @@ class Employee < ApplicationRecord
   devise :invitable, :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
   has_many :item_request
+  has_many :item_assignment
+  has_many :items, through: :item_assignment
 end
