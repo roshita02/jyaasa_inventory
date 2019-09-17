@@ -26,9 +26,9 @@ ActiveAdmin.register FixedItem do
     # end
   end
   form do |f|
-    f.inputs 'Fixed Item' do
-      f.input :name
-      f.input :category_id, label: 'Category', as: :select, collection: FixedItemCategory.all, prompt: 'Select one'
+    f.inputs 'Item details' do
+      f.input :name, placeholder: 'Enter item name'
+      f.input :category_id, label: 'Category', as: :select, collection: FixedItemCategory.all, prompt: 'Select category'
     end
     f.actions do
       f.action :submit
@@ -76,7 +76,7 @@ ActiveAdmin.register FixedItem do
         flash[:success] = 'Successfully created new fixed item'
         redirect_to(@first_value)
       else
-        redirect_to new_admin_fixed_item_path
+        super
       end
     end
 

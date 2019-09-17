@@ -9,7 +9,7 @@ ActiveAdmin.register NonFixedItemCategory do
   end
   form do |f|
     f.inputs 'Non fixed item category' do
-      f.input :name
+      f.input :name, placeholder: 'Enter category name'
     end
     f.actions
   end

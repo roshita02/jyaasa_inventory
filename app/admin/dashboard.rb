@@ -23,14 +23,16 @@ ActiveAdmin.register_page 'Dashboard' do
       end
 
       column do
-        panel 'Employees' do
-          h2 Employee.count
-        end
-      end
-
-      column do
         panel 'Vendors' do
           h2 Vendor.count
+        end
+      end
+    end
+
+    columns do
+      column do
+        panel 'New Item Request' do
+  
         end
       end
     end

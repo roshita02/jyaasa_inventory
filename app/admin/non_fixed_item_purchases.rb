@@ -14,18 +14,18 @@ ActiveAdmin.register NonFixedItemPurchase do
   end
 
   form do |f|
-    f.inputs 'Purchase' do
-      f.input :category_id, label: 'Category', as: :select, collection: NonFixedItemCategory.all, prompt: 'Select one', input_html: { class: 'categorylist' }
+    f.inputs 'Purchase details' do
+      f.input :category_id, label: 'Category', as: :select, collection: NonFixedItemCategory.all, prompt: 'Select category', input_html: { class: 'categorylist' }
       li do
         ul do
-          f.input :item_id, label: 'Item', as: :select, collection: NonFixedItem.all, prompt: 'Select one', input_html: { class: 'itemfilterlist' }
+          f.input :item_id, label: 'Item', as: :select, collection: NonFixedItem.all, prompt: 'Select an item', input_html: { class: 'itemfilterlist' }
         end
         ul do
-          link_to 'Add new Item', new_admin_non_fixed_item_path
+          link_to 'Add new Item', new_admin_non_fixed_item_path,class: 'abutton'
         end
       end
-      f.input :quantity, min: '0'
-      f.input :purchased_date, as: :datepicker
+      f.input :quantity, min: '0', placeholder: 'Enter quantity'
+      f.input :purchased_date, as: :datepicker, placeholder: 'Select purchased date'
     end
     f.actions do
       f.action :submit

@@ -10,8 +10,8 @@ ActiveAdmin.register FixedItemCategory do
   end
   form do |f|
     f.inputs 'Fixed item category' do
-      f.input :name
-      f.input :depreciation_rate
+      f.input :name, placeholder: 'Enter category name'
+      f.input :depreciation_rate, placeholder: 'Enter depreciation rate'
     end
     f.actions
   end

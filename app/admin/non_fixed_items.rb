@@ -29,13 +29,13 @@ ActiveAdmin.register NonFixedItem do
     actions
   end
   form do |f|
-    f.inputs 'Non Fixed Item' do
-      f.input :name
-      f.input :category_id, label: 'Category', as: :select, collection: NonFixedItemCategory.all, prompt: 'Select one'
-      f.actions do
-        f.action :submit
-        f.cancel_link(:back)
-      end
+    f.inputs 'Item details' do
+      f.input :name, placeholder: 'Enter item name'
+      f.input :category_id, label: 'Category', as: :select, collection: NonFixedItemCategory.all, prompt: 'Select category'
+    end
+    f.actions do
+      f.action :submit
+      f.cancel_link(:back)
     end
   end
 
@@ -53,9 +53,17 @@ ActiveAdmin.register NonFixedItem do
         flash[:success] = 'Successfully created new fixed item'
         redirect_to(@first_value)
       else
-        redirect_to new_admin_non_fixed_item_path
+        super
       end
     end
+    
+    private
+
+    def item_params
+      params.require(:non_fixed_item).permit(:name, :category_id)
+    end
+
+
   end
   
   show do

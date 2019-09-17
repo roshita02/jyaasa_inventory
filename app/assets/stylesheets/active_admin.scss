@@ -30,17 +30,10 @@ $skinLogo: url("jyaasa-logo.png");
 }
 
 form{
-  input[type=text], input[type=number], input[type=date], textarea {
-    width: 150px;
+  input[type=text], input[type=number], input[type=date], input[type=email], input[type=password], textarea {
+    width: 190px;
   }
 }
-
-.status_tag {
-  &.ok, &.green { background: #8daa92; }
-  &.warning, &.orange { background: #e29b20; }
-  &.error, &.red { background: #d45f53; }
-}
-
 .btn{
   border-radius: 3px;
   color: white !important;
@@ -68,4 +61,19 @@ form{
 }
 .btn-primary:hover {
   background-color: #008CBA !important;
+}
+.abutton{
+  background: #e70a0a;
+  color: white !important;
+  display: inline-block;
+  padding: 4px;
+  border-radius: 1px;
+  margin-top: 5px;
+  text-decoration: none !important;
+}
+form fieldset > ol > li p.inline-errors {
+  margin: -1.3em 0px 0px 39%;
+}
+button, select {
+  width: 213px;
 }

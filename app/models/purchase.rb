@@ -5,7 +5,7 @@ class Purchase < ApplicationRecord
   belongs_to :item
   belongs_to :vendor, optional: true
   belongs_to :category
-  validates_presence_of :quantity
+  validates_presence_of :quantity, :category_id, :item_id, :vendor_id
 
   after_create :increase_quantity
   after_destroy :decrease_quantity
