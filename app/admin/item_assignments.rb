@@ -18,7 +18,7 @@ ActiveAdmin.register ItemAssignment do
     column('Action') do |item_assignment|
       if item_assignment.status == 'assigned'
         (link_to 'View', admin_item_assignment_path(item_assignment), class: 'btn btn-primary') + "\t\t" +
-          (link_to 'Returned', returned_admin_item_assignment_path(item_assignment), method: :patch, class: 'btn btn-success', data: { confirm: 'Are you sure? ' })
+        (link_to 'Returned', returned_admin_item_assignment_path(item_assignment), method: :patch, class: 'btn btn-success', data: { confirm: 'Are you sure? ' })
       else
         (link_to 'View', admin_item_assignment_path(item_assignment), class: 'btn btn-primary')
       end
