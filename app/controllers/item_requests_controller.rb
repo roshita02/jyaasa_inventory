@@ -12,7 +12,6 @@ class ItemRequestsController < InheritedResources::Base
     @item_request = ItemRequest.new(item_request_params)
     @item_request.employee = current_employee
     if @item_request.save
-      flash[:success] = 'Request made successfully'
       redirect_to employee_dashboard_index_path
     else
       render 'new'

@@ -306,7 +306,8 @@ ActiveAdmin.setup do |config|
   # By default, the footer shows the current Active Admin version. You can
   # override the content of the footer here.
   #
-  config.footer = 'Jyaasa Inventory'
+  config.default_per_page = 20
+  config.footer = ->(_) { Admin::ActiveAdminFooter.to_s }
   # == Sorting
   #
   # By default ActiveAdmin::OrderClause is used for sorting logic
@@ -314,6 +315,7 @@ ActiveAdmin.setup do |config|
   #
   # config.order_clause = MyOrderClause
   config.namespace :admin do |admin|
+    admin.download_links = [:csv, :json]
     admin.build_menu do |menu|
       menu.add label: 'Items', priority: 2
       menu.add label: 'Category', priority: 6

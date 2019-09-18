@@ -83,4 +83,16 @@ ActiveAdmin.register FixedItemPurchase do
   filter :item_id, label: 'Item', as: :select, collection: proc { FixedItem.all.map { |i| [i.name, i.id] } }
   filter :vendor_id
   filter :purchased_date
+
+  csv do
+    column :purchased_date
+    column :item do |i|
+      i.item.name.to_s
+    end
+    column :vendor do |i|
+      i.vendor.name.to_s
+    end
+    column 'Qty', &:quantity
+    column :rate
+  end
 end

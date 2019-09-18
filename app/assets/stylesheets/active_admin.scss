@@ -62,6 +62,18 @@ form{
 .btn-primary:hover {
   background-color: #008CBA !important;
 }
+span.status_tag.assigned{
+  background-color: #f5af0f;
+}
+span.status_tag.returned{
+  background-color: #4CAF50;
+}
+span.status_tag.low_stock{
+  background-color: #f5af0f;
+}
+span.status_tag.in_stock{
+  background-color: #4CAF50;
+}
 .abutton{
   background: #e70a0a;
   color: white !important;
@@ -76,4 +88,31 @@ form fieldset > ol > li p.inline-errors {
 }
 button, select {
   width: 213px;
+}
+.my-panel {
+  display: inline-block;
+  min-width: 49%;
+  min-height: 200px;
+}
+.panel_contents table tr.odd td {
+  background: #ffffff; 
+}
+.panel_contents table tr.even td {
+  background: #ffffff;
+}
+table{
+  min-height: 100px;
+  min-width: 400px;
+}
+th, td, caption {
+  padding: 13px 10px 4px 5px;
+}
+.attributes_table table th {
+  font-weight: bold;
+  font-size: 12px;
+  text-transform: uppercase;
+  color: #5E6469;
+}
+.attributes_table table td {
+ color: black;
 }

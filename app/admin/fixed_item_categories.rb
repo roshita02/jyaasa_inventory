@@ -36,4 +36,7 @@ ActiveAdmin.register FixedItemCategory do
       end
     end
   end
+
+  filter :name, label: 'Category name'
+  filter :depreciation_rate
 end

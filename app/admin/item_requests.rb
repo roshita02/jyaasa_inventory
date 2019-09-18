@@ -19,12 +19,10 @@ ActiveAdmin.register ItemRequest do
     # column :status
     column('Action') do |item_request|
       if item_request.status == 'pending'
-        (link_to 'Approve', approve_admin_item_request_path(item_request), method: :patch, class: 'btn btn-success') + "\t\t" +
-          (link_to 'Reject', reject_admin_item_request_path(item_request), method: :patch, class: 'btn btn-danger') + "\t\t" +
-          (link_to 'View', admin_item_request_path(item_request), class: 'btn btn-primary')
-      else
-        (link_to 'View', admin_item_request_path(item_request), class: 'btn btn-primary')
+        span link_to 'Approve', approve_admin_item_request_path(item_request), method: :patch, class: 'btn btn-success'
+        span link_to 'Reject', reject_admin_item_request_path(item_request), method: :patch, class: 'btn btn-danger'
       end
+      span link_to 'View', admin_item_request_path(item_request), class: 'btn btn-primary'
     end
   end
 
@@ -32,13 +30,15 @@ ActiveAdmin.register ItemRequest do
     item_request = ItemRequest.find(params[:id])
     item_request.update_attribute :status, 'approved'
     item_request.update_attribute :approved_date, Time.now
-    redirect_to admin_item_requests_path, notice: 'Approved!'
+    flash[:message]= 'Item request approved'
+    redirect_to request.referrer
+    # redirect_to admin_item_requests_path, notice: 'Accepted!'
   end
 
   member_action :reject, method: :patch do
     item_request = ItemRequest.find(params[:id])
     item_request.update_attribute :status, 'rejected'
-    redirect_to admin_item_requests_path, notice: 'Rejected!'
+    redirect_to request.referrer
   end
 
   show do
@@ -52,7 +52,7 @@ ActiveAdmin.register ItemRequest do
     end
   end
 
-  filter :employee_id, as: :select, collection: Employee.all.map { |employee| [employee.email, employee.id] }
+  filter :employee_id, as: :select, collection: proc { Employee.all.map { |employee| [employee.email, employee.id] } }
   filter :item
   filter :created_at, label: 'Requested at'
 end

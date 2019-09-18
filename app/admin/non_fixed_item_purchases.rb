@@ -6,7 +6,6 @@ ActiveAdmin.register NonFixedItemPurchase do
   config.clear_action_items!
   permit_params :item_id, :quantity, :purchased_date, :category_id
   index do
-    selectable_column
     column :purchased_date
     column :item
     column :quantity
@@ -61,4 +60,12 @@ ActiveAdmin.register NonFixedItemPurchase do
 
   filter :item_id, label: 'Item', as: :select, collection: proc { NonFixedItem.all.map { |i| [i.name, i.id] } }
   filter :purchased_date
+
+  csv do
+    column :purchased_date
+    column :item do |i|
+      i.item.name.to_s
+    end
+    column 'Qty', &:quantity
+  end
 end

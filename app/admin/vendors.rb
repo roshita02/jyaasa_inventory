@@ -5,7 +5,6 @@ ActiveAdmin.register Vendor do
   menu priority: 7
   permit_params :name, :pan_no
   index do
-    column :id
     column :name
     column :pan_no
     actions
@@ -16,10 +15,6 @@ ActiveAdmin.register Vendor do
         attributes_table do
           row :name
           row :pan_no
-          # row 'Items' do
-          # FixedItemPurchase.all.where(vendor_id: Vendor.find(params[:id]))
-          # NonFixedItemPurchase.all.where(vendor_id: Vendor.find(params[:id]))
-          # end
         end
       end
 
@@ -39,8 +34,8 @@ ActiveAdmin.register Vendor do
 
   form do |f|
     f.inputs 'New Item' do
-      f.input :name
-      f.input :pan_no
+      f.input :name, placeholder: 'Enter vendor name'
+      f.input :pan_no, placeholder: 'Enter PAN NO.'
     end
     f.actions do
       f.action :submit
@@ -71,5 +66,13 @@ ActiveAdmin.register Vendor do
     def vendor_params
       params.require(:vendor).permit(:name, :pan_no)
     end
+  end
+
+  filter :name
+  filter :pan_no
+
+  csv do
+    column :name 
+    column :pan_no
   end
 end

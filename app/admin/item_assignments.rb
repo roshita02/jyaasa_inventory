@@ -7,20 +7,19 @@ ActiveAdmin.register ItemAssignment do
   scope :assigned, default: true
   scope :returned
   index do
-    column :employee
+    column :employee_id do |i|
+      "#{i.employee.first_name.capitalize} #{i.employee.last_name.capitalize}"
+    end
     column :item
     column :quantity
     column 'Assigned date' do |item_assignment|
       item_assignment.created_at.to_date
     end
-
     column :returned_date unless params['scope'] == 'assigned'
     column('Action') do |item_assignment|
+      span link_to 'View', admin_item_assignment_path(item_assignment), class: 'btn btn-primary'
       if item_assignment.status == 'assigned'
-        (link_to 'View', admin_item_assignment_path(item_assignment), class: 'btn btn-primary') + "\t\t" +
-          (link_to 'Returned', returned_admin_item_assignment_path(item_assignment), method: :patch, class: 'btn btn-success', data: { confirm: 'Are you sure? ' })
-      else
-        (link_to 'View', admin_item_assignment_path(item_assignment), class: 'btn btn-primary')
+        span link_to 'Returned', returned_admin_item_assignment_path(item_assignment), method: :patch, class: 'btn btn-success', data: { confirm: 'Are you sure? ' }
       end
     end
   end
@@ -78,6 +77,11 @@ ActiveAdmin.register ItemAssignment do
     end
   end
 
+  filter :employee_id, as: :select, collection: proc { Employee.all.map { |employee| [employee.email, employee.id] } }
+  filter :item_id, as: :select, collection: proc { FixedItem.all.map { |fixeditem| [fixeditem.name, fixeditem.id] } }
+  filter :created_at, label: 'Assigned at'
+  filter :returned_date, label: 'Returned at'
+
   csv do
     column :employee do |i|
       "#{i.employee.first_name} #{i.employee.last_name}"
@@ -88,8 +92,4 @@ ActiveAdmin.register ItemAssignment do
     column :quantity
     column :created_at
   end
-
-  filter :employee_id, as: :select, collection: Employee.all.map { |employee| [employee.email, employee.id] }
-  filter :item_id, as: :select, collection: FixedItem.all.map { |fixeditem| [fixeditem.name, fixeditem.id] }
-  filter :created_at
 end
