@@ -60,6 +60,7 @@ end
 gem 'active_skin'
 gem 'activeadmin'
 gem 'analytics-ruby'
+gem 'chartkick'
 gem 'devise'
 gem 'devise_invitable'
 gem 'figaro'

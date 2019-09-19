@@ -37,6 +37,7 @@ ActiveAdmin.register NonFixedItem do
     f.inputs 'Item details' do
       f.input :name, placeholder: 'Enter item name'
       f.input :category_id, label: 'Category', as: :select, collection: NonFixedItemCategory.all, prompt: 'Select category'
+      f.input :quantity, label: 'Quantity(Qty)'
     end
     f.actions do
       f.action :submit
@@ -65,7 +66,7 @@ ActiveAdmin.register NonFixedItem do
     private
 
     def item_params
-      params.require(:non_fixed_item).permit(:name, :category_id, :status)
+      params.require(:non_fixed_item).permit(:name, :category_id, :status, :quantity)
     end
   end
 

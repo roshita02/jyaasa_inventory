@@ -31,7 +31,13 @@ ActiveAdmin.register_page 'Dashboard' do
   
     columns do
       column do
-        panel 'New Item requests', class: 'my-panel' do
+        panel 'Item Request Status' do
+          pie_chart ItemRequest.group(:status).count, donut: true, messages: {empty: 'No data'}
+        end
+      end
+
+      column do
+        panel 'New Item requests' do
           if ItemRequest.where(status: 'pending').count != 0
             table_for ItemRequest.where(status: 'pending').order(created_at: :desc).limit(5) do |t|
               t.column :employee_id do |i|

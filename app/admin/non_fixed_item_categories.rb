@@ -18,9 +18,6 @@ ActiveAdmin.register NonFixedItemCategory do
       column do
         attributes_table do
           row :name
-          row 'Items' do
-            NonFixedItemCategory.find(params[:id]).items
-          end
         end
       end
 

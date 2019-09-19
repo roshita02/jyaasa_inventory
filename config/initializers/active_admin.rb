@@ -7,6 +7,8 @@ ActiveAdmin.setup do |config|
   # for each of the active admin pages.
   #
   config.site_title = 'Jyaasa Inventory'
+  config.register_javascript "https://www.google.com/jsapi"
+  config.register_javascript "chartkick.js"
 
   # Set the link url for the title. For example, to take
   # users to your main site. Defaults to no link.

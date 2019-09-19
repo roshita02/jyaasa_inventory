@@ -3,7 +3,7 @@
 # Activeadmin for FixedItem
 ActiveAdmin.register FixedItem do
   menu parent: 'Items'
-  permit_params :name, :quantity, :category_id, :status
+  permit_params :name, :quantity, :category_id, :status, :remaining_quantity
   config.clear_action_items!
   action_item :new do
     link_to 'New Purchase', new_admin_fixed_item_purchase_path
@@ -28,7 +28,6 @@ ActiveAdmin.register FixedItem do
     f.inputs 'Item details' do
       f.input :name, placeholder: 'Enter item name'
       f.input :category_id, label: 'Category', as: :select, collection: FixedItemCategory.all, prompt: 'Select category'
-      f
     end
     f.actions do
       f.action :submit
@@ -80,7 +79,7 @@ ActiveAdmin.register FixedItem do
 
   controller do
     def new
-      super
+      super      
       @first_value = request.referer
       session[:passed_variable] = @first_value
     end
@@ -109,7 +108,7 @@ ActiveAdmin.register FixedItem do
     private
 
     def item_params
-      params.require(:fixed_item).permit(:name, :category_id, :status, :quantity)
+      params.require(:fixed_item).permit(:name, :category_id, :status, :quantity, :remaining_quantity )
     end
   end
 

@@ -113,6 +113,7 @@ GEM
       rack-test (>= 0.6.3)
       regexp_parser (~> 1.5)
       xpath (~> 3.2)
+    chartkick (3.2.1)
     childprocess (1.0.1)
       rake (< 13.0)
     code_analyzer (0.4.8)
@@ -363,6 +364,7 @@ DEPENDENCIES
   bootstrap-sass
   byebug
   capybara (>= 2.15)
+  chartkick
   devise
   devise_invitable
   factory_bot_rails
