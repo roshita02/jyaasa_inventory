@@ -29,7 +29,7 @@ ActiveAdmin.register ItemAssignment do
       f.input :employee_id, label: 'Employee', as: :select, collection: Employee.all.map { |employee| [employee.email, employee.id] }, prompt: 'Select employee'
       f.input :category_id, label: 'Category', as: :select, collection: FixedItemCategory.all, prompt: 'Select category', input_html: { class: 'categorylist' }
       f.input :item_id, label: 'Item', as: :select, collection: FixedItem.all.map { |i| [i.name, i.id] }, prompt: 'Select an item', input_html: { class: 'itemfilterlist' }
-      f.input :quantity, placeholder: 'Enter quantity'
+      f.input :quantity, label: 'Quantity(Qty)', placeholder: 'Enter quantity'
     end
     f.actions do
       f.action :submit, label: 'Assign'

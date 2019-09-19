@@ -1,22 +1,12 @@
-<h2>Employee Details</h2>
-<%= form_for @employee, :url => send_invitation_admin_employees_path do |f| %>
-   <table style='width: 50%'>
-     <tr>
-      <td><%= f.label :first_name %></td>
-      <td><%= f.text_field :first_name, :required => true %></td>
-    </tr>
-    <tr>
-      <td><%= f.label :last_name %></td>
-      <td><%= f.text_field :last_name, :required => true%></td>
-    </tr>
-    <tr>
-      <td><%= f.label :designation %></td>
-      <td><%= f.text_field :designation, :required => true%></td>
-    </tr>
-    <tr>
-      <td><%= f.label :email %></td>
-      <td><%= f.text_field :email, :required => true %></td>
-    </tr>
-   </table>  
-  <%= f.submit "Send an Invitation" %>
+<%= semantic_form_for [:admin, @employee], :url => send_invitation_admin_employees_path,  builder: ActiveAdmin::FormBuilder do |f| %>
+  <%= f.inputs "Employee details" do %>
+    <%= f.input :first_name %>
+    <%= f.input :last_name %>
+    <%= f.input :designation %>
+    <%= f.input :email %>
+  <% end %>
+  <%= f.actions do %>
+    <%= f.action :submit, label: 'Send invitation' %>
+    <li class="cancel"><%= link_to "Cancel", admin_employees_path %></li>
+  <% end %>
 <% end %>

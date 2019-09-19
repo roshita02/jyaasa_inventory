@@ -26,7 +26,7 @@ ActiveAdmin.register FixedItemPurchase do
           end
         end
       # f.input :category_id, as: :select, collection: FixedItemCategory.select(:id, :name),input_html: {onchange: remote_request(:post, :change_items,{category_id: "$('#fixed_item_purchase_category_id').val()"}, :item_id)
-      f.input :quantity, min: '0', placeholder: 'Enter quantity'
+      f.input :quantity, label: 'Quantity (qty)', min: '0', placeholder: 'Enter quantity'
       f.input :rate, placeholder: 'Enter rate'
       li do
         ul do

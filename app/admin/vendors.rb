@@ -33,7 +33,7 @@ ActiveAdmin.register Vendor do
   end
 
   form do |f|
-    f.inputs 'New Item' do
+    f.inputs 'Vendor details' do
       f.input :name, placeholder: 'Enter vendor name'
       f.input :pan_no, placeholder: 'Enter PAN NO.'
     end

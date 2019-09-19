@@ -37,7 +37,7 @@ ActiveAdmin.register NonFixedItem do
     f.inputs 'Item details' do
       f.input :name, placeholder: 'Enter item name'
       f.input :category_id, label: 'Category', as: :select, collection: NonFixedItemCategory.all, prompt: 'Select category'
-      f.input :quantity, label: 'Quantity(Qty)'
+      f.input :quantity, label: 'Quantity (qty)'
     end
     f.actions do
       f.action :submit

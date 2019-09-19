@@ -31,8 +31,8 @@ ActiveAdmin.register Employee do
       flash[:success] = 'Employee has been successfully invited.'
       redirect_to admin_employees_path
     else
-      messages = @employee.errors.full_messages.map { |msg| msg }.join
-      flash[:error] = 'Error :' + messages
+      messages = @employee.errors.full_messages.map { |msg| msg }.join(', ')
+      flash[:error] = 'Error : ' + messages
       redirect_to new_invitation_admin_employees_path
     end
   end

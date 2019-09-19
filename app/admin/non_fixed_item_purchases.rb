@@ -23,7 +23,7 @@ ActiveAdmin.register NonFixedItemPurchase do
           link_to 'Add new Item', new_admin_non_fixed_item_path,class: 'abutton'
         end
       end
-      f.input :quantity, min: '0', placeholder: 'Enter quantity'
+      f.input :quantity, label: 'Quantity (qty)', min: '0', placeholder: 'Enter quantity'
       f.input :purchased_date, as: :datepicker, placeholder: 'Select purchased date'
     end
     f.actions do
