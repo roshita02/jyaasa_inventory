@@ -24,11 +24,4 @@ class Item < ApplicationRecord
   has_many :purchase, dependent: :destroy
   has_many :withdraw
   enum status: { 'out of stock': 0, 'in stock': 1 }
-
-  def update_status
-    if remaining_quantity > 0
-      item.status == 'in stock'
-      item.save
-    end
-  end
 end

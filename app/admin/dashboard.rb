@@ -6,25 +6,25 @@ ActiveAdmin.register_page 'Dashboard' do
     columns do
       column do
         panel 'Fixed Items' do
-          h2 FixedItem.count
+          h1 FixedItem.count
         end
       end
 
       column do
         panel 'Non Fixed Items' do
-          h2 NonFixedItem.count
+          h1 NonFixedItem.count
         end
       end
 
       column do
         panel 'Items assigned' do
-          h2 ItemAssignment.all.where('status': 'assigned').count
+          h1 ItemAssignment.all.where('status': 'assigned').count
         end
       end
 
       column do
         panel 'Employees' do
-          h2 Employee.count
+          h1 Employee.count
         end
       end
     end
@@ -38,7 +38,7 @@ ActiveAdmin.register_page 'Dashboard' do
                 "#{i.employee.first_name.capitalize} #{i.employee.last_name.capitalize}"
               end
               t.column :item
-              t.column :quantity
+              t.column 'Qty', &:quantity
               t.column('Action') do |item_request|
                 span link_to 'View', admin_item_request_path(item_request), class: 'btn btn-primary'
                 span link_to 'Approve', approve_admin_item_request_path(item_request), method: :patch, class: 'btn btn-success'

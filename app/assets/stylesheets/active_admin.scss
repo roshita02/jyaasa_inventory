@@ -93,6 +93,7 @@ button, select {
   display: inline-block;
   min-width: 49%;
   min-height: 200px;
+  text-align: left;
 }
 .panel_contents table tr.odd td {
   background: #ffffff; 
@@ -116,3 +117,14 @@ th, td, caption {
 .attributes_table table td {
  color: black;
 }
+
+.panel{
+  border: none;
+}
+.panel > h3{
+  text-align: center;
+}
+h1{
+  text-align: center;
+}
+
