@@ -17,20 +17,22 @@ ActiveAdmin.register NonFixedItem do
   index do
     column :name
     column :category
+    column 'Total Quantity', :quantity
     column 'Withdrawn Quantity', :withdrawn_quantity
-    column 'Available Quantity', :quantity
-    # column 'Available Quantity', :remaining_quantity
+    column 'Available Quantity', :remaining_quantity 
     # column(:status) { |item| status_tag(item.status) }
     column 'Status' do |item|
-      if item.quantity < 5
+      if item.remaining_quantity.to_i.zero?
+        span status_tag('out_of_stock')
+      elsif item.remaining_quantity.to_i < 5
         span status_tag('low_stock')
       else
-        span status_tag('in stock')
+        span status_tag('in_stock')
       end
     end
-
     actions
   end
+
   form do |f|
     f.inputs 'Item details' do
       f.input :name, placeholder: 'Enter item name'

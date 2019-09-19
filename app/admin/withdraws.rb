@@ -28,13 +28,12 @@ ActiveAdmin.register Withdraw do
   controller do
     def create
       if params[:withdraw][:item_id].present? && params[:withdraw][:quantity].present?
-        if Item.find_by_id(params[:withdraw][:item_id]).quantity >= params[:withdraw][:quantity].to_i
+        if Item.find_by_id(params[:withdraw][:item_id]).remaining_quantity.to_i >= params[:withdraw][:quantity].to_i
           @withdraw = Withdraw.new(withdraw_params)
           if @withdraw.save
-            @item = Item.find_by_id(params[:withdraw][:item_id])           
+            @item = Item.find_by_id(params[:withdraw][:item_id])
             @item.increment!(:withdrawn_quantity, params[:withdraw][:quantity].to_i)
-            @item.decrement!(:quantity, params[:withdraw][:quantity].to_i)
-            # @item.remaining_quantity = @item.quantity - @item.withdrawn_quantity
+            # @item.decrement!(:quantity, params[:withdraw][:quantity].to_i)
             @item.save
             redirect_to admin_non_fixed_items_path
           else

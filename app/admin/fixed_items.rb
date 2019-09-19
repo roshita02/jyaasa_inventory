@@ -28,6 +28,7 @@ ActiveAdmin.register FixedItem do
     f.inputs 'Item details' do
       f.input :name, placeholder: 'Enter item name'
       f.input :category_id, label: 'Category', as: :select, collection: FixedItemCategory.all, prompt: 'Select category'
+      f
     end
     f.actions do
       f.action :submit
@@ -108,7 +109,7 @@ ActiveAdmin.register FixedItem do
     private
 
     def item_params
-      params.require(:fixed_item).permit(:name, :category_id, :status)
+      params.require(:fixed_item).permit(:name, :category_id, :status, :quantity)
     end
   end
 

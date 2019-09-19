@@ -9,6 +9,14 @@ ActiveAdmin.register ItemRequest do
   actions :all, except: %i[new edit destroy]
   permit_params :item, :quantity, :status, :reason, :employee_id
 
+  action_item :new do
+    link_to 'Assign an Item', new_admin_item_assignment_path
+  end
+
+  action_item :withdraw do
+    link_to 'Withdraw an Item', new_admin_withdraw_path
+  end
+
   index do
     column :employee_id do |i|
       "#{i.employee.first_name.capitalize} #{i.employee.last_name.capitalize}"

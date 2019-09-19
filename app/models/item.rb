@@ -22,6 +22,6 @@ class Item < ApplicationRecord
   belongs_to :category
   has_many :item_assignment, dependent: :destroy
   has_many :purchase, dependent: :destroy
-  has_many :withdraw
+  has_many :withdraw, dependent: :destroy
   enum status: { 'out of stock': 0, 'in stock': 1 }
 end

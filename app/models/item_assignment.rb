@@ -9,4 +9,10 @@ class ItemAssignment < ApplicationRecord
   enum status: { assigned: 1, returned: 0 }
   scope :returned, -> { where(status: 'returned') }
   scope :assigned, -> { where(status: 'assigned') }
+  after_save :remaining_quantity
+
+  def remaining_quantity
+    item.remaining_quantity = item.remaining_quantity - quantity
+    item.save
+  end
 end

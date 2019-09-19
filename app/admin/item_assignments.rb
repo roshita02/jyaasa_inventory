@@ -50,7 +50,7 @@ ActiveAdmin.register ItemAssignment do
   controller do
     def create
       if params[:item_assignment][:item_id].present? && params[:item_assignment][:quantity].present?
-        if Item.find_by_id(params[:item_assignment][:item_id]).quantity >= params[:item_assignment][:quantity].to_i
+        if Item.find_by_id(params[:item_assignment][:item_id]).remaining_quantity.to_i >= params[:item_assignment][:quantity].to_i
           @item_assignment = ItemAssignment.new(item_assignment_params)
           if @item_assignment.save
             @used_item = Item.find_by_id(params[:item_assignment][:item_id])
