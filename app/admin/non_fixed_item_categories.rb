@@ -23,8 +23,14 @@ ActiveAdmin.register NonFixedItemCategory do
 
       column do
         panel 'Items' do
-          table_for non_fixed_item_category.items do
-            column :name
+          paginated_collection(non_fixed_item_category.items.page(params[:page]).per(5), download_links: false) do
+            table_for non_fixed_item_category.items do
+              column :name
+              column 'Total Qty', &:quantity
+              column 'Withdrawn Qty', &:withdrawn_quantity
+              column 'Remaining Qty', &:remaining_quantity
+              column(:status) { |item| status_tag(item.status) }
+            end
           end
         end
       end

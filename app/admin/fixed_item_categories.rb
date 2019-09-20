@@ -29,8 +29,13 @@ ActiveAdmin.register FixedItemCategory do
 
       column do
         panel 'Items' do
-          table_for fixed_item_category.items do
-            column :name
+          paginated_collection(fixed_item_category.items.page(params[:page]).per(5), download_links: false) do
+            table_for fixed_item_category.items do
+              column :name
+              column 'Total Qty', &:quantity
+              column 'Assigned Qty', &:assigned_quantity
+              column 'Remaining Qty', &:remaining_quantity  
+            end
           end
         end
       end

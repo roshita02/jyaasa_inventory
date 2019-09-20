@@ -20,12 +20,14 @@ ActiveAdmin.register Vendor do
 
       column do
         panel 'Purchased Items history' do
-          table_for vendor.purchase do
-            column :purchased_date
-            column :item
-            column :category
-            column :quantity
-            column :rate
+          paginated_collection(vendor.purchase.page(params[:page]).per(5), download_links: false) do
+            table_for vendor.purchase do
+              column :purchased_date
+              column :item
+              column :category
+              column :quantity
+              column :rate
+            end
           end
         end
       end

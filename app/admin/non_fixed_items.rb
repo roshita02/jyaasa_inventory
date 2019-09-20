@@ -19,17 +19,8 @@ ActiveAdmin.register NonFixedItem do
     column :category
     column 'Total Quantity', :quantity
     column 'Withdrawn Quantity', :withdrawn_quantity
-    column 'Available Quantity', :remaining_quantity 
-    # column(:status) { |item| status_tag(item.status) }
-    column 'Status' do |item|
-      if item.remaining_quantity.to_i.zero?
-        span status_tag('out_of_stock')
-      elsif item.remaining_quantity.to_i < 5
-        span status_tag('low_stock')
-      else
-        span status_tag('in_stock')
-      end
-    end
+    column 'Remaining Quantity', :remaining_quantity 
+    column(:status) { |item| status_tag(item.status) }
     actions
   end
 
@@ -53,6 +44,7 @@ ActiveAdmin.register NonFixedItem do
     end
 
     def create
+      params[:non_fixed_item][:remaining_quantity] = params[:non_fixed_item][:quantity]
       @item = NonFixedItem.new(item_params)
       @first_value = session[:passed_variable]
       if @item.save
@@ -66,7 +58,7 @@ ActiveAdmin.register NonFixedItem do
     private
 
     def item_params
-      params.require(:non_fixed_item).permit(:name, :category_id, :status, :quantity)
+      params.require(:non_fixed_item).permit(:name, :category_id, :status, :quantity, :remaining_quantity)
     end
   end
 

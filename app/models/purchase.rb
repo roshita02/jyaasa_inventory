@@ -22,7 +22,7 @@ class Purchase < ApplicationRecord
   def decrease_quantity
     dec_quantity = quantity
     item.decrement!(:quantity, dec_quantity)
-    item.decrement!(:remaning_quantity, dec_quantity)
+    item.decrement!(:remaining_quantity, dec_quantity)
     item.save
   end
 

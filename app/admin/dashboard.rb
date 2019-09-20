@@ -27,12 +27,18 @@ ActiveAdmin.register_page 'Dashboard' do
           h1 Employee.count
         end
       end
+
+      column do
+        panel 'Vendors' do
+          h1 Vendor.count
+        end
+      end
     end
   
     columns do
       column do
-        panel 'Item Request Status' do
-          pie_chart ItemRequest.group(:status).count, donut: true, messages: {empty: 'No data'}
+        panel 'Item Status' do
+          pie_chart Item.group(:status).count, donut: true, messages: {empty: 'No data'}
         end
       end
 

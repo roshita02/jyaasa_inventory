@@ -19,6 +19,7 @@ ActiveAdmin.register FixedItem do
     column :category
     column 'Total Qty', :quantity
     column 'Assigned Qty', :assigned_quantity
+    column 'Remaining Qty', :remaining_quantity
     actions
     # div class: 'my-panel' do
     # h3 "Total items: #{collection.pluck(:quantity).reduce(:+)}"
@@ -28,6 +29,7 @@ ActiveAdmin.register FixedItem do
     f.inputs 'Item details' do
       f.input :name, placeholder: 'Enter item name'
       f.input :category_id, label: 'Category', as: :select, collection: FixedItemCategory.all, prompt: 'Select category'
+      f.input :quantity
     end
     f.actions do
       f.action :submit
@@ -79,12 +81,13 @@ ActiveAdmin.register FixedItem do
 
   controller do
     def new
-      super      
+      super
       @first_value = request.referer
       session[:passed_variable] = @first_value
     end
 
     def create
+      params[:fixed_item][:remaining_quantity] = params[:fixed_item][:quantity]
       @item = FixedItem.new(item_params)
       @first_value = session[:passed_variable]
       if @item.save

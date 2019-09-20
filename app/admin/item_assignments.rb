@@ -4,7 +4,7 @@ ActiveAdmin.register ItemAssignment do
   menu false
   config.clear_action_items!
   permit_params :employee_id, :category_id, :item_id, :quantity, :status, :returned_date
-  scope :assigned, default: true
+  scope :assigned, :default => true
   scope :returned
   index do
     column :employee_id do |i|
@@ -44,6 +44,8 @@ ActiveAdmin.register ItemAssignment do
     borrowed_qty = ItemAssignment.find_by_id(params[:id]).quantity.to_i
     @borrowed_item = ItemAssignment.find_by_id(params[:id]).item
     @borrowed_item.decrement!(:assigned_quantity, borrowed_qty)
+    @borrowed_item.increment(:remaining_quantity,borrowed_qty)
+    @borrowed_item.save
     redirect_to admin_item_assignments_path, notice: 'Item marked as returned!'
   end
 
@@ -53,9 +55,10 @@ ActiveAdmin.register ItemAssignment do
         if Item.find_by_id(params[:item_assignment][:item_id]).remaining_quantity.to_i >= params[:item_assignment][:quantity].to_i
           @item_assignment = ItemAssignment.new(item_assignment_params)
           if @item_assignment.save
-            @used_item = Item.find_by_id(params[:item_assignment][:item_id])
-            @used_item.increment!(:assigned_quantity, params[:item_assignment][:quantity].to_i)
-            ItemAssignmentMailer.new_assignment(@item_assignment, @used_item).deliver_now
+            @item = Item.find_by_id(params[:item_assignment][:item_id])
+            @item.increment!(:assigned_quantity, params[:item_assignment][:quantity].to_i)
+            @item.save
+            ItemAssignmentMailer.new_assignment(@item_assignment, @item).deliver_now
             flash[:success] = 'Item assignment successful'
             redirect_to admin_fixed_items_path
           else

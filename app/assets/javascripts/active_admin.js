@@ -3,9 +3,6 @@
 //= require jquery_ujs
 //= require Chart.bundle
 //= require chartkick
-require("chartkick")
-require("chart.js")
-
 $(document).on('ready', function(){
   $('.categorylist').change(function(){
     id = $(this).val();

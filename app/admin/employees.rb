@@ -43,6 +43,7 @@ ActiveAdmin.register Employee do
       f.input :last_name
       f.input :designation
     end
+    f.actions
   end
 
   show do
@@ -51,6 +52,7 @@ ActiveAdmin.register Employee do
         attributes_table do
           row :first_name
           row :last_name
+          row :designation
           row :email
           row('Invitation Sent at', &:invitation_sent_at)
           row('Invitation Accepted at', &:invitation_accepted_at)

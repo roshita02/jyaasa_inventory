@@ -114,8 +114,8 @@ ActiveRecord::Schema.define(version: 2019_09_18_092909) do
     t.bigint "category_id"
     t.integer "withdrawn_quantity"
     t.integer "available_quantity"
-    t.integer "status", default: 0
     t.integer "remaining_quantity"
+    t.integer "status", default: 0
     t.index ["category_id"], name: "index_items_on_category_id"
     t.index ["vendor_id"], name: "index_items_on_vendor_id"
   end
