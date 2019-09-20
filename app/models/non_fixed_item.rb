@@ -27,11 +27,11 @@ class NonFixedItem < Item
   def update_status
     quantity = self.remaining_quantity
     if quantity.to_i.zero?
-      self.update_column(:status,'out_of_stock')
+      self.update_column(:status,'out of stock')
      elsif quantity.to_i < 5
-      self.update_column(:status,'low_stock')
+      self.update_column(:status,'low stock')
      else
-      self.update_column(:status,'in_stock')
+      self.update_column(:status,'in stock')
     end
   end
 end

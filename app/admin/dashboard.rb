@@ -37,13 +37,13 @@ ActiveAdmin.register_page 'Dashboard' do
   
     columns do
       column do
-        panel 'Item Status' do
-          pie_chart Item.group(:status).count, donut: true, messages: {empty: 'No data'}
+        panel 'Non Fixed Item Status' do
+          pie_chart Item.group(:status).count, donut: true, colors: ['#e70a0a', '#4CAF50', '#f5af0f'], messages: { empty: 'No data' }
         end
       end
 
       column do
-        panel 'New Item requests' do
+        panel 'Pending Item requests' do
           if ItemRequest.where(status: 'pending').count != 0
             table_for ItemRequest.where(status: 'pending').order(created_at: :desc).limit(5) do |t|
               t.column :employee_id do |i|
