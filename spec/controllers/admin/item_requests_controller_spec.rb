@@ -21,6 +21,7 @@ RSpec.describe Admin::ItemRequestsController, type: :controller do
 
   describe '#approve' do
     it 'approves item request' do
+      get :index
       patch :approve, params: { id: item_request.id }
       item_request.reload
       expect(item_request.status).to eq('approved')
@@ -29,6 +30,7 @@ RSpec.describe Admin::ItemRequestsController, type: :controller do
 
   describe '#reject' do
     it 'rejects item request' do
+      get :index
       patch :reject, params: { id: item_request.id }
       item_request.reload
       expect(item_request.status).to eq('rejected')

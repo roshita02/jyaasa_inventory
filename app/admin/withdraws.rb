@@ -35,6 +35,7 @@ ActiveAdmin.register Withdraw do
             @item.increment!(:withdrawn_quantity, params[:withdraw][:quantity].to_i)
             # @item.decrement!(:quantity, params[:withdraw][:quantity].to_i)
             @item.save
+            flash[:success] = 'Item withdraw successful'
             redirect_to admin_non_fixed_items_path
           else
             redirect_to new_admin_withdraw_path

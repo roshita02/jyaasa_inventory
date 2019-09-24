@@ -15,6 +15,7 @@ ActiveAdmin.register FixedItem do
     link_to 'Assign an Item', new_admin_item_assignment_path
   end
   index do
+    column :id
     column :name
     column :category
     column 'Total Qty', :quantity
