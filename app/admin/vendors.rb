@@ -5,7 +5,6 @@ ActiveAdmin.register Vendor do
   menu priority: 7
   permit_params :name, :pan_no
   index do
-    column :id
     column :name
     column :pan_no
     actions
@@ -16,21 +15,19 @@ ActiveAdmin.register Vendor do
         attributes_table do
           row :name
           row :pan_no
-          # row 'Items' do
-          # FixedItemPurchase.all.where(vendor_id: Vendor.find(params[:id]))
-          # NonFixedItemPurchase.all.where(vendor_id: Vendor.find(params[:id]))
-          # end
         end
       end
 
       column do
         panel 'Purchased Items history' do
-          table_for vendor.purchase do
-            column :purchased_date
-            column :item
-            column :category
-            column :quantity
-            column :rate
+          paginated_collection(vendor.purchase.page(params[:page]).per(5), download_links: false) do
+            table_for vendor.purchase do
+              column :purchased_date
+              column :item
+              column :category
+              column :quantity
+              column :rate
+            end
           end
         end
       end
@@ -38,9 +35,9 @@ ActiveAdmin.register Vendor do
   end
 
   form do |f|
-    f.inputs 'New Item' do
-      f.input :name
-      f.input :pan_no
+    f.inputs 'Vendor details' do
+      f.input :name, placeholder: 'Enter vendor name'
+      f.input :pan_no, placeholder: 'Enter PAN NO.'
     end
     f.actions do
       f.action :submit
@@ -71,5 +68,13 @@ ActiveAdmin.register Vendor do
     def vendor_params
       params.require(:vendor).permit(:name, :pan_no)
     end
+  end
+
+  filter :name
+  filter :pan_no
+
+  csv do
+    column :name 
+    column :pan_no
   end
 end

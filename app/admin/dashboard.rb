@@ -5,32 +5,62 @@ ActiveAdmin.register_page 'Dashboard' do
   content title: proc { I18n.t('active_admin.dashboard') } do
     columns do
       column do
-        panel 'Item Requests' do
-          h2 ItemRequest.all.where('status': 'pending').count
-        end
-      end
-
-      column do
         panel 'Fixed Items' do
-          h2 FixedItem.count
+          h1 FixedItem.count
         end
       end
 
       column do
         panel 'Non Fixed Items' do
-          h2 NonFixedItem.count
+          h1 NonFixedItem.count
+        end
+      end
+
+      column do
+        panel 'Items assigned' do
+          h1 ItemAssignment.all.where('status': 'assigned').count
         end
       end
 
       column do
         panel 'Employees' do
-          h2 Employee.count
+          h1 Employee.count
         end
       end
 
       column do
         panel 'Vendors' do
-          h2 Vendor.count
+          h1 Vendor.count
+        end
+      end
+    end
+  
+    columns do
+      column do
+        panel 'Non Fixed Item Status' do
+          pie_chart Item.group(:status).count, donut: true, colors: ['#e70a0a', '#4CAF50', '#f5af0f'], messages: { empty: 'No data' }
+        end
+      end
+
+      column do
+        panel 'Pending Item requests' do
+          if ItemRequest.where(status: 'pending').count != 0
+            table_for ItemRequest.where(status: 'pending').order(created_at: :desc).limit(5) do |t|
+              t.column :employee_id do |i|
+                "#{i.employee.first_name.capitalize} #{i.employee.last_name.capitalize}"
+              end
+              t.column :item
+              t.column 'Qty', &:quantity
+              t.column('Action') do |item_request|
+                span link_to 'View', admin_item_request_path(item_request), class: 'btn btn-primary'
+                span link_to 'Approve', approve_admin_item_request_path(item_request), method: :patch, class: 'btn btn-success'
+                span link_to 'Reject', reject_admin_item_request_path(item_request), method: :patch, class: 'btn btn-danger'
+              end
+            end
+            span link_to 'View all', admin_item_requests_path 
+          else
+            para 'No new Item requests yet'
+          end
         end
       end
     end

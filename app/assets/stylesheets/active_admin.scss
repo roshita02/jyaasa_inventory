@@ -19,8 +19,7 @@ $skinLogo: url("jyaasa-logo.png");
 // Overriding any non-variable SASS must be done after the fact.
 // For example, to change the default status-tag color:
 //
-//   .status_tag { background: #6090DB; }
-
+//   .status_tag { background: #6090DB; 
 
 #header h1.site_title {
   background-size: 105px;
@@ -30,17 +29,10 @@ $skinLogo: url("jyaasa-logo.png");
 }
 
 form{
-  input[type=text],input[type=number], input[type=date], textarea {
-    width: 170px;
+  input[type=text], input[type=number], input[type=date], input[type=email], input[type=password], textarea {
+    width: 190px;
   }
 }
-
-.status_tag {
-  &.ok, &.green { background: #8daa92; }
-  &.warning, &.orange { background: #e29b20; }
-  &.error, &.red { background: #d45f53; }
-}
-
 .btn{
   border-radius: 3px;
   color: white !important;
@@ -69,9 +61,77 @@ form{
 .btn-primary:hover {
   background-color: #008CBA !important;
 }
-.assigned {
+span.status_tag.assigned{
+  background-color: #f5af0f;
+}
+span.status_tag.returned{
   background-color: #4CAF50;
 }
-.returned {
-  background-color:#ffad00;
+span.status_tag.low_stock{
+  background-color: #f5af0f;
+}
+span.status_tag.in_stock{
+  background-color: #4CAF50;
+}
+span.status_tag.out_of_stock{
+  background-color: #e70a0a;
+}
+.abutton{
+  background: #e70a0a;
+  color: white !important;
+  display: inline-block;
+  padding: 4px;
+  border-radius: 1px;
+  margin-top: 8px;
+  text-decoration: none !important;
+}
+form fieldset > ol > li p.inline-errors {
+  margin: -1.3em 0px 0px 39%;
+}
+button, select {
+  width: 213px;
+}
+.my-panel {
+  display: inline-block;
+  min-width: 55%;
+  min-height: 200px;
+  text-align: left;
+}
+.panel_contents table tr.odd td {
+  background: #ffffff; 
+}
+.panel_contents table tr.even td {
+  background: #ffffff;
+}
+table{
+  min-height: 100px;
+  min-width: 400px;
+}
+th, td, caption {
+  padding: 13px 10px 4px 5px;
+}
+.attributes_table table th {
+  font-weight: bold;
+  font-size: 12px;
+  text-transform: uppercase;
+  color: #5E6469;
+}
+.attributes_table table td {
+ color: black;
+}
+th, td, caption {
+  padding: 13px 9px 2px 0px;
+}
+
+.panel{
+  border: none;
+}
+.panel > h3{
+  text-align: center;
+}
+h1{
+  text-align: center;
+}
+#title_bar {
+  padding: 9px 25px;
 }

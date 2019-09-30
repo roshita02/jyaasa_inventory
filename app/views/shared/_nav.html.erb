@@ -1,0 +1,20 @@
+<nav class="navbar navbar-fixed-top" >
+      <div class="container">
+        <div class="navbar-header">
+         <%= link_to image_tag("jyaasa-logo.png", alt: "logo"), '/' , class: "navbar-brand img" %>       
+        </div>
+        <% if employee_signed_in? %>
+            <div class="navbar-right nav navbar-brand">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="color: #57595D">
+                        <%= current_employee.email %> <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><%= link_to "Edit profile", edit_employee_registration_path %></li>
+                        <li><%= link_to "Log out", destroy_employee_session_path, :method => 'delete'%></li>
+                    </ul>
+                </li>                   
+            </div>
+        <% end %>
+      </div>
+</nav> 

@@ -1,11 +1,16 @@
-<div class="panel panel-default custom-panel-position" style="width: 350px;">
-  <div class="panel-heading text-center">
-  <h4><strong><i class="glyphicon glyphicon-log-in"></i>&nbsp;&nbsp;Login as</strong></h4>
+<body id="homepage">
+<div class="login-form">    
+  <div class="avatar">
+	 <%= link_to image_tag("jyaasa-logo.png", alt: "logo"), '/' , class: "navbar-brand img" %>
   </div>
-  <div class="panel-body">
-    <div class= "actions">
-      <%= link_to "Admin", new_admin_user_session_path , class: "btn btn-light btn-lg" %>
-      <%= link_to "Employee", employee_dashboard_index_path, class: "btn btn-light btn-lg pull-right" %>
+    	<h4 class="modal-title">Inventory System</h4>
+
+  <div class= "login-form-group">
+   <div class= "actions">
+      <%= link_to "Admin", new_admin_user_session_path , class: "btn btn-blue btn-lg" %>
+      <%= link_to "Employee", employee_dashboard_index_path, class: "btn btn-orange pull-right btn-lg" %>
     </div>
   </div>
 </div>
+</body>
+

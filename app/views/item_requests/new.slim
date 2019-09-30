@@ -1,5 +1,3 @@
-.panel.panel-default.custom-panel-position
-  .panel-heading.text-center
-    h4
-      strong Request an Item
+= render :partial => '/shared/nav'
+.panel.panel-default
   = render 'form', item_request: @item_request

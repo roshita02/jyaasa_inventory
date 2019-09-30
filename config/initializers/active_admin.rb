@@ -7,6 +7,8 @@ ActiveAdmin.setup do |config|
   # for each of the active admin pages.
   #
   config.site_title = 'Jyaasa Inventory'
+  config.register_javascript "https://www.google.com/jsapi"
+  config.register_javascript "chartkick.js"
 
   # Set the link url for the title. For example, to take
   # users to your main site. Defaults to no link.
@@ -306,7 +308,8 @@ ActiveAdmin.setup do |config|
   # By default, the footer shows the current Active Admin version. You can
   # override the content of the footer here.
   #
-  config.footer = 'Jyaasa Inventory'
+  config.default_per_page = 20
+  config.footer = ->(_) { Admin::ActiveAdminFooter.to_s }
   # == Sorting
   #
   # By default ActiveAdmin::OrderClause is used for sorting logic
@@ -314,6 +317,7 @@ ActiveAdmin.setup do |config|
   #
   # config.order_clause = MyOrderClause
   config.namespace :admin do |admin|
+    admin.download_links = [:csv, :json]
     admin.build_menu do |menu|
       menu.add label: 'Items', priority: 2
       menu.add label: 'Category', priority: 6

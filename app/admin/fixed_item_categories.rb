@@ -10,8 +10,8 @@ ActiveAdmin.register FixedItemCategory do
   end
   form do |f|
     f.inputs 'Fixed item category' do
-      f.input :name
-      f.input :depreciation_rate
+      f.input :name, placeholder: 'Enter category name'
+      f.input :depreciation_rate, placeholder: 'Enter depreciation rate'
     end
     f.actions
   end
@@ -29,11 +29,19 @@ ActiveAdmin.register FixedItemCategory do
 
       column do
         panel 'Items' do
-          table_for fixed_item_category.items do
-            column :name
+          paginated_collection(fixed_item_category.items.page(params[:page]).per(5), download_links: false) do
+            table_for fixed_item_category.items do
+              column :name
+              column 'Total Qty', &:quantity
+              column 'Assigned Qty', &:assigned_quantity
+              column 'Remaining Qty', &:remaining_quantity  
+            end
           end
         end
       end
     end
   end
+
+  filter :name, label: 'Category name'
+  filter :depreciation_rate
 end

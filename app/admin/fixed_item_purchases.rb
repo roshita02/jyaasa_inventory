@@ -15,28 +15,28 @@ ActiveAdmin.register FixedItemPurchase do
   end
 
   form do |f|
-    f.inputs 'Purchase' do
-      f.input :category_id, label: 'Category', as: :select, collection: FixedItemCategory.all, prompt: 'Select one', input_html: { class: 'categorylist' }
-      li do
-        ul do
-          f.input :item_id, label: 'Item', as: :select, collection: FixedItem.all, prompt: 'Select one', input_html: { class: 'itemfilterlist' }
+    f.inputs 'Purchase details' do
+      f.input :category_id, label: 'Category', as: :select, collection: FixedItemCategory.all, prompt: 'Select category', input_html: { class: 'categorylist' }
+        li do
+          ul do
+            f.input :item_id, label: 'Item', as: :select, collection: FixedItem.all, prompt: 'Select an item', input_html: { class: 'itemfilterlist' }
+          end
+          ul do
+            link_to 'Add new Item', new_admin_fixed_item_path, class: 'abutton'
+          end
         end
-        ul do
-          link_to 'Add new Item', new_admin_fixed_item_path
-        end
-      end
       # f.input :category_id, as: :select, collection: FixedItemCategory.select(:id, :name),input_html: {onchange: remote_request(:post, :change_items,{category_id: "$('#fixed_item_purchase_category_id').val()"}, :item_id)
-      f.input :quantity, min: '0'
-      f.input :rate
+      f.input :quantity, label: 'Quantity (qty)', min: '0', placeholder: 'Enter quantity'
+      f.input :rate, placeholder: 'Enter rate'
       li do
         ul do
-          f.input :vendor_id, label: 'Vendor', as: :select, collection: Vendor.all, prompt: 'Select one'
+          f.input :vendor_id, label: 'Vendor', as: :select, collection: Vendor.all, prompt: 'Select vendor'
         end
         ul do
-          link_to 'Add new Vendor', new_admin_vendor_path
+          link_to 'Add new Vendor', new_admin_vendor_path, class: 'abutton'
         end
       end
-      f.input :purchased_date, as: :datepicker
+      f.input :purchased_date, as: :datepicker, placeholder: 'Select purchased date'
     end
     f.actions do
       f.action :submit
@@ -83,4 +83,16 @@ ActiveAdmin.register FixedItemPurchase do
   filter :item_id, label: 'Item', as: :select, collection: proc { FixedItem.all.map { |i| [i.name, i.id] } }
   filter :vendor_id
   filter :purchased_date
+
+  csv do
+    column :purchased_date
+    column :item do |i|
+      i.item.name.to_s
+    end
+    column :vendor do |i|
+      i.vendor.name.to_s
+    end
+    column 'Qty', &:quantity
+    column :rate
+  end
 end

@@ -5,7 +5,7 @@ class ItemsController < InheritedResources::Base
   before_action :authenticate_employee!
 
   def index
-    @items = ItemAssignment.all.where(current_employee.id == :employee_id)
+    @items = ItemAssignment.all.where(current_employee.id == :employee_id).paginate(page: params[:page], per_page: 10)
   end
 
   private

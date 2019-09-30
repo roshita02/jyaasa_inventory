@@ -12,7 +12,6 @@ class ItemRequestsController < InheritedResources::Base
     @item_request = ItemRequest.new(item_request_params)
     @item_request.employee = current_employee
     if @item_request.save
-      flash[:success] = 'Request made successfully'
       redirect_to employee_dashboard_index_path
     else
       render 'new'
@@ -20,7 +19,7 @@ class ItemRequestsController < InheritedResources::Base
   end
 
   def index
-    @item_requests = current_employee.item_request
+    @item_requests = current_employee.item_request.paginate(page: params[:page], per_page: 10)
   end
 
   private

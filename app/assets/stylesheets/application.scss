@@ -19,21 +19,23 @@
 @import "parsley";
 
 .navbar {
-	
-	background: #ee4b00;
+	background: #ecf0f1;
+	height: 60px;
 }
 .navbar .navbar-nav {
 	font-weight: bold;
 	letter-spacing: 1px;
 	font-size: 30px;
 	color: #141A46;
+	display: inline-block;
 }
 .navbar .navbar-brand {
-	font-weight: bold;
-	letter-spacing: 1px;
-	font-size: 20px;
-	color: #ffffff;
+	color: #ee4b00;
 	text-decoration: none;
+	padding: 9px 15px;
+}
+.navbar-brand img {
+		max-width: 100px;
 }
 .navbar-right {
 	margin-right: 0;
@@ -41,59 +43,15 @@
 body {
 	padding-top: 70px;
 }
+.panel{
+	margin-top: 30px;
+	margin-bottom: 30px;
+}
 .custom-panel-position{
 	margin: auto;
 	margin-top: 100px;
 	width: 400px;
 }
-a:hover {
-	background-color: unset !important;
-	color: unset !important;
-}
-.greeting {
-  font-size: 36px;
-	position: relative;
-	text-align: center;
-  left: 50%;
-	top: 50%;
-	padding-top: 40px;
-  transform: translate(-50%, -50%);
-}
-.order-card {
-	color: #fff;
-}
-
-.bg-c-blue {
-	background: linear-gradient(45deg,#4099ff,#73b4ff);
-}
-
-.bg-c-green {
-	background: linear-gradient(45deg,#2ed8b6,#59e0c5);
-}
-
-.bg-c-yellow {
-	background: linear-gradient(45deg,#FFB64D,#ffcb80);
-}
-
-.card {
-	border-radius: 5px;
-	-webkit-box-shadow: 0 1px 2.94px 0.06px rgba(4,26,55,0.16);
-	box-shadow: 0 1px 2.94px 0.06px rgba(4,26,55,0.16);
-	border: none;
-	margin-bottom: 30px;
-	-webkit-transition: all 0.3s ease-in-out;
-	transition: all 0.3s ease-in-out;
-	height: 150px;
-}
-
-.card .card-block {
-	padding: 25px;
-}
-
-.card a{
-	text-decoration: none;
-	color: #ffffff;
-} 
 .footer {
   position: fixed;
   left: 0;
@@ -101,4 +59,56 @@ a:hover {
   width: 100%;
 	text-align: center;
 }
-																
+.table{
+	margin: 0 auto;
+}
+.btn-orange {
+	background-color: #E86100;
+	color: #fff;
+}
+.btn-orange:hover {
+	background-color: #E86100;
+	color: #fff;
+}
+.btn-blue{
+	background-color: #00B9BD;
+  color: #fff;
+}
+.btn-blue:hover {
+	background-color: #00B9BD;
+  color: #fff;
+}
+.login-form {
+	width: 350px;
+	padding: 20px 0 55px 0;
+	background-color: #ecf0f1;
+	margin: auto;
+	left: 50%;
+	top: 50%;
+	position: absolute;
+	-webkit-transform: translate3d(-50%, -50%, 0);
+	-moz-transform: translate3d(-50%, -50%, 0);
+	transform: translate3d(-50%, -50%, 0);
+}
+.login-form-group{
+	padding: 10px 40px;
+}
+.login-form h4 {
+	text-align: center;
+	font-size: 22px;
+	margin-bottom: 20px;
+}
+.login-form .avatar {
+	text-align: center;
+	display: inline-block;
+	padding: 10px 110px 10px;
+}			
+#homepage{
+	background-color: #E86100;
+}
+h4{
+	color: #004853;
+}
+.actions{
+	padding: 5px 0 10px 15px;
+}

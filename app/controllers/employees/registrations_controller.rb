@@ -3,11 +3,11 @@
 # Controller for employee registration
 class Employees::RegistrationsController < Devise::RegistrationsController
   def sign_up_params
-    params.require(:employee).permit(:first_name, :last_name, :email)
+    params.require(:employee).permit(:first_name, :last_name, :email, :designation, :password)
   end
 
   def account_update_params
-    params.require(:employee).permit(:first_name, :last_name, :email)
+    params.require(:employee).permit(:first_name, :last_name, :designation, :email, :password, :current_password,)
   end
 
   # before_action :configure_sign_up_params, only: [:create]

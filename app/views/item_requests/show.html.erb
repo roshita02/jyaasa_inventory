@@ -1,22 +1,28 @@
-<h3>Requested Item</h3><br>
-<p>
-  <strong>Item name:</strong>
-  <%= @item_request.item %>
-</p>
+<%= render :partial => '/shared/nav' %>
+  <h3>Item Request details</h3>
+  <p>
+    <strong>Item name:</strong>
+    <%= @item_request.item %>
+  </p>
 
-<p>
-  <strong>Quantity:</strong>
-  <%= @item_request.quantity %>
-</p>
+  <p>
+    <strong>Quantity:</strong>
+    <%= @item_request.quantity %>
+  </p>
 
-<p>
-  <strong>Reason of need:</strong>
-  <%= @item_request.reason %>
-</p>
+  <p>
+    <strong>Reason of need:</strong>
+    <%= @item_request.reason %>
+  </p>
 
-<p>
-  <strong>Requested at:</strong>
-  <%= @item_request.created_at %>
-</p>
+  <p>
+    <strong>Requested date:</strong>
+    <%= @item_request.created_at.to_date %>
+  </p>
 
-<%= link_to 'Back', employee_dashboard_index_path %>
+   <p>
+    <strong>Approved date:</strong>
+    <%= @item_request.approved_date %>
+  </p>
+
+  <%= link_to 'Back', employee_dashboard_index_path, class: 'btn btn-orange' %>

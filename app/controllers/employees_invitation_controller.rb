@@ -24,13 +24,14 @@ class EmployeesInvitationController < Devise::InvitationsController
     params.require(resource_name).permit(
       :invitation_token,
       :password,
-      :password_confirmation
+      :password_confirmation,
+      :current_password
     )
   end
 
   def configure_permitted_parameters
     devise_parameter_sanitizer.permit(:accept_invitation) do |u|
-      u.permit(:email, :password, :password_confirmation, :raw_invitation_token, :first_name, :last_name)
+      u.permit(:email, :password, :password_confirmation, :raw_invitation_token, :first_name, :last_name, :current_password)
     end
   end
 end

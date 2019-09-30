@@ -18,4 +18,10 @@
 
 # Model for fixed item inheriting from Item
 class FixedItem < Item
+  after_update :update_remaining_quantity
+  def update_remaining_quantity
+    quantity = self.quantity
+    assigned_quantity = self.assigned_quantity.to_i
+    self.update_column(:remaining_quantity,quantity - assigned_quantity)
+  end
 end

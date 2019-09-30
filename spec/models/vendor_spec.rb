@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe Vendor, type: :model do
-  it 'is not valid without name' do
+  it 'is not valid without vendor name' do
     vendor = Vendor.new(name: nil)
     expect(vendor).to_not be_valid
   end

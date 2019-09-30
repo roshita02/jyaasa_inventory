@@ -4,15 +4,18 @@
 // that code so it'll be compiled.
 
 require("@rails/ujs").start()
-require("turbolinks").start()
+// require("turbolinks").start()
 require("@rails/activestorage").start()
 require("channels");
 //= require active_admin
 //= require jquery
 //= require jquery_ujs
+//= require popper
 //= require parsley
 //= require bootstrap
 //= require bootstrap-dropdown
+require("chartkick")
+require("chart.js")
 
 $(document).on('turbolinks:load', function(){
   $('.navbar .dropdown').hover(function() {
@@ -22,22 +25,3 @@ $(document).on('turbolinks:load', function(){
 	});
 })
 
-$(document).ready(function(){
-  var thehours = new Date().getHours();
-	var themessage;
-	var morning = ('Good morning');
-	var afternoon = ('Good afternoon');
-	var evening = ('Good evening');
-
-	if (thehours >= 0 && thehours < 12) {
-		themessage = morning; 
-
-	} else if (thehours >= 12 && thehours < 17) {
-		themessage = afternoon;
-
-	} else if (thehours >= 17 && thehours < 24) {
-		themessage = evening;
-	}
-	$('.greeting').append(themessage);
-
-})
