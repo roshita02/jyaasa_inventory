@@ -73,5 +73,4 @@ gem 'rails_best_practices', '~> 1.15', '>= 1.15.7'
 gem 'ransack', git: 'https://github.com/activerecord-hackery/ransack'
 gem 'slim', '~> 3.0', '>= 3.0.6'
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
-gem 'will_paginate', '~> 3.1', '>= 3.1.6'
-gem 'will_paginate-bootstrap'
+

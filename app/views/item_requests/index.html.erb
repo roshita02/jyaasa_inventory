@@ -18,11 +18,13 @@
           <td><%= item_request.status %></td>
           <td><%= item_request.created_at.to_date %></td>
           <td><%= item_request.approved_date %></td>
-        </tr>
       <% end %>
     </tbody>
+    <tfoot>
+      <tr>
+        <td> <%= link_to 'Back', employee_dashboard_index_path, class: 'btn btn-orange' %> </td>
+      </tr>
+    </tfoot>
   </table>
 
-  <div class="text-left">
-  <b> <%= will_paginate @item_requests, renderer: BootstrapPagination::Rails %></b>
-  </div>
+ 

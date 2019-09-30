@@ -92,9 +92,10 @@ button, select {
   width: 213px;
 }
 .my-panel {
+  border: none !important;
   display: inline-block;
-  min-width: 55%;
-  min-height: 200px;
+  width: 50%;
+  max-height: 200px;
   text-align: left;
 }
 .panel_contents table tr.odd td {

@@ -19,7 +19,7 @@ class ItemRequestsController < InheritedResources::Base
   end
 
   def index
-    @item_requests = current_employee.item_request.paginate(page: params[:page], per_page: 10)
+    @item_requests = current_employee.item_request
   end
 
   private
