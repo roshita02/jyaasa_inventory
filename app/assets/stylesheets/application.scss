@@ -112,3 +112,14 @@ h4{
 .actions{
 	padding: 5px 0 10px 15px;
 }
+.parsley-errors-list {
+	color: red;
+}
+input.parsley-error, select.parsley-error, textarea.parsley-error {
+	color: #B94A48;
+	background-color: #fff;
+}
+input.parsley-success, select.parsley-success, textarea.parsley-success {
+	color: black;
+	background-color: #fff;
+}

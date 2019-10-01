@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   resources :item_requests
   resources :items
   devise_for :employees, controllers: { sessions: 'employees/sessions', invitations: 'employees_invitation', registrations: 'employees/registrations' }
+  resources :employees_imports, only: [:new, :create]
   resources :vendors
   resources :employee_dashboard
   devise_for :admin_users, ActiveAdmin::Devise.config

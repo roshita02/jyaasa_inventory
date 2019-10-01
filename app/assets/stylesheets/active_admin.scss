@@ -136,3 +136,16 @@ h1{
 #title_bar {
   padding: 9px 25px;
 }
+.parsley-errors-list li.parsley-required {
+  background:white;
+  color: #fff;
+}
+.parsley-errors-list.filled {
+  opacity: 1;
+  color: red !important;
+}
+.control-group.error input.parsley-validated{
+  color: #b94a48 !important;
+  background-color: #fff !important;
+  border: 1px solid #EED3D7 !important;
+}

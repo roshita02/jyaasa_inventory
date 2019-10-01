@@ -4,13 +4,15 @@ ActiveAdmin.register Employee do
   menu priority: 8
   # config.clear_action_items!
   actions :all, except: %i[new]
-  permit_params :email, :first_name, :last_name, :designation, :invitation_token
+  permit_params :email, :name, :designation, :contact_no, :address, :invitation_token
 
   index do
-    column 'Name' do |employee|
-      "#{employee.first_name} #{employee.last_name}"
-    end
+    column :id
+    column :name
+    column :designation
     column :email
+    column :contact_no
+    column :address
     column :invitation_sent_at
     column :invitation_accepted_at
     actions
@@ -20,12 +22,26 @@ ActiveAdmin.register Employee do
     link_to 'Invite New Employee', new_invitation_admin_employees_path
   end
 
+  action_item :only => :index do
+    link_to 'Import', :action => 'upload_csv'
+  end
+
+  collection_action :upload_csv do
+    render 'admin/csv/upload_csv'
+  end
+
+  collection_action :import_csv, :method => :post do
+    Employee.import(params[:csv])
+    redirect_to :action => :index, :flash => 'File imported successfully!'
+  end
+
   collection_action :new_invitation do
     @employee = Employee.new
   end
 
   collection_action :send_invitation, method: :post do
-    @employee = Employee.invite!({ email: params[:employee][:email], first_name: params[:employee][:first_name], last_name: params[:employee][:last_name], designation: params[:employee][:designation] },
+    @employee = Employee.invite!({ email: params[:employee][:email], name: params[:employee][:name],
+       designation: params[:employee][:designation], contact_no: params[:employee][:contact_no], address: params[:employee][:address] },
                                  current_employee)
     if @employee.errors.empty?
       flash[:success] = 'Employee has been successfully invited.'
@@ -36,12 +52,13 @@ ActiveAdmin.register Employee do
       redirect_to new_invitation_admin_employees_path
     end
   end
-
   form do |f|
     f.inputs 'Employee details' do
-      f.input :first_name
-      f.input :last_name
+      f.input :name
       f.input :designation
+      f.input :email
+      f.input :contact_no
+      f.input :address
     end
     f.actions
   end
@@ -83,9 +100,11 @@ ActiveAdmin.register Employee do
   end
 
   filter :email
+  filter :name
   filter :first_name
   filter :last_name
   filter :designation
   filter :invitation_sent_at
   filter :invitation_accepted_at
+  
 end
