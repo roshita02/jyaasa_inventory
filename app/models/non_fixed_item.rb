@@ -18,6 +18,7 @@
 class NonFixedItem < Item
   after_update :update_remaining_quantity
   after_commit :update_status, :on => [:create, :update]
+
   def update_remaining_quantity
     quantity = self.quantity
     withdrawn_quantity = self.withdrawn_quantity.to_i

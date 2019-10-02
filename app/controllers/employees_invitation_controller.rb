@@ -31,7 +31,7 @@ class EmployeesInvitationController < Devise::InvitationsController
 
   def configure_permitted_parameters
     devise_parameter_sanitizer.permit(:accept_invitation) do |u|
-      u.permit(:email, :password, :password_confirmation, :raw_invitation_token, :first_name, :last_name, :current_password)
+      u.permit(:name , :email, :designation,:contact_no, :address, :password, :password_confirmation, :raw_invitation_token, :current_password)
     end
   end
 end

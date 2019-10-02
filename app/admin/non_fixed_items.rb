@@ -5,6 +5,20 @@ ActiveAdmin.register NonFixedItem do
   menu parent: 'Items'
   permit_params :name, :quantity, :category_id, :status, :remaining_quantity
   config.clear_action_items!
+
+  action_item :only => :index do
+    link_to 'Import items', :action => 'import_item'
+  end
+
+  collection_action :import_item do
+    render 'admin/csv/upload_item'
+  end
+
+  collection_action :import_file, :method => :post do
+    NonFixedItem.import(params[:file])
+    redirect_to :action => :index, :notice => 'Non Fixed Items imported successfully!'
+  end
+
   action_item :new do
     link_to 'New Purchase', new_admin_non_fixed_item_purchase_path
   end
@@ -17,9 +31,9 @@ ActiveAdmin.register NonFixedItem do
   index do
     column :name
     column :category
-    column 'Total Quantity', :quantity
+    column 'Total Quantity', :quantity 
     column 'Withdrawn Quantity', :withdrawn_quantity
-    column 'Remaining Quantity', :remaining_quantity 
+    column 'Remaining Quantity', :remaining_quantity    
     column(:status) { |item| status_tag(item.status) }
     actions
   end

@@ -24,4 +24,29 @@ class Item < ApplicationRecord
   has_many :purchase, dependent: :destroy
   has_many :withdraw, dependent: :destroy
   enum status: { 'out of stock': 0, 'in stock': 1, 'low stock': 2 }
+ 
+
+  def self.open_spreadsheet(file)
+    case File.extname(file.original_filename)
+    when '.csv' then Roo::CSV.new(file.path, csv_options: { encoding: 'iso-8859-1:utf-8' }, file_warning: :ignore)
+    when '.xls' then Roo::Excel.new(file.path, file_warning: :ignore)
+    when '.xlsx' then Roo::Excelx.new(file.path, file_warning: :ignore)
+    else 
+      raise "Unknown file type: #{file.original_filename}"
+    end
+  end
+
+  def self.import(file)
+    spreadsheet = open_spreadsheet(file)
+    header = spreadsheet.row(3)
+    (4..spreadsheet.last_row).each do |i|
+      row = Hash[[header, spreadsheet.row(i)].transpose]
+      item = find_by_id(row['id']) || new
+      values = row.to_hash
+      item.attributes = values
+      category = values['category_id']
+      item.category_id = Category.find_by_name(category).id
+      item.save!
+    end
+  end
 end

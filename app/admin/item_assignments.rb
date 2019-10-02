@@ -104,7 +104,7 @@ ActiveAdmin.register ItemAssignment do
 
   csv do
     column :employee do |i|
-      "#{i.employee.first_name} #{i.employee.last_name}"
+      "#{i.employee.name}"
     end
     column :item do |i|
       i.item.name.to_s

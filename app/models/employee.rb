@@ -44,7 +44,7 @@ class Employee < ApplicationRecord
 
   def self.import(file)
     spreadsheet = open_spreadsheet(file)
-    header = spreadsheet.row(4)    
+    header = spreadsheet.row(4)
     (5..spreadsheet.last_row).each do |i|
       row = Hash[[header, spreadsheet.row(i)].transpose]
       employee = find_by_id(row['id']) || new
