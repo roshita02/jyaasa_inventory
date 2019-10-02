@@ -27,7 +27,7 @@ class Employee < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :invitable, :database_authenticatable, :registerable,
-         :recoverable, :rememberable
+         :recoverable, :rememberable, :validatable
   has_many :item_request
   has_many :item_assignment
   has_many :items, through: :item_assignment
@@ -43,7 +43,7 @@ class Employee < ApplicationRecord
   end
 
   def self.import(file)
-    spreadsheet = open_spreadsheet(file)    
+    spreadsheet = open_spreadsheet(file)
     header = spreadsheet.row(4)    
     (5..spreadsheet.last_row).each do |i|
       row = Hash[[header, spreadsheet.row(i)].transpose]

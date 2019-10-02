@@ -24,14 +24,20 @@
             </thead>
 
             <tbody>
-                <% @item_requests.order("created_at desc").limit(5).each do |item_request| %>
+                <% if @item_requests.empty? %>
                     <tr>
-                        <td><%= item_request.item %></td>
-                        <td><%= item_request.quantity %></td>
-                        <td><%= item_request.status %></td>
-                        <td><%= item_request.created_at.to_date %></td>
-                        <td><%= link_to 'Show', item_request, class: 'btn btn-info' %></td>
+                        <td colspan= "5">No entries found </td>
                     </tr>
+                <% else %>
+                    <% @item_requests.order("created_at desc").limit(5).each do |item_request| %>
+                        <tr>
+                            <td><%= item_request.item %></td>
+                            <td><%= item_request.quantity %></td>
+                            <td><%= item_request.status %></td>
+                            <td><%= item_request.created_at.to_date %></td>
+                            <td><%= link_to 'Show', item_request, class: 'btn btn-info' %></td>
+                        </tr>
+                    <% end %>
                 <% end %>
             </tbody>
         </table>

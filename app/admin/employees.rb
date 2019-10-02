@@ -18,21 +18,21 @@ ActiveAdmin.register Employee do
     actions
   end
 
+  action_item :only => :index do
+    link_to 'Import file', :action => 'upload_csv'
+  end
+
   action_item :new do
     link_to 'Invite New Employee', new_invitation_admin_employees_path
   end
 
-  action_item :only => :index do
-    link_to 'Import', :action => 'upload_csv'
-  end
-
   collection_action :upload_csv do
-    render 'admin/csv/upload_csv'
+    render 'admin/csv/upload_file'
   end
 
   collection_action :import_csv, :method => :post do
     Employee.import(params[:csv])
-    redirect_to :action => :index, :flash => 'File imported successfully!'
+    redirect_to :action => :index, :notice => 'File imported and invitation sent successfully!'
   end
 
   collection_action :new_invitation do
@@ -41,7 +41,7 @@ ActiveAdmin.register Employee do
 
   collection_action :send_invitation, method: :post do
     @employee = Employee.invite!({ email: params[:employee][:email], name: params[:employee][:name],
-       designation: params[:employee][:designation], contact_no: params[:employee][:contact_no], address: params[:employee][:address] },
+                             designation: params[:employee][:designation], contact_no: params[:employee][:contact_no], address: params[:employee][:address] },
                                  current_employee)
     if @employee.errors.empty?
       flash[:success] = 'Employee has been successfully invited.'
@@ -67,10 +67,11 @@ ActiveAdmin.register Employee do
     columns do
       column do
         attributes_table do
-          row :first_name
-          row :last_name
+          row :name
           row :designation
           row :email
+          row :contact_no
+          row :address
           row('Invitation Sent at', &:invitation_sent_at)
           row('Invitation Accepted at', &:invitation_accepted_at)
         end
@@ -91,19 +92,18 @@ ActiveAdmin.register Employee do
   end
 
   csv do
-    column :first_name
-    column :last_name
+    column :name
     column :designation
     column :email
-    column :invitation_sent_at
-    column :invitation_accepted_at
+    column :contact_no
+    column :address
   end
 
   filter :email
   filter :name
-  filter :first_name
-  filter :last_name
   filter :designation
+  filter :contact_no
+  filter :address
   filter :invitation_sent_at
   filter :invitation_accepted_at
   

@@ -97,5 +97,6 @@ ActiveAdmin.register NonFixedItem do
     end
     column 'Total Quantity', &:quantity
     column 'Withdrawn Quantity', &:withdrawn_quantity
+    column 'Remaining Quantity', &:remaining_quantity
   end
 end

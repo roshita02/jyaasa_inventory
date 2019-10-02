@@ -97,6 +97,8 @@
         1,
         1,
         1,
+        1,
+        1,
         null,
         0,
         null,
@@ -151,6 +153,32 @@
         1,
         1,
         null,
+        null
+      ],
+      "/home/roshita/Documents/projects/jyaasa_inventory/spec/mailers/item_request_notifier_mailer_spec.rb": [
+        1,
+        null,
+        1,
+        1,
+        null
+      ],
+      "/home/roshita/Documents/projects/jyaasa_inventory/app/mailers/item_request_notifier_mailer.rb": [
+        1,
+        1,
+        null,
+        1,
+        0,
+        0,
+        0,
+        null,
+        null
+      ],
+      "/home/roshita/Documents/projects/jyaasa_inventory/app/mailers/application_mailer.rb": [
+        null,
+        null,
+        1,
+        1,
+        1,
         null
       ],
       "/home/roshita/Documents/projects/jyaasa_inventory/spec/models/admin_user_spec.rb": [
@@ -480,22 +508,8 @@
         1,
         null,
         null
-      ],
-      "/home/roshita/Documents/projects/jyaasa_inventory/spec/views/employees_imports/create.html.erb_spec.rb": [
-        1,
-        null,
-        1,
-        1,
-        null
-      ],
-      "/home/roshita/Documents/projects/jyaasa_inventory/spec/views/employees_imports/new.html.erb_spec.rb": [
-        1,
-        null,
-        1,
-        1,
-        null
       ]
     },
-    "timestamp": 1569923711
+    "timestamp": 1569949262
   }
 }

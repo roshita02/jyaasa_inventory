@@ -19,8 +19,7 @@ ActiveAdmin.register ItemRequest do
 
   index do
     column :employee_id do |i|
-      "#{i.employee.first_name.capitalize} #{i.employee.last_name.capitalize}"
-      # "#{self.firstname} #{self.lastname}"
+      "#{i.employee.name}"
     end
     column :item
     column :quantity

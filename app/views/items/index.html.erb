@@ -14,14 +14,20 @@
   </thead>
 
   <tbody>
-    <% @items.each do |item| %>
+    <% if @items.empty? %>
       <tr>
-        <td><%= Item.find(item.item_id).name %></td>
-        <td><%= item.quantity %></td>
-        <td><%= item.status %></td>
-        <td><%= item.created_at.to_date %></td>
-        <td><%= item.returned_date %></td>
+          <td colspan= "5">No items yet </td>
       </tr>
+    <% else %>
+      <% @items.order("created_at desc").each do |item| %>
+        <tr>
+          <td><%= Item.find(item.item_id).name %></td>
+          <td><%= item.quantity %></td>
+          <td><%= item.status %></td>
+          <td><%= item.created_at.to_date %></td>
+          <td><%= item.returned_date %></td>
+        </tr>
+      <% end %>
     <% end %>
   </tbody>
    <tfoot>

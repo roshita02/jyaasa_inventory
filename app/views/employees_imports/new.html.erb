@@ -1,8 +1,0 @@
-<%= form_for @employees_import do |f| %>
-  <%= f.inputs "Employee details" do %>
-    <%= f.file_field :file %>
-  <% end %>
-  <%= f.actions do %>
-    <%= f.action :submit, label: 'Import' %>
-  <% end %>
-<% end %>

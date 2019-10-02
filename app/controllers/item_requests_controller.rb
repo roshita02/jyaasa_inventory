@@ -12,6 +12,8 @@ class ItemRequestsController < InheritedResources::Base
     @item_request = ItemRequest.new(item_request_params)
     @item_request.employee = current_employee
     if @item_request.save
+      ItemRequestNotifierMailer.new_item_request(@item_request, @item_request.employee).deliver_later(wait: 1.second)
+      sleep 1
       redirect_to employee_dashboard_index_path
     else
       render 'new'

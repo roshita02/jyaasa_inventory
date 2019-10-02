@@ -14,13 +14,14 @@ ActiveAdmin.register FixedItem do
   action_item :new do
     link_to 'Assign an Item', new_admin_item_assignment_path
   end
+  
   index do
     column :id
     column :name
     column :category
-    column 'Total Qty', :quantity
-    column 'Assigned Qty', :assigned_quantity
-    column 'Remaining Qty', :remaining_quantity
+    column 'Total Quantity', :quantity
+    column 'Assigned Quantity', :assigned_quantity
+    column 'Remaining Quantity', :remaining_quantity
     actions
     # div class: 'my-panel' do
     # h3 "Total items: #{collection.pluck(:quantity).reduce(:+)}"
@@ -127,6 +128,7 @@ ActiveAdmin.register FixedItem do
       i.category.name.to_s
     end
     column 'Total Quantity', &:quantity
-    column :assigned_quantity
+    column 'Assigned Quantity', &:assigned_quantity
+    column 'Remaining Quantity', &:remaining_quantity
   end
 end

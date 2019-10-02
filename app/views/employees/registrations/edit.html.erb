@@ -13,51 +13,55 @@
 
         <div class= "form-row">
           <div class="form-group col-md-6">
-            <%= f.label :first_name %><br />
-            <%= f.text_field :first_name, autocomplete: "first_name", class: "form-control", :readonly => true %>
+            <%= f.label :name %><br />
+            <%= f.text_field :name, autocomplete: "name", class: "form-control", :readonly => true %>
           </div>
 
-          <div class="form-group col-md-6">
-            <%= f.label :last_name %><br />
-            <%= f.text_field :last_name, autocomplete: "last_name", class: "form-control", :readonly => true %>
-          </div>
-        </div>
-
-        <div class="form-row">
           <div class="form-group col-md-6">
             <%= f.label :designation %><br />
             <%= f.text_field :designation, autocomplete: "designation", class: "form-control", :readonly => true %>
           </div>
+        </div>
 
+        <div class= "form-row">
           <div class="form-group col-md-6">
             <%= f.label :email %><br />
-            <%= f.email_field :email, autofocus: true, autocomplete: "email",class: "form-control", :readonly => true %>
+            <%= f.email_field :email, autocomplete: "email", class: "form-control", :readonly => true %>
+          </div>
+          <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+            <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+          <% end %>
+
+          <div class="form-group col-md-6">
+            <%= f.label :contact_no %><br />
+            <%= f.text_field :contact_no, autofocus: true, autocomplete: "contact_no",class: "form-control" %>
           </div>
         </div>
 
-        <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-          <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
-        <% end %>
-
         <div class="form-row">
+          <div class="form-group col-md-6">
+            <%= f.label :address %> <i>(leave blank if you don't want to change it)</i><br />
+            <%= f.text_field :address, autocomplete: "address", class: "form-control", placeholder: 'Enter your address' %>
+          </div>
+
           <div class="form-group col-md-6">
             <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
             <%= f.password_field :password, autocomplete: "new-password", class: "form-control", placeholder: 'Enter your new password' %>
-          
           </div>
+        </div>
 
+        <div class="form-row">
           <div class="form-group col-md-6">
             <%= f.label :password_confirmation %><br />
             <%= f.password_field :password_confirmation, autocomplete: "new-password",class: "form-control", placeholder: 'Re-type new password' %>
           </div>
-        </div>
 
-        <div class="form-row">
-          <div class="form-group col-md-6">
+           <div class="form-group col-md-6">
             <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
-            <%= f.password_field :current_password , class: "form-control", placeholder: 'Enter your current password' %><hr>
+            <%= f.password_field :current_password , class: "form-control", placeholder: 'Enter your current password' %>
           </div>
         </div>
+
         <div class= "form-row">
           <div class="actions col-md-12">
             <%= f.submit "Update", class: "btn btn-blue" %>

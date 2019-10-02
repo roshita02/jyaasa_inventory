@@ -8,7 +8,10 @@ ActiveAdmin.register ItemAssignment do
   scope :returned
   index do
     column :employee_id do |i|
-      "#{i.employee.first_name.capitalize} #{i.employee.last_name.capitalize}"
+      "#{i.employee.name}"
+    end
+    column 'Designation', :employee_id do |i|
+      "#{i.employee.designation}"
     end
     column :item
     column :quantity
@@ -24,9 +27,23 @@ ActiveAdmin.register ItemAssignment do
     end
   end
 
+  show do
+    columns do
+      column do
+        attributes_table do
+          row :employee
+          row :item
+          row :quantity
+          row('Assigned date', &:created_at)
+          row :status
+        end
+      end
+    end
+  end
+
   form do |f|
     f.inputs  'Assign Item' do
-      f.input :employee_id, label: 'Employee', as: :select, collection: Employee.all.map { |employee| [employee.email, employee.id] }, prompt: 'Select employee'
+      f.input :employee_id, label: 'Employee', as: :select, collection: Employee.all.map { |employee| ["#{employee.name}, #{employee.designation}", employee.id] }, prompt: 'Select employee'
       f.input :category_id, label: 'Category', as: :select, collection: FixedItemCategory.all, prompt: 'Select category', input_html: { class: 'categorylist' }
       f.input :item_id, label: 'Item', as: :select, collection: FixedItem.all.map { |i| [i.name, i.id] }, prompt: 'Select an item', input_html: { class: 'itemfilterlist' }
       f.input :quantity, label: 'Quantity(Qty)', placeholder: 'Enter quantity'
