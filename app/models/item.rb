@@ -25,7 +25,6 @@ class Item < ApplicationRecord
   has_many :withdraw, dependent: :destroy
   enum status: { 'out of stock': 0, 'in stock': 1, 'low stock': 2 }
  
-
   def self.open_spreadsheet(file)
     case File.extname(file.original_filename)
     when '.csv' then Roo::CSV.new(file.path, csv_options: { encoding: 'iso-8859-1:utf-8' }, file_warning: :ignore)
@@ -41,12 +40,17 @@ class Item < ApplicationRecord
     header = spreadsheet.row(3)
     (4..spreadsheet.last_row).each do |i|
       row = Hash[[header, spreadsheet.row(i)].transpose]
-      item = find_by_id(row['id']) || new
       values = row.to_hash
+      item = find_by_id(row['id']) || new
       item.attributes = values
       category = values['category_id']
       item.category_id = Category.find_by_name(category).id
-      item.save!
+      item.remaining_quantity = values['quantity']
+      if item.valid?
+        item.save!
+      else
+        return false
+      end
     end
   end
 end

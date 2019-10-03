@@ -19,15 +19,15 @@ ActiveAdmin.register ItemRequest do
 
   index do
     column :employee_id do |i|
-      "#{i.employee.name}"
+      "#{i.employee.name.capitalize}"
     end
     column :item
     column :quantity
     # column :status
     column('Action') do |item_request|
       if item_request.status == 'pending'
-        span link_to 'Approve', approve_admin_item_request_path(item_request), method: :patch, class: 'btn btn-success'
-        span link_to 'Reject', reject_admin_item_request_path(item_request), method: :patch, class: 'btn btn-danger'
+        span link_to 'Approve', approve_admin_item_request_path(item_request), method: :patch, class: 'btn btn-success',  data: { confirm: 'Are you sure? ' }
+        span link_to 'Reject', reject_admin_item_request_path(item_request), method: :patch, class: 'btn btn-danger',  data: { confirm: 'Are you sure? ' }
       end
       span link_to 'View', admin_item_request_path(item_request), class: 'btn btn-primary'
     end

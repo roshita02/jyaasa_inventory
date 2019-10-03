@@ -14,7 +14,7 @@ class ItemRequestsController < InheritedResources::Base
     if @item_request.save
       ItemRequestNotifierMailer.new_item_request(@item_request, @item_request.employee).deliver_later(wait: 1.second)
       sleep 1
-      redirect_to employee_dashboard_index_path
+      redirect_to employee_dashboard_index_path, flash: { success: 'Item Request successful' }
     else
       render 'new'
     end

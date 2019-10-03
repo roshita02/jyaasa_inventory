@@ -20,10 +20,7 @@ ActiveAdmin.register NonFixedItem do
   end
 
   action_item :new do
-    link_to 'New Purchase', new_admin_non_fixed_item_purchase_path
-  end
-  action_item :new do
-    link_to 'Purchase list', admin_non_fixed_item_purchases_path
+    link_to 'Purchase', admin_non_fixed_item_purchases_path
   end
   action_item :withdraw do
     link_to 'Withdraw an Item', new_admin_withdraw_path

@@ -3,21 +3,33 @@
 ActiveAdmin.register ItemAssignment do
   menu false
   config.clear_action_items!
-  permit_params :employee_id, :category_id, :item_id, :quantity, :status, :returned_date
+  permit_params :employee_id, :category_id, :item_id, :quantity, :status, :assigned_date, :returned_date
   scope :assigned, :default => true
   scope :returned
+
+  action_item :only => :index do
+    link_to 'Import file', :action => 'import_item_assignment'
+  end
+
+  collection_action :import_item_assignment do
+    render 'admin/csv/upload_item_assignment'
+  end
+
+  collection_action :import_file, :method => :post do
+    ItemAssignment.import(params[:file])
+    redirect_to :action => :index, :notice => 'Imported sucessfully!'
+  end
+
   index do
     column :employee_id do |i|
-      "#{i.employee.name}"
+      "#{i.employee.name.capitalize}"
     end
     column 'Designation', :employee_id do |i|
-      "#{i.employee.designation}"
+      "#{i.employee.designation.capitalize}"
     end
     column :item
     column :quantity
-    column 'Assigned date' do |item_assignment|
-      item_assignment.created_at.to_date
-    end
+    column :assigned_date
     column :returned_date unless params['scope'] == 'assigned'
     column('Action') do |item_assignment|
       span link_to 'View', admin_item_assignment_path(item_assignment), class: 'btn btn-primary'
@@ -43,7 +55,7 @@ ActiveAdmin.register ItemAssignment do
 
   form do |f|
     f.inputs  'Assign Item' do
-      f.input :employee_id, label: 'Employee', as: :select, collection: Employee.all.map { |employee| ["#{employee.name}, #{employee.designation}", employee.id] }, prompt: 'Select employee'
+      f.input :employee_id, label: 'Employee', as: :select, collection: Employee.all.map { |employee| ["#{employee.name.capitalize}, #{employee.designation.capitalize}", employee.id] }, prompt: 'Select employee'
       f.input :category_id, label: 'Category', as: :select, collection: FixedItemCategory.all, prompt: 'Select category', input_html: { class: 'categorylist' }
       f.input :item_id, label: 'Item', as: :select, collection: FixedItem.all.map { |i| [i.name, i.id] }, prompt: 'Select an item', input_html: { class: 'itemfilterlist' }
       f.input :quantity, label: 'Quantity(Qty)', placeholder: 'Enter quantity'
@@ -93,7 +105,7 @@ ActiveAdmin.register ItemAssignment do
     private
 
     def item_assignment_params
-      params.require(:item_assignment).permit(:category_id, :item_id, :employee_id, :quantity, :status, :returned_date)
+      params.require(:item_assignment).permit(:category_id, :item_id, :employee_id, :quantity, :status, :assigned_date, :returned_date)
     end
   end
 
@@ -110,6 +122,6 @@ ActiveAdmin.register ItemAssignment do
       i.item.name.to_s
     end
     column :quantity
-    column :created_at
+    column :assigned_date
   end
 end

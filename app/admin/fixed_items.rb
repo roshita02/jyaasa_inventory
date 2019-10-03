@@ -18,12 +18,8 @@ ActiveAdmin.register FixedItem do
     FixedItem.import(params[:file])
     redirect_to :action => :index, :notice => 'Fixed Items imported successfully!'
   end
-
   action_item :new do
-    link_to 'New Purchase', new_admin_fixed_item_purchase_path
-  end
-  action_item :new do
-    link_to 'Purchase list', admin_fixed_item_purchases_path
+    link_to 'Purchase', admin_fixed_item_purchases_path
   end
   action_item :new do
     link_to 'Assign an Item', new_admin_item_assignment_path

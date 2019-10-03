@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_01_171433) do
+ActiveRecord::Schema.define(version: 2019_10_03_085453) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -86,6 +86,7 @@ ActiveRecord::Schema.define(version: 2019_10_01_171433) do
     t.integer "status", default: 1
     t.date "returned_date"
     t.bigint "category_id"
+    t.date "assigned_date"
     t.index ["category_id"], name: "index_item_assignments_on_category_id"
     t.index ["employee_id"], name: "index_item_assignments_on_employee_id"
     t.index ["item_id"], name: "index_item_assignments_on_item_id"
