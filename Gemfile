@@ -31,7 +31,7 @@ gem 'jbuilder', '~> 2.7'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.2', require: false
 
-gem "rubycritic", require: false
+gem 'rubycritic', require: false
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -73,6 +73,6 @@ gem 'parsley-rails'
 gem 'rails_best_practices', '~> 1.15', '>= 1.15.7'
 gem 'ransack', git: 'https://github.com/activerecord-hackery/ransack'
 gem 'roo', '~> 2.7', '>= 2.7.1'
+gem 'roo-xls'
 gem 'slim', '~> 3.0', '>= 3.0.6'
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
-gem 'roo-xls'

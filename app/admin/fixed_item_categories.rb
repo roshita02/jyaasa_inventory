@@ -34,7 +34,7 @@ ActiveAdmin.register FixedItemCategory do
               column :name
               column 'Total Qty', &:quantity
               column 'Assigned Qty', &:assigned_quantity
-              column 'Remaining Qty', &:remaining_quantity  
+              column 'Remaining Qty', &:remaining_quantity
             end
           end
         end

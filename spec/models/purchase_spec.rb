@@ -15,6 +15,6 @@ RSpec.describe Purchase, type: :model do
 
   it 'is not valid without quantity' do
     purchase = Purchase.new(quantity: nil)
-    expect(purchase).to_not be_valid  
+    expect(purchase).to_not be_valid
   end
 end

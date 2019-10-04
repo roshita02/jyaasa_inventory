@@ -31,13 +31,13 @@ class Employee < ApplicationRecord
   has_many :item_request
   has_many :item_assignment
   has_many :items, through: :item_assignment
-  
+
   def self.open_spreadsheet(file)
     case File.extname(file.original_filename)
     when '.csv' then Roo::CSV.new(file.path, csv_options: { encoding: 'iso-8859-1:utf-8' }, file_warning: :ignore)
     when '.xls' then Roo::Excel.new(file.path, file_warning: :ignore)
     when '.xlsx' then Roo::Excelx.new(file.path, file_warning: :ignore)
-    else 
+    else
       raise "Unknown file type: #{file.original_filename}"
     end
   end
@@ -55,6 +55,6 @@ class Employee < ApplicationRecord
   end
 
   def self.send_invitation(employee)
-    Employee.invite!( email: employee.email, name: employee.name, designation: employee.designation, contact_no: employee.contact_no, address: employee.address )
+    Employee.invite!(email: employee.email, name: employee.name, designation: employee.designation, contact_no: employee.contact_no, address: employee.address)
   end
 end

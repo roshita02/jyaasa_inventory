@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Model for withdraw
 class Withdraw < ApplicationRecord
   belongs_to :item
   belongs_to :category

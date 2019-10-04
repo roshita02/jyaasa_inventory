@@ -4,28 +4,28 @@ ActiveAdmin.register ItemAssignment do
   menu false
   config.clear_action_items!
   permit_params :employee_id, :category_id, :item_id, :quantity, :status, :assigned_date, :returned_date
-  scope :assigned, :default => true
+  scope :assigned, default: true
   scope :returned
 
-  action_item :only => :index do
-    link_to 'Import file', :action => 'import_item_assignment'
+  action_item only: :index do
+    link_to 'Import file', action: 'import_item_assignment'
   end
 
   collection_action :import_item_assignment do
     render 'admin/csv/upload_item_assignment'
   end
 
-  collection_action :import_file, :method => :post do
+  collection_action :import_file, method: :post do
     ItemAssignment.import(params[:file])
-    redirect_to :action => :index, :notice => 'Imported sucessfully!'
+    redirect_to action: :index, notice: 'Imported sucessfully!'
   end
 
   index do
     column :employee_id do |i|
-      "#{i.employee.name.capitalize}"
+      i.employee.name.capitalize
     end
     column 'Designation', :employee_id do |i|
-      "#{i.employee.designation.capitalize}"
+      i.employee.designation.capitalize
     end
     column :item
     column :quantity
@@ -73,7 +73,7 @@ ActiveAdmin.register ItemAssignment do
     borrowed_qty = ItemAssignment.find_by_id(params[:id]).quantity.to_i
     @borrowed_item = ItemAssignment.find_by_id(params[:id]).item
     @borrowed_item.decrement!(:assigned_quantity, borrowed_qty)
-    @borrowed_item.increment(:remaining_quantity,borrowed_qty)
+    @borrowed_item.increment(:remaining_quantity, borrowed_qty)
     @borrowed_item.save
     redirect_to admin_item_assignments_path, notice: 'Item marked as returned!'
   end
@@ -116,10 +116,10 @@ ActiveAdmin.register ItemAssignment do
 
   csv do
     column :employee do |i|
-      "#{i.employee.name}"
+      i.employee.name
     end
     column :item do |i|
-      i.item.name.to_s
+      i.item.name
     end
     column :quantity
     column :assigned_date

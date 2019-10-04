@@ -7,7 +7,7 @@ class Employees::RegistrationsController < Devise::RegistrationsController
   end
 
   def account_update_params
-    params.require(:employee).permit(:name,  :designation, :contact_no, :address, :email, :password, :current_password,)
+    params.require(:employee).permit(:name, :designation, :contact_no, :address, :email, :password, :current_password)
   end
 
   # before_action :configure_sign_up_params, only: [:create]

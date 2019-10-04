@@ -74,7 +74,7 @@ ActiveAdmin.register Vendor do
   filter :pan_no
 
   csv do
-    column :name 
+    column :name
     column :pan_no
   end
 end

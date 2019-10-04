@@ -18,7 +18,7 @@ fixed_items = [
   { name: 'LAPTOP', category_id: 1 },
   { name: 'IMAC', category_id: 1 },
   { name: 'MACBOOK', category_id: 1 },
-  { name: 'DESKTOP COMPUTER', category_id: 1,  },
+  { name: 'DESKTOP COMPUTER', category_id: 1 },
   { name: 'MONITOR', category_id: 1 },
   { name: 'NUC', category_id: 1 },
   { name: 'TV', category_id: 1 },
@@ -141,7 +141,7 @@ non_fixed_items = [
   { name: 'SCREW DRIVER', category_id: 6 },
   { name: 'CLAMPERS', category_id: 6 },
   { name: 'CUTTERS/KNIFE', category_id: 6 },
-  
+
   { name: 'SUGAR', category_id: 7 },
   { name: 'COFFEE', category_id: 7 },
   { name: 'TEA', category_id: 7 },

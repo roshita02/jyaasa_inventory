@@ -43,7 +43,7 @@ class Purchase < ApplicationRecord
     when '.csv' then Roo::CSV.new(file.path, csv_options: { encoding: 'iso-8859-1:utf-8' }, file_warning: :ignore)
     when '.xls' then Roo::Excel.new(file.path, file_warning: :ignore)
     when '.xlsx' then Roo::Excelx.new(file.path, file_warning: :ignore)
-    else 
+    else
       raise "Unknown file type: #{file.original_filename}"
     end
   end

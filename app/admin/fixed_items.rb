@@ -6,17 +6,17 @@ ActiveAdmin.register FixedItem do
   permit_params :name, :quantity, :category, :status, :remaining_quantity
   config.clear_action_items!
 
-  action_item :only => :index do
-    link_to 'Import items', :action => 'import_item'
+  action_item only: :index do
+    link_to 'Import items', action: 'import_item'
   end
 
   collection_action :import_item do
     render 'admin/csv/upload_item'
   end
 
-  collection_action :import_file, :method => :post do
+  collection_action :import_file, method: :post do
     FixedItem.import(params[:file])
-    redirect_to :action => :index, :notice => 'Fixed Items imported successfully!'
+    redirect_to action: :index, notice: 'Fixed Items imported successfully!'
   end
   action_item :new do
     link_to 'Purchase', admin_fixed_item_purchases_path
@@ -24,7 +24,7 @@ ActiveAdmin.register FixedItem do
   action_item :new do
     link_to 'Assign an Item', new_admin_item_assignment_path
   end
-  
+
   index do
     column :id
     column :name
@@ -65,7 +65,7 @@ ActiveAdmin.register FixedItem do
           paginated_collection(fixed_item.item_assignment.page(params[:page]).per(4), download_links: false) do
             table_for(collection) do
               column :employee_id do |i|
-                "#{i.employee.name}"
+                i.employee.name.to_s
               end
               column 'Qty', :quantity
               column(:status) { |item_assignment| status_tag(item_assignment.status) }
@@ -123,7 +123,7 @@ ActiveAdmin.register FixedItem do
     private
 
     def item_params
-      params.require(:fixed_item).permit(:name, :category_id, :status, :quantity, :remaining_quantity )
+      params.require(:fixed_item).permit(:name, :category_id, :status, :quantity, :remaining_quantity)
     end
   end
 

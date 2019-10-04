@@ -18,8 +18,8 @@ ActiveAdmin.register Employee do
     actions
   end
 
-  action_item :only => :index do
-    link_to 'Import file', :action => 'upload_csv'
+  action_item only: :index do
+    link_to 'Import file', action: 'upload_csv'
   end
 
   action_item :new do
@@ -30,9 +30,9 @@ ActiveAdmin.register Employee do
     render 'admin/csv/upload_file'
   end
 
-  collection_action :import_csv, :method => :post do
+  collection_action :import_csv, method: :post do
     Employee.import(params[:csv])
-    redirect_to :action => :index, :notice => 'File imported and invitation sent successfully!'
+    redirect_to action: :index, notice: 'File imported and invitation sent successfully!'
   end
 
   collection_action :new_invitation do
@@ -41,7 +41,7 @@ ActiveAdmin.register Employee do
 
   collection_action :send_invitation, method: :post do
     @employee = Employee.invite!({ email: params[:employee][:email], name: params[:employee][:name],
-                             designation: params[:employee][:designation], contact_no: params[:employee][:contact_no], address: params[:employee][:address] },
+                                   designation: params[:employee][:designation], contact_no: params[:employee][:contact_no], address: params[:employee][:address] },
                                  current_employee)
     if @employee.errors.empty?
       flash[:success] = 'Employee has been successfully invited.'
@@ -106,5 +106,4 @@ ActiveAdmin.register Employee do
   filter :address
   filter :invitation_sent_at
   filter :invitation_accepted_at
-  
 end

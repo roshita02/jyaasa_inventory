@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
-RSpec.describe 'Dashboard', :type => :system do
+RSpec.describe 'Dashboard', type: :system do
   let(:admin_user) { FactoryBot.create(:admin_user) }
   before do
     sign_in admin_user

@@ -6,17 +6,17 @@ ActiveAdmin.register NonFixedItemPurchase do
   config.clear_action_items!
   permit_params :item_id, :quantity, :purchased_date, :category_id
 
-  action_item :only => :index do
-    link_to 'Import item purchase', :action => 'import_item_purchase'
+  action_item only: :index do
+    link_to 'Import item purchase', action: 'import_item_purchase'
   end
 
   collection_action :import_item_purchase do
     render 'admin/csv/upload_item_purchase'
   end
 
-  collection_action :import_purchase_file, :method => :post do
+  collection_action :import_purchase_file, method: :post do
     NonFixedItemPurchase.import(params[:file])
-    redirect_to :action => :index, :notice => 'Imported successfully!'
+    redirect_to action: :index, notice: 'Imported successfully!'
   end
 
   action_item :new do
@@ -38,7 +38,7 @@ ActiveAdmin.register NonFixedItemPurchase do
           f.input :item_id, label: 'Item', as: :select, collection: NonFixedItem.all, prompt: 'Select an item', input_html: { class: 'itemfilterlist' }
         end
         ul do
-          link_to 'Add new Item', new_admin_non_fixed_item_path,class: 'abutton'
+          link_to 'Add new Item', new_admin_non_fixed_item_path, class: 'abutton'
         end
       end
       f.input :quantity, label: 'Quantity (qty)', min: '0', placeholder: 'Enter quantity'

@@ -17,22 +17,22 @@
 #
 class NonFixedItem < Item
   after_update :update_remaining_quantity
-  after_commit :update_status, :on => [:create, :update]
+  after_commit :update_status, on: %i[create update]
 
   def update_remaining_quantity
     quantity = self.quantity
     withdrawn_quantity = self.withdrawn_quantity.to_i
-    self.update_column(:remaining_quantity,quantity.to_i - withdrawn_quantity.to_i)
+    update_column(:remaining_quantity, quantity.to_i - withdrawn_quantity.to_i)
   end
 
   def update_status
-    quantity = self.remaining_quantity
+    quantity = remaining_quantity
     if quantity.to_i.zero?
-      self.update_column(:status,'out of stock')
-     elsif quantity.to_i < 5
-      self.update_column(:status,'low stock')
-     else
-      self.update_column(:status,'in stock')
+      update_column(:status, 'out of stock')
+    elsif quantity.to_i < 5
+      update_column(:status, 'low stock')
+    else
+      update_column(:status, 'in stock')
     end
   end
 end

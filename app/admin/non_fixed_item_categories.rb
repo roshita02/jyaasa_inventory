@@ -36,6 +36,5 @@ ActiveAdmin.register NonFixedItemCategory do
       end
     end
   end
-
-  filter :name  
+  filter :name
 end

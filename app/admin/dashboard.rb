@@ -34,7 +34,7 @@ ActiveAdmin.register_page 'Dashboard' do
         end
       end
     end
-  
+
     columns do
       column do
         panel 'Non Fixed Item Status' do
@@ -47,7 +47,7 @@ ActiveAdmin.register_page 'Dashboard' do
           if ItemRequest.where(status: 'pending').count != 0
             table_for ItemRequest.where(status: 'pending').order(created_at: :desc).limit(5) do |t|
               t.column :employee_id do |i|
-                "#{i.employee.name.capitalize}"
+                i.employee.name.capitalize
               end
               t.column :item
               t.column 'Qty', &:quantity
@@ -57,7 +57,7 @@ ActiveAdmin.register_page 'Dashboard' do
                 span link_to 'Reject', reject_admin_item_request_path(item_request), method: :patch, class: 'btn btn-danger', data: { confirm: 'Are you sure? ' }
               end
             end
-            span link_to 'View all', admin_item_requests_path 
+            span link_to 'View all', admin_item_requests_path
           else
             para 'No new Item requests yet'
           end

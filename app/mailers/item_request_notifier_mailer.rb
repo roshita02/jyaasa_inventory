@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ItemRequestNotifierMailer < ApplicationMailer
   default from: 'admin@example.com'
 

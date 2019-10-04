@@ -6,17 +6,17 @@ ActiveAdmin.register FixedItemPurchase do
   config.clear_action_items!
   permit_params :category_id, :item_id, :vendor_id, :quantity, :rate, :purchased_date
 
-  action_item :only => :index do
-    link_to 'Import item purchase', :action => 'import_item_purchase'
+  action_item only: :index do
+    link_to 'Import item purchase', action: 'import_item_purchase'
   end
 
   collection_action :import_item_purchase do
     render 'admin/csv/upload_item_purchase'
   end
 
-  collection_action :import_purchase_file, :method => :post do
+  collection_action :import_purchase_file, method: :post do
     FixedItemPurchase.import(params[:file])
-    redirect_to :action => :index, :notice => 'Imported successfully!'
+    redirect_to action: :index, notice: 'Imported successfully!'
   end
 
   action_item :new do
@@ -35,14 +35,14 @@ ActiveAdmin.register FixedItemPurchase do
   form do |f|
     f.inputs 'Purchase details' do
       f.input :category_id, label: 'Category', as: :select, collection: FixedItemCategory.all, prompt: 'Select category', input_html: { class: 'categorylist' }
-        li do
-          ul do
-            f.input :item_id, label: 'Item', as: :select, collection: FixedItem.all, prompt: 'Select an item', input_html: { class: 'itemfilterlist' }
-          end
-          ul do
-            link_to 'Add new Item', new_admin_fixed_item_path, class: 'abutton'
-          end
+      li do
+        ul do
+          f.input :item_id, label: 'Item', as: :select, collection: FixedItem.all, prompt: 'Select an item', input_html: { class: 'itemfilterlist' }
         end
+        ul do
+          link_to 'Add new Item', new_admin_fixed_item_path, class: 'abutton'
+        end
+      end
       # f.input :category_id, as: :select, collection: FixedItemCategory.select(:id, :name),input_html: {onchange: remote_request(:post, :change_items,{category_id: "$('#fixed_item_purchase_category_id').val()"}, :item_id)
       f.input :quantity, label: 'Quantity (qty)', min: '0', placeholder: 'Enter quantity'
       f.input :rate, placeholder: 'Enter rate'
