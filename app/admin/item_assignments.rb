@@ -6,6 +6,7 @@ ActiveAdmin.register ItemAssignment do
   permit_params :employee_id, :category_id, :item_id, :quantity, :status, :assigned_date, :returned_date
   scope :assigned, default: true
   scope :returned
+  scope :transferred
 
   action_item only: :index do
     link_to 'Import file', action: 'import_item_assignment'
@@ -35,6 +36,7 @@ ActiveAdmin.register ItemAssignment do
       span link_to 'View', admin_item_assignment_path(item_assignment), class: 'btn btn-primary'
       if item_assignment.status == 'assigned'
         span link_to 'Returned', returned_admin_item_assignment_path(item_assignment), method: :patch, class: 'btn btn-success', data: { confirm: 'Are you sure? ' }
+        span link_to 'Transfer', transfer_admin_item_assignment_path(item_assignment), method: :patch
       end
     end
   end
@@ -46,8 +48,9 @@ ActiveAdmin.register ItemAssignment do
           row :employee
           row :item
           row :quantity
-          row('Assigned date', &:created_at)
           row :status
+          row :assigned_date
+          row :returned_date
         end
       end
     end
@@ -59,6 +62,7 @@ ActiveAdmin.register ItemAssignment do
       f.input :category_id, label: 'Category', as: :select, collection: FixedItemCategory.all, prompt: 'Select category', input_html: { class: 'categorylist' }
       f.input :item_id, label: 'Item', as: :select, collection: FixedItem.all.map { |i| [i.name, i.id] }, prompt: 'Select an item', input_html: { class: 'itemfilterlist' }
       f.input :quantity, label: 'Quantity(Qty)', placeholder: 'Enter quantity'
+      f.input :assigned_date, label: 'Assigned Date', as: :datepicker, placeholder: 'Select item assigned date'
     end
     f.actions do
       f.action :submit, label: 'Assign'
@@ -76,6 +80,12 @@ ActiveAdmin.register ItemAssignment do
     @borrowed_item.increment(:remaining_quantity, borrowed_qty)
     @borrowed_item.save
     redirect_to admin_item_assignments_path, notice: 'Item marked as returned!'
+  end
+
+  member_action :transfer, method: :patch do
+    item_assignment = ItemAssignment.find(params[:id])
+    redirect_to edit_admin_item_assignment_path(item_assignment)
+    # item_assignment.update_attribute :status, 'transferred'
   end
 
   controller do
@@ -111,7 +121,7 @@ ActiveAdmin.register ItemAssignment do
 
   filter :employee_id, as: :select, collection: proc { Employee.all.map { |employee| [employee.email, employee.id] } }
   filter :item_id, as: :select, collection: proc { FixedItem.all.map { |fixeditem| [fixeditem.name, fixeditem.id] } }
-  filter :created_at, label: 'Assigned at'
+  filter :assigned_date, label: 'Assigned at'
   filter :returned_date, label: 'Returned at'
 
   csv do

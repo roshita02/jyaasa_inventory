@@ -47,8 +47,9 @@ class Employee < ApplicationRecord
     header = spreadsheet.row(4)
     (5..spreadsheet.last_row).each do |i|
       row = Hash[[header, spreadsheet.row(i)].transpose]
-      employee = find_by_id(row['id']) || new
+      employee = find_or_create_by(email: row['email'])
       employee.attributes = row.to_hash
+      employee.update({ name: row['name'], email: row['email'] })
       send_invitation(employee)
       # employee.save!
     end

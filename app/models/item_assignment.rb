@@ -6,9 +6,10 @@ class ItemAssignment < ApplicationRecord
   belongs_to :category
   belongs_to :item
   validates_presence_of :quantity, :employee_id, :category_id, :item_id
-  enum status: { assigned: 1, returned: 0 }
+  enum status: { assigned: 1, returned: 0, transferred: 2 }
   scope :returned, -> { where(status: 'returned') }
   scope :assigned, -> { where(status: 'assigned') }
+  scope :transferred, -> { where(status: 'transferred') }
   after_save :remaining_quantity
 
   def remaining_quantity

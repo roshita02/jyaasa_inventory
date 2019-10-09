@@ -41,16 +41,13 @@ class Item < ApplicationRecord
     (4..spreadsheet.last_row).each do |i|
       row = Hash[[header, spreadsheet.row(i)].transpose]
       values = row.to_hash
-      item = find_by_id(row['id']) || new
+      item = find_or_create_by(name: row['name'])
       item.attributes = values
       category = values['category_id']
       item.category_id = Category.find_by_name(category).id
       item.remaining_quantity = values['quantity']
-      if item.valid?
-        item.save!
-      else
-        return false
-      end
+      item.update({ name: row['name'], quantity: row['quantity'] })
+      item.save!
     end
   end
 end
