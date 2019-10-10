@@ -1,0 +1,10 @@
+<%= semantic_form_for [:admin, @item_assignment], :url => transfer_admin_item_assignment_path,  builder: ActiveAdmin::FormBuilder do |f| %>
+  <%= f.inputs "Transfer Details" do %>
+    <%= f.input :employee_id , as: :select, collection: Employee.all.map { |employee| ["#{employee.name.capitalize}, #{employee.designation.capitalize}", employee.id] }, prompt: 'Select employee' %>
+    <%= f.input :assigned_date, as: :datepicker, label: 'Transferred date' %>
+  <% end %>
+  <%= f.actions do %>
+    <%= f.action :submit, label: 'Transfer' %>
+    <li class="cancel"><%= link_to "Cancel", admin_item_assignments_path %></li>
+  <% end %>
+<% end %>

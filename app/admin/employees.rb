@@ -39,7 +39,7 @@ ActiveAdmin.register Employee do
     @employee = Employee.new
   end
 
-  collection_action :send_invitation, method: :post do
+  collection_action :send_invitation, method: :patch do
     @employee = Employee.invite!({ email: params[:employee][:email], name: params[:employee][:name],
                                    designation: params[:employee][:designation], contact_no: params[:employee][:contact_no], address: params[:employee][:address] },
                                  current_employee)

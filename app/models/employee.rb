@@ -49,7 +49,7 @@ class Employee < ApplicationRecord
       row = Hash[[header, spreadsheet.row(i)].transpose]
       employee = find_or_create_by(email: row['email'])
       employee.attributes = row.to_hash
-      employee.update({ name: row['name'], email: row['email'] })
+      employee.update(name: row['name'], email: row['email'])
       send_invitation(employee)
       # employee.save!
     end

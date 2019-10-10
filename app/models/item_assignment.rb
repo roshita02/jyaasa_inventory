@@ -22,7 +22,7 @@ class ItemAssignment < ApplicationRecord
     when '.csv' then Roo::CSV.new(file.path, csv_options: { encoding: 'iso-8859-1:utf-8' }, file_warning: :ignore)
     when '.xls' then Roo::Excel.new(file.path, file_warning: :ignore)
     when '.xlsx' then Roo::Excelx.new(file.path, file_warning: :ignore)
-    else 
+    else
       raise "Unknown file type: #{file.original_filename}"
     end
   end
@@ -42,11 +42,11 @@ class ItemAssignment < ApplicationRecord
       item = values['item_id']
       item_assignment.item_id = FixedItem.find_by_name(item).id
       item_assignment.save!
-      if item_assignment.save
-        @item = Item.find(item_assignment.item_id)
-        @item.increment!(:assigned_quantity, values['quantity'])
-        @item.save
-      end
+      next unless item_assignment.save
+
+      @item = Item.find(item_assignment.item_id)
+      @item.increment!(:assigned_quantity, values['quantity'])
+      @item.save
     end
   end
 end

@@ -1,0 +1,13 @@
+<%= semantic_form_for [:admin, @item_assignment], :url => returned_admin_item_assignment_path, method: :patch, builder: ActiveAdmin::FormBuilder do |f| %>
+  <%= f.inputs "Details" do %>
+    <%= f.input :employee_id , as: :select, collection: Employee.all.map { |employee| ["#{employee.name.capitalize}, #{employee.designation.capitalize}", employee.id] }, 
+     :input_html => { :disabled => true } %>
+    <%= f.input :item_id, as: :select, collection: FixedItem.all, :input_html => { :disabled => true } %>
+    <%= f.input :quantity, label: 'Assigned Quantity', :input_html => { :disabled => true } %>
+    <%= f.input :returned_quantity, min: 1, max: @item_assignment.quantity %>
+  <% end %>
+  <%= f.actions do %>
+    <%= f.action :submit, label: 'Return' %>
+    <li class="cancel"><%= link_to "Cancel", admin_item_assignments_path %></li>
+  <% end %>
+<% end %>
