@@ -62,7 +62,7 @@ ActiveAdmin.register FixedItem do
 
       column do
         panel 'Item statistics' do
-          paginated_collection(fixed_item.item_assignment.page(params[:page]).per(4), download_links: false) do
+          paginated_collection(fixed_item.item_assignment.page(params[:page]).per(5), download_links: false) do
             table_for(collection) do
               column :employee_id do |i|
                 i.employee.name.to_s
@@ -76,14 +76,17 @@ ActiveAdmin.register FixedItem do
     end
 
     columns do
-      column do
-        panel 'Purchase history', class: 'my-panel' do
-          paginated_collection(fixed_item.purchase.page(params[:page]).per(5), download_links: false) do
-            table_for fixed_item.purchase do
+      column max_width: '666px' do
+        panel 'Purchase history' do
+          paginated_collection(fixed_item.purchase.page(params[:page]).per(5)) do
+            table_for(collection) do
               column :purchased_date
               column :vendor
               column 'Qty', :quantity
               column :rate
+              column 'Total Amount' do |i|
+                i.quantity * i.rate
+              end
             end
           end
         end
@@ -127,7 +130,7 @@ ActiveAdmin.register FixedItem do
     end
   end
 
-  filter :name
+  filter :name  
   filter :category_id, label: 'Category', as: :select, collection: proc { FixedItemCategory.all.map { |i| [i.name, i.id] } }
   filter :quantity
   filter :status

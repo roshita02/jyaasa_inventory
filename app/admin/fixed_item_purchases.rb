@@ -29,6 +29,9 @@ ActiveAdmin.register FixedItemPurchase do
     column :vendor
     column :quantity
     column :rate
+    column 'Total Amount' do |i|
+      i.quantity * i.rate
+    end
     actions
   end
 
@@ -112,5 +115,8 @@ ActiveAdmin.register FixedItemPurchase do
     end
     column 'Qty', &:quantity
     column :rate
+    column 'Total Amount' do |i|
+      i.quantity * i.rate
+    end
   end
 end

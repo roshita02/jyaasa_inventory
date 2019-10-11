@@ -1,4 +1,4 @@
-<%= semantic_form_for [:admin, @item_assignment], :url => returned_admin_item_assignment_path, method: :patch, builder: ActiveAdmin::FormBuilder do |f| %>
+<%= semantic_form_for [:admin, @item_assignment], :url => return_item_admin_item_assignment_path, method: :patch, builder: ActiveAdmin::FormBuilder do |f| %>
   <%= f.inputs "Details" do %>
     <%= f.input :employee_id , as: :select, collection: Employee.all.map { |employee| ["#{employee.name.capitalize}, #{employee.designation.capitalize}", employee.id] }, 
      :input_html => { :disabled => true } %>

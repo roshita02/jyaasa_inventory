@@ -18,8 +18,9 @@ ActiveAdmin.register ItemRequest do
   end
 
   index do
+    column :id
     column :employee_id do |i|
-      i.employee.name.capitalize.to_s
+      i.employee.name.capitalize
     end
     column :item
     column :quantity
@@ -56,13 +57,20 @@ ActiveAdmin.register ItemRequest do
   end
 
   show do
-    attributes_table do
-      row :employee
-      row :item
-      row :quantity
-      row('Requested at', &:created_at)
-      row :status
-      row :reason
+    columns do
+      column max_width: '662px' do
+        attributes_table do
+          row :employee
+          row :item
+          row :quantity
+          row('Requested at', &:created_at)
+          row :status
+          row :reason
+        end
+      end
+      column max_width: '662px' do
+        active_admin_comments
+      end
     end
   end
 

@@ -87,7 +87,7 @@ ActiveAdmin.register NonFixedItem do
       column do
         panel 'Purchase history' do
           paginated_collection(non_fixed_item.purchase.page(params[:page]).per(5), download_links: false) do
-            table_for collection do
+            table_for(collection) do
               column :purchased_date
               column 'Qty', :quantity
             end

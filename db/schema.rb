@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_10_045420) do
+ActiveRecord::Schema.define(version: 2019_10_10_104934) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -89,6 +89,7 @@ ActiveRecord::Schema.define(version: 2019_10_10_045420) do
     t.date "assigned_date"
     t.integer "transferred_quantity"
     t.integer "returned_quantity"
+    t.date "transferred_date"
     t.index ["category_id"], name: "index_item_assignments_on_category_id"
     t.index ["employee_id"], name: "index_item_assignments_on_employee_id"
     t.index ["item_id"], name: "index_item_assignments_on_item_id"

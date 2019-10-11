@@ -35,7 +35,7 @@ ActiveAdmin.register ItemAssignment do
     column('Action') do |item_assignment|
       span link_to 'View', admin_item_assignment_path(item_assignment), class: 'btn btn-primary'
       if item_assignment.status == 'assigned'
-        span link_to 'Returned', returned_admin_item_assignment_path(item_assignment), method: :patch, class: 'btn btn-success', data: { confirm: 'Are you sure? ' }
+        span link_to 'Returned', returned_admin_item_assignment_path(item_assignment), method: :get, class: 'btn btn-success', data: { confirm: 'Are you sure? ' }
         span link_to 'Transfer', transfer_admin_item_assignment_path(item_assignment), method: :patch, class: 'btn btn-danger'
       end
     end
@@ -43,7 +43,7 @@ ActiveAdmin.register ItemAssignment do
 
   show do
     columns do
-      column do
+      column max_width: '662px' do
         attributes_table do
           row :employee
           row :item
@@ -70,7 +70,7 @@ ActiveAdmin.register ItemAssignment do
     end
   end
 
-  member_action :returned, method: :patch do
+  member_action :returned, method: :get do
     @item_assignment = ItemAssignment.find(params[:id])
     render 'admin/item_assignments/return'
     # item_assignment.update_attribute :status, 'returned'
@@ -80,25 +80,29 @@ ActiveAdmin.register ItemAssignment do
     # @borrowed_item.decrement!(:assigned_quantity, borrowed_qty)
     # @borrowed_item.increment(:remaining_quantity, borrowed_qty)
     # @borrowed_item.save
+  end
 
+  member_action :return_item, method: :patch do
+    @item_assignment = ItemAssignment.find(params[:id])
+    # @item_assignment.update_attribute :status, 'returned'
+    # @item_assignment.update_attribute :returned_date, Time.now
     @borrowed_item = ItemAssignment.find_by_id(params[:id]).item
-    returned_qty = ItemAssignment.find_by_id(params[:id]).returned_quantity.to_i
-    @borrowed_item.decrement!(:assigned_quantity, returned_qty)
-    @borrowed_item.increment(:remaining_quantity, returned_qty)
-    # redirect_to admin_item_assignments_path, notice: 'Item marked as returned!'
+    @borrowed_item.decrement!(:assigned_quantity, params[:item_assignment][:returned_quantity].to_i)
+    @borrowed_item.increment(:remaining_quantity, params[:item_assignment][:returned_quantity].to_i)
+    @borrowed_item.save!
+    @item_assignment.update_attribute :status, 'returned'
+    @item_assignment.update_attribute :returned_date, Time.now
   end
 
   member_action :transfer, method: :patch do
     @item_assignment = ItemAssignment.find(params[:id])
-    render 'admin/item_assignments/transfer'
-    if @item_assignment.errors.empty?
-      flash[:success] = 'Transfer successful'
-      @item_assignment.update_attribute :status, 'transferred'
-      # redirect_to admin_item_assignments_path
-    else
-      messages = @errors.full_messages.map { |msg| msg }.join(', ')
-      flash[:error] = 'Error : ' + messages
-    end
+    # render 'admin/item_assignments/transfer'
+    # @borrowed_item = ItemAssignment.find_by_id(params[:id]).item
+    # @borrowed_item.decrement!(:assigned_quantity, params[:item_assignment][:returned_quantity].to_i)
+    # @borrowed_item.increment(:transferred_quantity, params[:item_assignment][:returned_quantity].to_i)
+    # @borrowed_item.save!
+    # @item_assignment.update_attribute :status, 'transferred'
+    # @item_assignment.update_attribute :transferred_date, Time.now
   end
 
   controller do
