@@ -58,7 +58,7 @@ ActiveAdmin.register ItemRequest do
 
   show do
     columns do
-      column max_width: '662px' do
+      column max_width: '666px' do
         attributes_table do
           row :employee
           row :item
@@ -67,9 +67,6 @@ ActiveAdmin.register ItemRequest do
           row :status
           row :reason
         end
-      end
-      column max_width: '662px' do
-        active_admin_comments
       end
     end
   end

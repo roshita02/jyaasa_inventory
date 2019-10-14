@@ -22,4 +22,5 @@ class ItemRequest < ApplicationRecord
   scope :pending, -> { where(status: 'pending') }
   scope :approved, -> { where(status: 'approved') }
   scope :rejected, -> { where(status: 'rejected') }
+  has_many :active_admin_comments, as: :resource, class_name: 'ActiveAdmin::Comment'
 end

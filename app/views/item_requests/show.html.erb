@@ -25,4 +25,10 @@
     <%= @item_request.approved_date %>
   </p>
 
+  <h3>Comments</h3>
+  <p>
+    <%= @comments.each do |comment| %>
+      <p><b><%= comment.namespace %>: </b><%= comment.body %></p>
+   <% end %>
+  </p>
   <%= link_to 'Back', employee_dashboard_index_path, class: 'btn btn-orange' %>

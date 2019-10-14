@@ -62,7 +62,9 @@ ActiveAdmin.register ItemAssignment do
       f.input :category_id, label: 'Category', as: :select, collection: FixedItemCategory.all, prompt: 'Select category', input_html: { class: 'categorylist' }
       f.input :item_id, label: 'Item', as: :select, collection: FixedItem.all.map { |i| [i.name, i.id] }, prompt: 'Select an item', input_html: { class: 'itemfilterlist' }
       f.input :quantity, label: 'Quantity(Qty)', placeholder: 'Enter quantity'
-      f.input :assigned_date, label: 'Assigned Date', as: :datepicker, placeholder: 'Select item assigned date'
+      f.input :assigned_date, label: 'Assigned Date', as: :datepicker, placeholder: 'Select item assigned date', datepicker_options: {
+        max_date: Date.today
+      }
     end
     f.actions do
       f.action :submit, label: 'Assign'

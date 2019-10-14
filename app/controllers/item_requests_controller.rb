@@ -24,6 +24,11 @@ class ItemRequestsController < InheritedResources::Base
     @item_requests = current_employee.item_request
   end
 
+  def show
+    @item_request = ItemRequest.find(params[:id])
+    @comments = ActiveAdmin::Comment.where(resource: @item_request)
+  end
+
   private
 
   def item_request_params

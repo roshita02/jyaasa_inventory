@@ -42,7 +42,9 @@ ActiveAdmin.register NonFixedItemPurchase do
         end
       end
       f.input :quantity, label: 'Quantity (qty)', min: '0', placeholder: 'Enter quantity'
-      f.input :purchased_date, as: :datepicker, placeholder: 'Select purchased date'
+      f.input :purchased_date, as: :datepicker, placeholder: 'Select purchased date', datepicker_options: {
+        max_date: Date.today
+      } 
     end
     f.actions do
       f.action :submit
