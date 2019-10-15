@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Hello,</h1>
+    <p>
+      You have a new comment on your item request
+    </p>
+    <p><%= @commentor.email %>: <%= @comment.body %></p>
+    <p> To reply, </p>
+    <% if @comment.admin_user_id == nil %>
+      <%= link_to 'Click here', admin_item_request_url(@item_request) %>
+    <% else %>
+       <%= link_to 'Click here', item_request_url(@item_request) %>
+    <% end %>
+    <p>Thanks & Regards,</p>
+    <p>Jyaasa Inventory</p>
+  </body>
+</html>

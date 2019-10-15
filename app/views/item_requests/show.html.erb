@@ -34,13 +34,12 @@
           </p>
         </div>
       </div>
-      <%= link_to 'Back', employee_dashboard_index_path, class: 'btn btn-orange' %>
     </div>
 
     <div class= "col-xs-12 col-sm-6">
       <div class="panel panel-default" >
         <div class="panel-heading text-center">
-            <strong> <h5>Comments</strong></h5>
+            <strong> <h5>Comments (<%= @item_request.user_comment.count %>)</strong></h5>
         </div>
 
         <div class= "panel-body">
@@ -55,15 +54,17 @@
               <br>
               <small><%= comment.created_at.strftime('%Y-%m-%d %H:%M') %>
               <% if current_employee.id == comment.employee_id %>
-                <%= link_to 'Delete', user_comment_path(comment, item_request_id: comment.item_request), method: :delete, data: { confirm: 'Are you sure?' } %></p>
+                <%= link_to 'Delete', user_comment_path(comment, item_request_id: comment.item_request), method: :delete, data: { confirm: 'Are you sure?' }, class: 'orange' %></p>
               <% end %>
               </small>
             </div>
           <% end %>
-          <%= form_for [@user_comment, UserComment.new] do |f| %>
-          <%= f.text_area :body, placeholder: 'Add a comment', cols: '70', rows: '4' %><br/>
-          <%= f.hidden_field :item_request_id, value: @item_request.id %>
-          <%= f.submit 'Add Comment', class: 'btn btn-blue' %>
+          <% if @item_request.status == "pending" %>
+            <%= form_for [@user_comment, UserComment.new] do |f| %>
+              <%= f.text_area :body, placeholder: 'Add a comment', cols: '70', rows: '4' %><br/>
+              <%= f.hidden_field :item_request_id, value: @item_request.id %>
+              <%= f.submit 'Add Comment', class: 'btn btn-blue' %>
+            <% end %>
           <% end %>
         </div>
       </div>

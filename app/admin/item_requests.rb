@@ -30,7 +30,7 @@ ActiveAdmin.register ItemRequest do
         span link_to 'Approve', approve_admin_item_request_path(item_request), method: :patch, class: 'btn btn-success', data: { confirm: 'Are you sure? ' }
         span link_to 'Reject', reject_admin_item_request_path(item_request), method: :patch, class: 'btn btn-danger', data: { confirm: 'Are you sure? ' }
       end
-      span link_to 'View', admin_item_request_path(item_request), class: 'btn btn-primary'
+      span link_to 'Show', admin_item_request_path(item_request), class: 'btn btn-primary'
     end
   end
 
@@ -70,7 +70,7 @@ ActiveAdmin.register ItemRequest do
       end
       column do
         active_admin_form_for [:admin, UserComment.new] do |f|
-          f.inputs 'Comments' do
+          f.inputs "Comments (#{item_request.user_comment.count})" do
             unless item_request.user_comment.all.nil?
               item_request.user_comment.order(:created_at).each do |comment|
                 if !comment.admin_user_id.nil?
@@ -79,7 +79,6 @@ ActiveAdmin.register ItemRequest do
                     span link_to ad.email, admin_admin_user_path(comment.admin_user_id), class: 'alink'
                     span comment.body
                     br
-
                     span comment.created_at.strftime('%Y-%m-%d %H:%M'), class: 'date'
                     span link_to 'Delete', admin_user_comment_path(comment, item_request_id: comment.item_request), method: :delete, data: { confirm: 'Are you sure?' }
                   end
@@ -96,6 +95,7 @@ ActiveAdmin.register ItemRequest do
               f.input :body, input_html: { rows: '4', placeholder: 'Add a comment' }, label: false
               f.hidden_field :item_request_id, value: item_request.id
               f.hidden_field :admin_user_id, value: current_admin_user.id
+              
             end
           end
           f.actions do
