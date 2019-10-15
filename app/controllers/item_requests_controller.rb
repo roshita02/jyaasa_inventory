@@ -26,7 +26,7 @@ class ItemRequestsController < InheritedResources::Base
 
   def show
     @item_request = ItemRequest.find(params[:id])
-    @comments = ActiveAdmin::Comment.where(resource: @item_request)
+    @user_comments = @item_request.user_comment.all
   end
 
   private

@@ -68,6 +68,49 @@ ActiveAdmin.register ItemRequest do
           row :reason
         end
       end
+      column do
+        active_admin_form_for [:admin, UserComment.new] do |f|
+          f.inputs 'Comments' do
+            if item_request.user_comment.all != nil
+              item_request.user_comment.order(:created_at).each do |comment|
+                if comment.admin_user_id != nil
+                  div class: 'space' do
+                    ad = AdminUser.find(comment.admin_user_id)
+                    span link_to ad.email, admin_admin_user_path(comment.admin_user_id), class: 'alink' 
+                    span comment.body
+                    br
+
+                    span comment.created_at.strftime('%Y-%m-%d %H:%M'), class: 'date'
+                    span link_to 'Delete', admin_user_comment_path(comment, item_request_id: comment.item_request), method: :delete, data: { confirm: 'Are you sure?' }
+                  end
+                else
+                  div class: 'space' do
+                    emp = Employee.find(comment.employee_id)
+                    span link_to emp.email, admin_employee_path(comment.employee_id), class: 'alink'
+                    span comment.body
+                    br
+                    span comment.created_at.strftime('%Y-%m-%d %H:%M'), class: 'date'
+                  end
+                end
+              end
+              f.input :body, input_html: { rows: '4', placeholder: 'Add a comment' }, label: false
+              f.hidden_field :item_request_id, value: item_request.id
+              f.hidden_field :admin_user_id, value: current_admin_user.id
+            end
+          end
+          f.actions do
+            f.submit 'Add a Comment'
+          end
+        end
+      end
+
+    end
+  end
+
+  controller do
+    def show
+      @item_request = ItemRequest.find(params[:id])
+      @user_comments = @item_request.user_comment.all
     end
   end
 

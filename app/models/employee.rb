@@ -31,6 +31,7 @@ class Employee < ApplicationRecord
   has_many :item_request
   has_many :item_assignment
   has_many :items, through: :item_assignment
+  has_many :user_comment
 
   def self.open_spreadsheet(file)
     case File.extname(file.original_filename)

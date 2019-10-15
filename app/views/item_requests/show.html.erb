@@ -1,34 +1,74 @@
-<%= render :partial => '/shared/nav' %>
-  <h3>Item Request details</h3>
-  <p>
-    <strong>Item name:</strong>
-    <%= @item_request.item %>
-  </p>
+<div id="container">
+  <%= render :partial => '/shared/nav' %>
+  <div class="row">
+    <div class= "col-xs-12 col-sm-6">
+      <div class="panel panel-default" >
+        <div class="panel-heading text-center">
+           <strong><h5>Item Request details</strong></h5>
+        </div>
 
-  <p>
-    <strong>Quantity:</strong>
-    <%= @item_request.quantity %>
-  </p>
+        <div class="panel-body">
+          <p>
+            <strong>Item name:</strong>
+            <%= @item_request.item %>
+          </p>
 
-  <p>
-    <strong>Reason of need:</strong>
-    <%= @item_request.reason %>
-  </p>
+          <p>
+            <strong>Quantity:</strong>
+            <%= @item_request.quantity %>
+          </p>
 
-  <p>
-    <strong>Requested date:</strong>
-    <%= @item_request.created_at.to_date %>
-  </p>
+          <p>
+            <strong>Reason of need:</strong>
+            <%= @item_request.reason %>
+          </p>
 
-   <p>
-    <strong>Approved date:</strong>
-    <%= @item_request.approved_date %>
-  </p>
+          <p>
+            <strong>Requested date:</strong>
+            <%= @item_request.created_at.to_date %>
+          </p>
 
-  <h3>Comments</h3>
-  <p>
-    <%= @comments.each do |comment| %>
-      <p><b><%= comment.namespace %>: </b><%= comment.body %></p>
-   <% end %>
-  </p>
-  <%= link_to 'Back', employee_dashboard_index_path, class: 'btn btn-orange' %>
+          <p>
+            <strong>Approved date:</strong>
+            <%= @item_request.approved_date %>
+          </p>
+        </div>
+      </div>
+      <%= link_to 'Back', employee_dashboard_index_path, class: 'btn btn-orange' %>
+    </div>
+
+    <div class= "col-xs-12 col-sm-6">
+      <div class="panel panel-default" >
+        <div class="panel-heading text-center">
+            <strong> <h5>Comments</strong></h5>
+        </div>
+
+        <div class= "panel-body">
+          <% @user_comments.order(:created_at).each do |comment| %>
+            <div>
+              <% if comment.employee_id != nil %>
+                <p><b> <%= Employee.find(comment.employee_id).email %>:</b>
+              <% else %>
+                <p><b> <%= AdminUser.find(comment.admin_user_id).email %>:</b>
+              <% end %>
+              <%= comment.body %>
+              <br>
+              <small><%= comment.created_at.strftime('%Y-%m-%d %H:%M') %>
+              <% if current_employee.id == comment.employee_id %>
+                <%= link_to 'Delete', user_comment_path(comment, item_request_id: comment.item_request), method: :delete, data: { confirm: 'Are you sure?' } %></p>
+              <% end %>
+              </small>
+            </div>
+          <% end %>
+          <%= form_for [@user_comment, UserComment.new] do |f| %>
+          <%= f.text_area :body, placeholder: 'Add a comment', cols: '70', rows: '4' %><br/>
+          <%= f.hidden_field :item_request_id, value: @item_request.id %>
+          <%= f.submit 'Add Comment', class: 'btn btn-blue' %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+    <br>
+  </div>
+</div>
+

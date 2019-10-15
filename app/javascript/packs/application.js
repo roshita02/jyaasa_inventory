@@ -14,6 +14,7 @@ require("channels");
 //= require parsley
 //= require bootstrap
 //= require bootstrap-dropdown
+
 require("chartkick")
 require("chart.js")
 

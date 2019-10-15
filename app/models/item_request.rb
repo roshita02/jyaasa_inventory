@@ -17,6 +17,7 @@
 class ItemRequest < ApplicationRecord
   # after_update :update_approved_date
   belongs_to :employee
+  has_many :user_comment, dependent: :destroy
   validates_presence_of :item, :quantity, :reason
   enum status: { approved: 1, rejected: 0, pending: 2 }
   scope :pending, -> { where(status: 'pending') }
