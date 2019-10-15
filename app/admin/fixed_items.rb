@@ -130,7 +130,7 @@ ActiveAdmin.register FixedItem do
     end
   end
 
-  filter :name  
+  filter :name
   filter :category_id, label: 'Category', as: :select, collection: proc { FixedItemCategory.all.map { |i| [i.name, i.id] } }
   filter :quantity
   filter :status

@@ -71,12 +71,12 @@ ActiveAdmin.register ItemRequest do
       column do
         active_admin_form_for [:admin, UserComment.new] do |f|
           f.inputs 'Comments' do
-            if item_request.user_comment.all != nil
+            unless item_request.user_comment.all.nil?
               item_request.user_comment.order(:created_at).each do |comment|
-                if comment.admin_user_id != nil
+                if !comment.admin_user_id.nil?
                   div class: 'space' do
                     ad = AdminUser.find(comment.admin_user_id)
-                    span link_to ad.email, admin_admin_user_path(comment.admin_user_id), class: 'alink' 
+                    span link_to ad.email, admin_admin_user_path(comment.admin_user_id), class: 'alink'
                     span comment.body
                     br
 
@@ -103,7 +103,6 @@ ActiveAdmin.register ItemRequest do
           end
         end
       end
-
     end
   end
 

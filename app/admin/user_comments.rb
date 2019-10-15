@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 ActiveAdmin.register UserComment do
   menu false
   controller do
     def new
       @user_comment = UserComment.new
     end
-  
+
     def create
       @request = ItemRequest.find(params[:user_comment][:item_request_id])
       @user_comment = @request.user_comment.new(user_comment_params)

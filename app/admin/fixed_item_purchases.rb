@@ -59,7 +59,7 @@ ActiveAdmin.register FixedItemPurchase do
       end
       f.input :purchased_date, as: :datepicker, placeholder: 'Select purchased date', datepicker_options: {
         max_date: Date.today
-      } 
+      }
     end
     f.actions do
       f.action :submit

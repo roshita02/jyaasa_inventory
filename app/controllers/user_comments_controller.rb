@@ -30,5 +30,4 @@ class UserCommentsController < ApplicationController
   def user_comment_params
     params.require(:user_comment).permit(:body, :item_request_id)
   end
-
 end
