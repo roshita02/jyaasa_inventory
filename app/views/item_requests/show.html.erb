@@ -42,31 +42,34 @@
             <strong> <h5>Comments (<%= @item_request.user_comment.count %>)</strong></h5>
         </div>
 
-        <div class= "panel-body">
-          <% @user_comments.order(:created_at).each do |comment| %>
-            <div>
-              <% if comment.employee_id != nil %>
-                <p><b> <%= Employee.find(comment.employee_id).email %>:</b>
-              <% else %>
-                <p><b> <%= AdminUser.find(comment.admin_user_id).email %>:</b>
-              <% end %>
-              <%= comment.body %>
-              <br>
-              <small><%= comment.created_at.strftime('%Y-%m-%d %H:%M') %>
-              <% if current_employee.id == comment.employee_id %>
-                <%= link_to 'Delete', user_comment_path(comment, item_request_id: comment.item_request), method: :delete, data: { confirm: 'Are you sure?' }, class: 'orange' %></p>
-              <% end %>
-              </small>
-            </div>
-          <% end %>
-          <% if @item_request.status == "pending" %>
-            <%= form_for [@user_comment, UserComment.new] do |f| %>
-              <%= f.text_area :body, placeholder: 'Add a comment', cols: '70', rows: '4' %><br/>
-              <%= f.hidden_field :item_request_id, value: @item_request.id %>
-              <%= f.submit 'Add Comment', class: 'btn btn-blue' %>
+        <% if @item_request.user_comment.count != 0 %>
+          <div class= "panel-body">
+            <% @user_comments.order(:created_at).each do |comment| %>
+              <div>
+                <% if comment.employee_id != nil %>
+                  <p><b> <%= Employee.find(comment.employee_id).email %>:</b>
+                <% else %>
+                  <p><b> <%= AdminUser.find(comment.admin_user_id).email %>:</b>
+                <% end %>
+                <%= comment.body %>
+                <br>
+                <small><%= comment.created_at.strftime('%Y-%m-%d %H:%M') %>
+                <% if current_employee.id == comment.employee_id %>
+                  <%= link_to 'Delete', user_comment_path(comment, item_request_id: comment.item_request), method: :delete, data: { confirm: 'Are you sure?' }, class: 'orange' %></p>
+                <% end %>
+                </small>
+              </div>
             <% end %>
-          <% end %>
-        </div>
+            <% if @item_request.status == "pending" %>
+              <%= form_for [@user_comment, UserComment.new] do |f| %>
+                <%= f.text_area :body, placeholder: 'Add a comment', cols: '80', rows: '4' %><br/>
+                <%= f.hidden_field :item_request_id, value: @item_request.id %>
+                <hr>
+                <%= f.submit 'Comment', class: 'btn btn-blue' %>
+              <% end %>
+            <% end %>
+          </div>
+        <% end %>
       </div>
     </div>
     <br>

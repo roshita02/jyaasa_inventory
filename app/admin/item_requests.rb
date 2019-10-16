@@ -31,6 +31,7 @@ ActiveAdmin.register ItemRequest do
         span link_to 'Reject', reject_admin_item_request_path(item_request), method: :patch, class: 'btn btn-danger', data: { confirm: 'Are you sure? ' }
       end
       span link_to 'Show', admin_item_request_path(item_request), class: 'btn btn-primary'
+      span link_to "#{item_request.user_comment.count} comments", admin_item_request_path(item_request)
     end
   end
 
@@ -95,11 +96,10 @@ ActiveAdmin.register ItemRequest do
               f.input :body, input_html: { rows: '4', placeholder: 'Add a comment' }, label: false
               f.hidden_field :item_request_id, value: item_request.id
               f.hidden_field :admin_user_id, value: current_admin_user.id
-              
             end
           end
           f.actions do
-            f.submit 'Add a Comment'
+            f.submit 'Comment'
           end
         end
       end
