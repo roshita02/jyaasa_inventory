@@ -5,6 +5,7 @@ class ItemAssignment < ApplicationRecord
   belongs_to :employee
   belongs_to :category
   belongs_to :item
+  has_many :item_transfer, dependent: :destroy
   validates_presence_of :quantity, :employee_id, :category_id, :item_id
   enum status: { assigned: 1, returned: 0, transferred: 2 }
   scope :returned, -> { where(status: 'returned') }
@@ -13,8 +14,10 @@ class ItemAssignment < ApplicationRecord
   after_save :remaining_quantity
 
   def remaining_quantity
-    item.remaining_quantity = item.remaining_quantity - quantity
-    item.save
+    @item = Item.find(item_id)
+    remaining_qty = @item.quantity - ( self.quantity + @item.transferred_quantity.to_i )
+    @item.remaining_quantity = remaining_qty
+    @item.save
   end
 
   def self.open_spreadsheet(file)

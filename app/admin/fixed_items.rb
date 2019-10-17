@@ -31,6 +31,7 @@ ActiveAdmin.register FixedItem do
     column :category
     column 'Total Quantity', :quantity
     column 'Assigned Quantity', :assigned_quantity
+    column 'Transferred Quantity', :transferred_quantity
     column 'Remaining Quantity', :remaining_quantity
     actions
     # div class: 'my-panel' do

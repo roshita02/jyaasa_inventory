@@ -22,6 +22,6 @@ class FixedItem < Item
   def update_remaining_quantity
     quantity = self.quantity
     assigned_quantity = self.assigned_quantity.to_i
-    update_column(:remaining_quantity, quantity - assigned_quantity)
+    update_column(:remaining_quantity, quantity - assigned_quantity - transferred_quantity.to_i)
   end
 end
