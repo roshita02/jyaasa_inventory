@@ -48,15 +48,14 @@ class Employee < ApplicationRecord
     header = spreadsheet.row(4)
     (5..spreadsheet.last_row).each do |i|
       row = Hash[[header, spreadsheet.row(i)].transpose]
-      employee = find_or_create_by(email: row['email'])
+      employee = find_or_initialize_by(email: row['email'])
       employee.attributes = row.to_hash
       employee.update(name: row['name'], email: row['email'])
       send_invitation(employee)
-      # employee.save!
     end
   end
 
   def self.send_invitation(employee)
-    Employee.invite!(email: employee.email, name: employee.name, designation: employee.designation, contact_no: employee.contact_no, address: employee.address)
+    Employee.delay(run_at: 2.minutes.from_now).invite!(email: employee.email, name: employee.name, designation: employee.designation, contact_no: employee.contact_no, address: employee.address)
   end
 end

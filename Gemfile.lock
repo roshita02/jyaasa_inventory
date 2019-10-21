@@ -130,6 +130,11 @@ GEM
       descendants_tracker (~> 0.0.1)
     concurrent-ruby (1.1.5)
     crass (1.0.4)
+    delayed_job (4.1.8)
+      activesupport (>= 3.0, < 6.1)
+    delayed_job_active_record (4.1.4)
+      activerecord (>= 3.0, < 6.1)
+      delayed_job (>= 3.0, < 5)
     descendants_tracker (0.0.4)
       thread_safe (~> 0.3, >= 0.3.1)
     devise (4.6.2)
@@ -438,6 +443,7 @@ DEPENDENCIES
   byebug
   capybara (>= 2.15)
   chartkick
+  delayed_job_active_record
   devise
   devise_invitable
   factory_bot_rails

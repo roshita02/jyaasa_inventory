@@ -2,8 +2,7 @@
   <%= f.inputs "Details" do %>
     <%= f.input :employee_id , as: :select, collection: Employee.all.map { |employee| ["#{employee.name.capitalize}, #{employee.designation.capitalize}", employee.id] }, 
      :input_html => { :disabled => true } %>
-    <%= f.input :item_id, as: :select, collection: FixedItem.all, :input_html => { :disabled => true } %>
-    <%= f.input :quantity, label: 'Assigned Quantity', :input_html => { :disabled => true } %>
+    <%= f.input :item_id, as: :select, collection: FixedItem.all.reject {|item| item.id != @item_assignment.item_id }, include_blank: false %>
     <%= f.input :returned_quantity, min: 1, max: @item_assignment.quantity %>
   <% end %>
   <%= f.actions do %>

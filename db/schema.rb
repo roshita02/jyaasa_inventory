@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_16_074758) do
+ActiveRecord::Schema.define(version: 2019_10_21_045644) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -47,6 +47,21 @@ ActiveRecord::Schema.define(version: 2019_10_16_074758) do
     t.float "depreciation_rate"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "delayed_jobs", force: :cascade do |t|
+    t.integer "priority", default: 0, null: false
+    t.integer "attempts", default: 0, null: false
+    t.text "handler", null: false
+    t.text "last_error"
+    t.datetime "run_at"
+    t.datetime "locked_at"
+    t.datetime "failed_at"
+    t.string "locked_by"
+    t.string "queue"
+    t.datetime "created_at", precision: 6
+    t.datetime "updated_at", precision: 6
+    t.index ["priority", "run_at"], name: "delayed_jobs_priority"
   end
 
   create_table "employees", force: :cascade do |t|
@@ -106,6 +121,18 @@ ActiveRecord::Schema.define(version: 2019_10_16_074758) do
     t.date "approved_date"
   end
 
+  create_table "item_returns", force: :cascade do |t|
+    t.bigint "item_id", null: false
+    t.bigint "item_assignment_id"
+    t.bigint "item_transfer_id"
+    t.integer "quantity"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["item_assignment_id"], name: "index_item_returns_on_item_assignment_id"
+    t.index ["item_id"], name: "index_item_returns_on_item_id"
+    t.index ["item_transfer_id"], name: "index_item_returns_on_item_transfer_id"
+  end
+
   create_table "item_transfers", force: :cascade do |t|
     t.integer "quantity"
     t.bigint "item_id", null: false
@@ -153,6 +180,13 @@ ActiveRecord::Schema.define(version: 2019_10_16_074758) do
     t.index ["vendor_id"], name: "index_purchases_on_vendor_id"
   end
 
+  create_table "transfer_requests", force: :cascade do |t|
+    t.bigint "employee_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["employee_id"], name: "index_transfer_requests_on_employee_id"
+  end
+
   create_table "user_comments", force: :cascade do |t|
     t.text "body"
     t.bigint "item_request_id", null: false
@@ -185,6 +219,9 @@ ActiveRecord::Schema.define(version: 2019_10_16_074758) do
   add_foreign_key "item_assignments", "categories"
   add_foreign_key "item_assignments", "employees"
   add_foreign_key "item_assignments", "items"
+  add_foreign_key "item_returns", "item_assignments"
+  add_foreign_key "item_returns", "item_transfers"
+  add_foreign_key "item_returns", "items"
   add_foreign_key "item_transfers", "employees"
   add_foreign_key "item_transfers", "item_assignments"
   add_foreign_key "item_transfers", "items"
@@ -193,6 +230,7 @@ ActiveRecord::Schema.define(version: 2019_10_16_074758) do
   add_foreign_key "purchases", "categories"
   add_foreign_key "purchases", "items"
   add_foreign_key "purchases", "vendors"
+  add_foreign_key "transfer_requests", "employees"
   add_foreign_key "user_comments", "admin_users"
   add_foreign_key "user_comments", "employees"
   add_foreign_key "user_comments", "item_requests"

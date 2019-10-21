@@ -6,6 +6,7 @@ class ItemAssignment < ApplicationRecord
   belongs_to :category
   belongs_to :item
   has_many :item_transfer, dependent: :destroy
+  has_many :item_return, dependent: :destroy
   validates_presence_of :quantity, :employee_id, :category_id, :item_id
   enum status: { assigned: 1, returned: 0, transferred: 2 }
   scope :returned, -> { where(status: 'returned') }
