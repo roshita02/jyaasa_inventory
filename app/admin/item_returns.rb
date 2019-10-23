@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 ActiveAdmin.register ItemReturn do
   menu false
   permit_params :item_id, :item_assignment_id, :item_transfer_id, :quantity
@@ -11,15 +13,15 @@ ActiveAdmin.register ItemReturn do
   end
 
   form do |f|
-    if session[:transfer] == nil
+    if session[:transfer].nil?
       f.inputs  'Return Item' do
-        f.input :item_id, as: :select, include_blank: false, collection: FixedItem.all.reject {|item| item.id != session[:assigned]['item_id'] }
-        f.input :quantity, label: 'Return Quantity(Qty)', placeholder: 'Enter quantity', min: 1, max: session[:assigned]['quantity'] 
+        f.input :item_id, as: :select, include_blank: false, collection: FixedItem.all.select { |item| item.id == session[:assigned]['item_id'] }
+        f.input :quantity, label: 'Return Quantity(Qty)', placeholder: 'Enter quantity', min: 1, max: session[:assigned]['quantity']
       end
     else
       f.inputs  'Return Item' do
-        f.input :item_id, as: :select, include_blank: false, collection: FixedItem.all.reject {|item| item.id != session[:transfer]['item_id'] }
-        f.input :quantity, label: 'Return Quantity(Qty)', placeholder: 'Enter quantity', min: 1, max: session[:transfer]['quantity'] 
+        f.input :item_id, as: :select, include_blank: false, collection: FixedItem.all.select { |item| item.id == session[:transfer]['item_id'] }
+        f.input :quantity, label: 'Return Quantity(Qty)', placeholder: 'Enter quantity', min: 1, max: session[:transfer]['quantity']
       end
     end
     actions
@@ -27,13 +29,13 @@ ActiveAdmin.register ItemReturn do
 
   controller do
     def create
-      if session[:transfer] == nil
+      if session[:transfer].nil?
         item_assignment_id = session[:assigned]['id'].to_i
       else
         item_transfer_id = session[:transfer]['id'].to_i
       end
       binding.pry
-      if item_transfer_id == nil
+      if item_transfer_id.nil?
         @item_assignment = ItemAssignment.find_by_id(item_assignment_id)
         if @item_assignment.quantity >= params[:item_return][:quantity].to_i
           @return = ItemReturn.new(item_assignment_id: item_assignment_id, item_id: params[:item_return][:item_id], quantity: params[:item_return][:quantity])
@@ -83,7 +85,6 @@ ActiveAdmin.register ItemReturn do
       column max_width: '666px' do
         attributes_table do
           row :quantity
-          
         end
       end
     end

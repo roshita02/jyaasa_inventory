@@ -36,7 +36,7 @@ ActiveAdmin.register ItemAssignment do
       i.employee.designation.capitalize
     end
     column :item
-    column :quantity if params['scope'] == 'assigned' || params['scope'] == 'returned' || params['scope'] == nil
+    column :quantity if params['scope'] == 'assigned' || params['scope'] == 'returned' || params['scope'].nil?
     column :assigned_date
     column :transferred_date if params['scope'] == 'transferred'
     column('Action') do |item_assignment|
@@ -83,19 +83,6 @@ ActiveAdmin.register ItemAssignment do
     @item_assignment = ItemAssignment.find(params[:id])
     session[:assigned] = @item_assignment
     redirect_to new_admin_item_return_path
-    # render 'admin/item_assignments/return'
-    # if @item_assignment.quantity > 1
-    #   redirect_to new_admin_item_return_path
-    # else
-    #   @item_assignment.update_attribute :status, 'returned'
-    #   @item_assignment.update_attribute :returned_date, Time.now
-    #   borrowed_qty = ItemAssignment.find_by_id(params[:id]).quantity.to_i
-    #   @borrowed_item = ItemAssignment.find_by_id(params[:id]).item
-    #   @borrowed_item.decrement!(:assigned_quantity, borrowed_qty)
-    #   @borrowed_item.increment(:remaining_quantity, borrowed_qty)
-    #   @borrowed_item.save!
-    #   redirect_to admin_item_assignments_path 
-    # end
   end
 
   member_action :return_item, method: :patch do

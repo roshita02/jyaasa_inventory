@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 ActiveAdmin.register ItemTransfer do
   menu false
   permit_params :employee_id, :item_id, :item_assignment_id, :quantity
@@ -31,9 +33,9 @@ ActiveAdmin.register ItemTransfer do
 
   form do |f|
     f.inputs  'Transfer Item' do
-      f.input :employee_id , as: :select, prompt: 'Select employee', collection: Employee.all.reject {|employee| employee.id == session[:passed_variable]['employee_id'] }.map { |employee| ["#{employee.name.capitalize}, #{employee.designation.capitalize}", employee.id] } 
-      f.input :item_id, as: :select, include_blank: false, collection: FixedItem.all.reject {|item| item.id != session[:passed_variable]['item_id'] }
-      f.input :quantity, label: 'Transfer Quantity(Qty)', placeholder: 'Enter quantity', min: 1, max: session[:passed_variable]['quantity'] 
+      f.input :employee_id, as: :select, prompt: 'Select employee', collection: Employee.all.reject { |employee| employee.id == session[:passed_variable]['employee_id'] }.map { |employee| ["#{employee.name.capitalize}, #{employee.designation.capitalize}", employee.id] }
+      f.input :item_id, as: :select, include_blank: false, collection: FixedItem.all.select { |item| item.id == session[:passed_variable]['item_id'] }
+      f.input :quantity, label: 'Transfer Quantity(Qty)', placeholder: 'Enter quantity', min: 1, max: session[:passed_variable]['quantity']
     end
     actions
   end
@@ -44,7 +46,7 @@ ActiveAdmin.register ItemTransfer do
       @item_assignment = ItemAssignment.find(item_assignment_id)
       if @item_assignment.quantity >= params[:item_transfer][:quantity].to_i
         @transfer = ItemTransfer.new(item_assignment_id: item_assignment_id, employee_id: params[:item_transfer][:employee_id],
-        item_id: params[:item_transfer][:item_id], quantity: params[:item_transfer][:quantity])
+                                     item_id: params[:item_transfer][:item_id], quantity: params[:item_transfer][:quantity])
         if @transfer.save
           ItemTransferNotifierMailer.new_item_transfer(@transfer, @item_assignment).deliver_now
           ItemTransferNotifierMailer.new_item_received(@transfer, @item_assignment).deliver_now

@@ -34,6 +34,7 @@ class Employee < ApplicationRecord
   has_many :user_comment
   scope :invited, -> { where.not(invitation_sent_at: [nil]) }
   scope :not_invited, -> { where(invitation_sent_at: [nil]) }
+  validates_presence_of :name, :designation
 
   def self.open_spreadsheet(file)
     case File.extname(file.original_filename)

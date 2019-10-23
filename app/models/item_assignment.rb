@@ -8,15 +8,13 @@ class ItemAssignment < ApplicationRecord
   has_many :item_transfer, dependent: :destroy
   has_many :item_return, dependent: :destroy
   validates_presence_of :quantity, :employee_id, :category_id, :item_id
-  enum status: { assigned: 1, returned: 0, transferred: 2 }
-  scope :returned, -> { where(status: 'returned') }
+  enum status: { assigned: 1 }
   scope :assigned, -> { where(status: 'assigned') }
-  scope :transferred, -> { where(status: 'transferred') }
   after_save :remaining_quantity
 
   def remaining_quantity
     @item = Item.find(item_id)
-    remaining_qty = @item.quantity - ( self.quantity + @item.transferred_quantity.to_i )
+    remaining_qty = @item.quantity - (quantity + @item.transferred_quantity.to_i)
     @item.remaining_quantity = remaining_qty
     @item.save
   end

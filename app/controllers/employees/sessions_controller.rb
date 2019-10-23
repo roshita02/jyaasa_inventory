@@ -12,7 +12,7 @@ class Employees::SessionsController < Devise::SessionsController
   # POST /resource/sign_in
   def create
     if Employee.exists?(email: params[:employee][:email])
-      if Employee.find_by_email(params[:employee][:email]).invitation_accepted_at == nil
+      if Employee.find_by_email(params[:employee][:email]).invitation_accepted_at.nil?
         @employee = Employee.find_by_email(params[:employee][:email])
         invitee = Employee.invite!(email: @employee.email, name: @employee.name, designation: @employee.designation, contact_no: @employee.contact_no, address: @employee.address, invitation_sent_at: Date.today) do |u|
           u.skip_invitation = true

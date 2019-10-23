@@ -5,7 +5,6 @@ ActiveAdmin.register Employee do
   # config.clear_action_items!
   scope :invited, default: true
   scope :not_invited
- 
   actions :all, except: %i[new]
   permit_params :email, :name, :designation, :contact_no, :address, :invitation_token
   index do
@@ -13,8 +12,8 @@ ActiveAdmin.register Employee do
     column :name
     column :designation
     column :email
-    column :invitation_sent_at  if params['scope'] == 'invited'
-    column :invitation_accepted_at  if params['scope'] == 'invited'
+    column :invitation_sent_at if params['scope'] == 'invited'
+    column :invitation_accepted_at if params['scope'] == 'invited'
     column('Action') do |employee|
       if params['scope'] == 'not_invited'
         span link_to 'Invite', invite_admin_employee_path(employee), method: :post, class: 'btn btn-danger'
@@ -53,7 +52,6 @@ ActiveAdmin.register Employee do
   end
 
   collection_action :send_invitation, method: :patch do
-    binding.pry
     @employee = Employee.invite!({ email: params[:employee][:email], name: params[:employee][:name],
                                    designation: params[:employee][:designation], contact_no: params[:employee][:contact_no], address: params[:employee][:address] },
                                  current_employee)
