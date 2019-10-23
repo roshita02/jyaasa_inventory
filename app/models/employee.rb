@@ -29,8 +29,10 @@ class Employee < ApplicationRecord
   devise :invitable, :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
   has_many :item_request
-  has_many :item_assignment
+  has_many :item_assignment, dependent: :destroy
+  has_many :item_transfer, dependent: :destroy
   has_many :items, through: :item_assignment
+  has_many :items, through: :item_transfer
   has_many :user_comment
   scope :invited, -> { where.not(invitation_sent_at: [nil]) }
   scope :not_invited, -> { where(invitation_sent_at: [nil]) }

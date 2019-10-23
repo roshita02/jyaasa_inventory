@@ -9,7 +9,8 @@ class Employees::SessionsController < Devise::SessionsController
   #   super
   # end
 
-  # POST /resource/sign_in
+  # POST /resource/sign_in 
+
   def create
     if Employee.exists?(email: params[:employee][:email])
       if Employee.find_by_email(params[:employee][:email]).invitation_accepted_at == nil
@@ -22,6 +23,8 @@ class Employees::SessionsController < Devise::SessionsController
       else
         super
       end
+    else
+      super
     end
   end
 
