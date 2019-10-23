@@ -10,7 +10,7 @@
         <div class="panel-body">
           <p>
             <strong>Item name:</strong>
-            <%= @item_request.item %>
+            <%= @item_request.item.capitalize %>
           </p>
 
           <p>
@@ -42,8 +42,8 @@
             <strong> <h5>Comments (<%= @item_request.user_comment.count %>)</strong></h5>
         </div>
 
-        <% if @item_request.user_comment.count != 0 %>
-          <div class= "panel-body">
+        <div class= "panel-body">
+          <% if @item_request.user_comment.count != 0 %>
             <% @user_comments.order(:created_at).each do |comment| %>
               <div>
                 <% if comment.employee_id != nil %>
@@ -60,16 +60,18 @@
                 </small>
               </div>
             <% end %>
-            <% if @item_request.status == "pending" %>
-              <%= form_for [@user_comment, UserComment.new] do |f| %>
-                <%= f.text_area :body, placeholder: 'Add a comment', cols: '80', rows: '4' %><br/>
-                <%= f.hidden_field :item_request_id, value: @item_request.id %>
-                <hr>
-                <%= f.submit 'Comment', class: 'btn btn-blue' %>
-              <% end %>
+          <% else %>
+            <p> No comments yet </p>
+          <% end %>
+          <% if @item_request.status == "pending" %>
+            <%= form_for [@user_comment, UserComment.new] do |f| %>
+              <%= f.text_area :body, placeholder: 'Add a comment', cols: '80', rows: '4' %><br/>
+              <%= f.hidden_field :item_request_id, value: @item_request.id %>
+              <hr>
+              <%= f.submit 'Comment', class: 'btn btn-blue' %>
             <% end %>
-          </div>
-        <% end %>
+          <% end %>
+        </div>
       </div>
     </div>
     <br>

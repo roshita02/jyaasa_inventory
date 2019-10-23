@@ -1,7 +1,7 @@
 <body id="homepage">
   <div class="panel panel-default custom-panel-position">
     <div class="panel-heading text-center">
-      <h4><strong> <span class="glyphicon glyphicon-user"></span> Set your credentials</strong></h4>
+      <h4><strong> <span class="glyphicon glyphicon-user"></span> Set your password</strong></h4>
     </div>
     <div class="panel-body">
       <%= form_for(resource, as: resource_name, url: invitation_path(resource_name), html: { method: :put }) do |f| %>
@@ -20,8 +20,8 @@
           </div>
         <% end %>
         <hr>
-        <div class="actions">
-          <%= f.submit t("devise.invitations.edit.submit_button"), class: "btn btn-success" %>
+        <div class="loginactions">
+          <%= f.submit t("devise.invitations.edit.submit_button"), class: "btn btn-success", style:"width: 100%;" %>
         </div>
       <% end %>
     </div>

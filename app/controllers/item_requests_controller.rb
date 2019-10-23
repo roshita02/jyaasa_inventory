@@ -21,7 +21,7 @@ class ItemRequestsController < InheritedResources::Base
   end
 
   def index
-    @item_requests = current_employee.item_request
+    @item_requests = current_employee.item_request.all.page(params[:page]).per(5)
   end
 
   def show

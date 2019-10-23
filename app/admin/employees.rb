@@ -3,19 +3,32 @@
 ActiveAdmin.register Employee do
   menu priority: 8
   # config.clear_action_items!
+  scope :invited, default: true
+  scope :not_invited
+ 
   actions :all, except: %i[new]
   permit_params :email, :name, :designation, :contact_no, :address, :invitation_token
-
   index do
     column :id
     column :name
     column :designation
     column :email
-    column :contact_no
-    column :address
-    column :invitation_sent_at
-    column :invitation_accepted_at
-    actions
+    column :invitation_sent_at  if params['scope'] == 'invited'
+    column :invitation_accepted_at  if params['scope'] == 'invited'
+    column('Action') do |employee|
+      if params['scope'] == 'not_invited'
+        span link_to 'Invite', invite_admin_employee_path(employee), method: :post, class: 'btn btn-danger'
+      end
+      span link_to 'View', admin_employee_path(employee), class: 'btn btn-primary'
+      span link_to 'Edit', edit_admin_employee_path(employee), class: 'btn btn-success'
+      span link_to 'Delete', admin_employee_path(employee), method: :delete, class: 'btn btn-danger'
+    end
+  end
+
+  member_action :invite, method: :post do
+    @employee = Employee.find(params[:id])
+    @employee.deliver_invitation
+    redirect_to admin_employees_path
   end
 
   action_item only: :index do
@@ -40,6 +53,7 @@ ActiveAdmin.register Employee do
   end
 
   collection_action :send_invitation, method: :patch do
+    binding.pry
     @employee = Employee.invite!({ email: params[:employee][:email], name: params[:employee][:name],
                                    designation: params[:employee][:designation], contact_no: params[:employee][:contact_no], address: params[:employee][:address] },
                                  current_employee)

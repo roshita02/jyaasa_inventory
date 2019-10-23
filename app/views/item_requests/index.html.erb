@@ -18,9 +18,9 @@
       <% else %>
         <% @item_requests.order("created_at desc").each do |item_request| %>
           <tr>
-            <td><%= item_request.item %></td>
+            <td><%= item_request.item.capitalize %></td>
             <td><%= item_request.quantity %></td>
-            <td><%= item_request.status %></td>
+            <td><%= item_request.status.capitalize %></td>
             <td><%= item_request.created_at.to_date %></td>
             <td><%= item_request.approved_date %></td>
         <% end %>
@@ -28,7 +28,7 @@
     </tbody>
     <tfoot>
       <tr>
-        <td> <%= link_to 'Back', employee_dashboard_index_path, class: 'btn btn-orange' %> </td>
+        <td> <%= paginate @item_requests %> </td>
       </tr>
     </tfoot>
   </table>

@@ -5,7 +5,8 @@ class ItemsController < InheritedResources::Base
   before_action :authenticate_employee!
 
   def index
-    @items = ItemAssignment.all.where(current_employee.id == :employee_id)
+    @items = ItemAssignment.all.where(current_employee.id == :employee_id).page(params[:item_page]).per(10)
+    @transferred_items = ItemTransfer.all.where(current_employee.id == :employee_id).page(params[:item_transfer_page]).per(10)
   end
 
   private

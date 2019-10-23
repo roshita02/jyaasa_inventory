@@ -3,7 +3,6 @@ ActiveAdmin.register ItemTransfer do
   permit_params :employee_id, :item_id, :item_assignment_id, :quantity
   config.clear_action_items!
 
-  
   index do
     column :id
     column :item_id do |i|

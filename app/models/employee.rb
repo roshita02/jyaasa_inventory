@@ -32,6 +32,8 @@ class Employee < ApplicationRecord
   has_many :item_assignment
   has_many :items, through: :item_assignment
   has_many :user_comment
+  scope :invited, -> { where.not(invitation_sent_at: [nil]) }
+  scope :not_invited, -> { where(invitation_sent_at: [nil]) }
 
   def self.open_spreadsheet(file)
     case File.extname(file.original_filename)
@@ -56,6 +58,8 @@ class Employee < ApplicationRecord
   end
 
   def self.send_invitation(employee)
-    Employee.delay(run_at: 2.minutes.from_now).invite!(email: employee.email, name: employee.name, designation: employee.designation, contact_no: employee.contact_no, address: employee.address)
+    Employee.invite!(email: employee.email, name: employee.name, designation: employee.designation, contact_no: employee.contact_no, address: employee.address) do |u|
+      u.skip_invitation = true
+    end
   end
 end
