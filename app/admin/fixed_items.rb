@@ -62,14 +62,15 @@ ActiveAdmin.register FixedItem do
       end
 
       column do
-        panel 'Item statistics' do
-          paginated_collection(fixed_item.item_assignment.page(params[:page]).per(5), download_links: false) do
+        panel 'Item Assignment statistics' do
+          paginated_collection(fixed_item.item_assignment.page(params[:page1]).per(5), download_links: false) do
             table_for(collection) do
               column :employee_id do |i|
-                i.employee.name.to_s
+                i.employee.name.capitalize
               end
               column 'Qty', :quantity
-              column(:status) { |item_assignment| status_tag(item_assignment.status) }
+              column 'Assigned date', :assigned_date
+              # column(:status) { |item_assignment| status_tag(item_assignment.status) }
             end
           end
         end
@@ -79,7 +80,7 @@ ActiveAdmin.register FixedItem do
     columns do
       column max_width: '666px' do
         panel 'Purchase history' do
-          paginated_collection(fixed_item.purchase.page(params[:page]).per(5)) do
+          paginated_collection(fixed_item.purchase.page(params[:page2]).per(5)) do
             table_for(collection) do
               column :purchased_date
               column :vendor
@@ -88,6 +89,22 @@ ActiveAdmin.register FixedItem do
               column 'Total Amount' do |i|
                 i.quantity * i.rate
               end
+            end
+          end
+        end
+      end
+
+      column do
+        panel 'Item transfer statistics' do
+          paginated_collection(fixed_item.item_transfer.page(params[:page3]).per(5), download_links: false) do
+            table_for(collection) do
+              column('Transferred from') do |i|
+                Employee.find(ItemAssignment.find(i.item_assignment_id).employee_id).name.capitalize
+              end
+              column('Transferred to') do |i|
+                Employee.find(i.employee_id).name.capitalize
+              end
+              column('Transferred Quantity', :quantity)
             end
           end
         end

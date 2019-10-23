@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# Migration for creating delayed job
 class CreateDelayedJobs < ActiveRecord::Migration[6.0]
   def self.up
     create_table :delayed_jobs, force: true do |table|
@@ -13,7 +16,7 @@ class CreateDelayedJobs < ActiveRecord::Migration[6.0]
       table.timestamps null: true
     end
 
-    add_index :delayed_jobs, [:priority, :run_at], name: "delayed_jobs_priority"
+    add_index :delayed_jobs, %i[priority run_at], name: 'delayed_jobs_priority'
   end
 
   def self.down

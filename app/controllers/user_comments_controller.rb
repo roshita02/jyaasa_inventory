@@ -15,7 +15,7 @@ class UserCommentsController < ApplicationController
       CommentNotifierMailer.new_comment(@user_comment, @request).deliver_now
       redirect_to item_request_path(@request), flash: { success: 'Comment successfully added' }
     else
-      redirect_to item_request_path(@request), flash: { danger: 'Comment is invalid'}
+      redirect_to item_request_path(@request), flash: { danger: 'Comment is invalid' }
     end
   end
 

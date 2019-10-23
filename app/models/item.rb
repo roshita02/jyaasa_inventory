@@ -21,6 +21,7 @@ class Item < ApplicationRecord
   validates_presence_of :name, :category_id
   belongs_to :category
   has_many :item_assignment, dependent: :destroy
+  has_many :item_transfer, dependent: :destroy
   has_many :purchase, dependent: :destroy
   has_many :withdraw, dependent: :destroy
   enum status: { 'out of stock': 0, 'in stock': 1, 'low stock': 2 }
