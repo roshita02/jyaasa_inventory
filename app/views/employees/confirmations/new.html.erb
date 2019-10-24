@@ -1,16 +1,24 @@
-<h2>Resend confirmation instructions</h2>
+<body id="homepage">
+  <div class="panel panel-default custom-panel-position">
+    <div class="panel-heading text-center">
+      <h4><strong>Confirm email</strong></h4>
+    </div>
 
-<%= form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
+    <div class="panel-body">
+      <%= form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f| %>
+        <%= render "devise/shared/error_messages", resource: resource %>
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email", value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email) %>
+        <div class="form-group">
+          <%= f.label :email %><br />
+          <%= f.email_field :email, autofocus: true, autocomplete: "email", class: 'form-control' %>
+        </div>
+
+        <div class="form-group">
+          <%= f.submit "Send confirmation instructions", class: 'btn btn-success', style: "width: 100%;" %>
+        </div>
+      <% end %>
+    </div>
   </div>
+</body>
 
-  <div class="actions">
-    <%= f.submit "Resend confirmation instructions" %>
-  </div>
-<% end %>
 
-<%= render "employees/shared/links" %>

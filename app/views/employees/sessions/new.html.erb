@@ -22,13 +22,15 @@
           <%= f.label :remember_me %>
           <%= link_to "Forgot your password?", new_password_path(resource_name) , class: "pull-right"%>
         </div>
-        <% end %>  
-        
-        
+        <% end %>        
         <hr>
         <div class="loginactions">
           <%= f.submit "Log in", class: "btn btn-success", style:"width: 100%; " %>
         </div>
+          <div class="text-centre">
+            <%= link_to "First time login? Set your password", new_employee_confirmation_path, class: 'text-centre', style: "align: centre;" %>
+          </div>
+       
       <% end %>  
     </div>
   </div>

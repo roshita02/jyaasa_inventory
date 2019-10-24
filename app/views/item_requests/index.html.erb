@@ -23,6 +23,7 @@
             <td><%= item_request.status.capitalize %></td>
             <td><%= item_request.created_at.to_date %></td>
             <td><%= item_request.approved_date %></td>
+            <td><%= link_to 'Show', item_request, class: 'btn btn-primary' %></td>
         <% end %>
       <% end %>
     </tbody>

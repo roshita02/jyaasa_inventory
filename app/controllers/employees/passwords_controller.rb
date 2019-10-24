@@ -8,7 +8,7 @@ class EmployeesPasswordsController < Devise::PasswordsController
 
   # POST /resource/password
   # def create
-  #   super
+  #  super
   # end
 
   # GET /resource/password/edit?reset_password_token=abcdef

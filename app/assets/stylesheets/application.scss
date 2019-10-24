@@ -167,3 +167,9 @@ input.parsley-success, select.parsley-success, textarea.parsley-success {
 .orange{
 	color: #E86100;
 }
+.table > tbody > tr > td{
+	line-height: 30px;
+}
+.table > thead > tr > th{
+	line-height: 30px;
+}

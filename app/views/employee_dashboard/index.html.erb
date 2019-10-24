@@ -1,13 +1,13 @@
 <%= render :partial => '/shared/nav' %>
 <div class="container white">
-
-    <div class="text-center">
-        <%= link_to 'Request an Item',new_item_request_path, class: 'btn btn-success btn-lg' %>
-        <%= link_to 'Your Items', items_path, class: 'btn btn-orange btn-lg ' %>
-        <%= link_to 'Your Item Requests', item_requests_path, class: 'btn btn-blue btn-lg' %> 
+<br>
+    <div class="text-right">
+        <%= link_to 'Request an Item',new_item_request_path, class: 'btn btn-success' %>
+        <%= link_to "Your Items", items_path, class: 'btn btn-warning' %>
+        <%= link_to "Your Item Requests (#{@item_requests.count})", item_requests_path, class: 'btn btn-blue' %> 
     </div>
 
-   <div class="panel panel-default custom-panel-position" style="width: 65%;">
+   <div class="panel panel-default" style="width: 100%">
         <div class="panel-heading text-center">
             <strong> <h4>Recent Activity</strong></h4>
          </div>
@@ -31,11 +31,11 @@
                 <% else %>
                     <% @item_requests.order("created_at desc").limit(5).each do |item_request| %>
                         <tr>
-                            <td><%= item_request.item.capitalize %></td>
+                            <td class><%= item_request.item.capitalize %></td>
                             <td><%= item_request.quantity %></td>
                             <td><%= item_request.status.capitalize %></td>
                             <td><%= item_request.created_at.to_date %></td>
-                            <td><%= link_to 'Show', item_request, class: 'btn btn-info' %></td>
+                            <td><%= link_to 'Show', item_request, class: 'btn btn-primary' %></td>
                         </tr>
                     <% end %>
                 <% end %>

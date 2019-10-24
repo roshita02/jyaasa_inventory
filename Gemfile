@@ -78,4 +78,3 @@ gem 'roo', '~> 2.7', '>= 2.7.1'
 gem 'roo-xls'
 gem 'slim', '~> 3.0', '>= 3.0.6'
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
-gem 'wicked'

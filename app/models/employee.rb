@@ -27,7 +27,7 @@ class Employee < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :invitable, :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable
+         :recoverable, :rememberable, :validatable, :confirmable, :trackable
   has_many :item_request
   has_many :item_assignment, dependent: :destroy
   has_many :item_transfer, dependent: :destroy
@@ -36,7 +36,7 @@ class Employee < ApplicationRecord
   has_many :user_comment
   scope :invited, -> { where.not(invitation_sent_at: [nil]) }
   scope :not_invited, -> { where(invitation_sent_at: [nil]) }
-  validates_presence_of :name, :designation
+  # validates_presence_of :name, :designation
 
   def self.open_spreadsheet(file)
     case File.extname(file.original_filename)
@@ -64,5 +64,11 @@ class Employee < ApplicationRecord
     Employee.invite!(email: employee.email, name: employee.name, designation: employee.designation, contact_no: employee.contact_no, address: employee.address) do |u|
       u.skip_invitation = true
     end
+  end
+
+  protected
+
+  def password_required?
+    confirmed? ? super : false
   end
 end
