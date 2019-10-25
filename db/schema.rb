@@ -12,7 +12,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20_191_024_092_315) do
+ActiveRecord::Schema.define(version: 20_191_025_053_139) do
   # These are extensions that must be enabled in order to support this database
   enable_extension 'plpgsql'
 
@@ -139,6 +139,7 @@ ActiveRecord::Schema.define(version: 20_191_024_092_315) do
     t.integer 'quantity'
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
+    t.date 'returned_date'
     t.index ['item_assignment_id'], name: 'index_item_returns_on_item_assignment_id'
     t.index ['item_id'], name: 'index_item_returns_on_item_id'
     t.index ['item_transfer_id'], name: 'index_item_returns_on_item_transfer_id'

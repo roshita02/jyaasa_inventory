@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 ActiveAdmin.register ItemTransfer do
+  belongs_to :item_assignment, optional: true
   menu false
   permit_params :employee_id, :item_id, :item_assignment_id, :quantity
   config.clear_action_items!
@@ -41,26 +42,30 @@ ActiveAdmin.register ItemTransfer do
   end
 
   controller do
+    def new
+      @item_transfer = ItemTransfer.new
+      super
+    end
+
     def create
-      item_assignment_id = session[:passed_variable]['id']
-      @item_assignment = ItemAssignment.find(item_assignment_id)
+      @item_assignment = ItemAssignment.find(params[:item_assignment_id])
       if @item_assignment.quantity >= params[:item_transfer][:quantity].to_i
-        @transfer = ItemTransfer.new(item_assignment_id: item_assignment_id, employee_id: params[:item_transfer][:employee_id],
+        @transfer = ItemTransfer.new(item_assignment_id: params[:item_assignment_id], employee_id: params[:item_transfer][:employee_id],
                                      item_id: params[:item_transfer][:item_id], quantity: params[:item_transfer][:quantity])
         if @transfer.save
-          ItemTransferNotifierMailer.new_item_transfer(@transfer, @item_assignment).deliver_now
-          ItemTransferNotifierMailer.new_item_received(@transfer, @item_assignment).deliver_now
-          @borrowed_item = ItemAssignment.find(item_assignment_id).item
+          @borrowed_item = @item_assignment.item
           @borrowed_item.decrement!(:assigned_quantity, params[:item_transfer][:quantity].to_i)
           @borrowed_item.increment(:transferred_quantity, params[:item_transfer][:quantity].to_i)
           @borrowed_item.save!
           @item_assignment.decrement!(:quantity, params[:item_transfer][:quantity].to_i)
           @item_assignment.save!
+          ItemTransferNotifierMailer.new_item_transfer(@transfer, @item_assignment).deliver_now
+          ItemTransferNotifierMailer.new_item_received(@transfer, @item_assignment).deliver_now
           redirect_to admin_item_assignments_path
         end
       else
         flash[:error] = 'Transferred Quantity should not be greater than item assigned quantity'
-        redirect_to new_admin_item_transfer_path
+        redirect_to new_admin_item_assignment_item_transfer_path
       end
     end
 

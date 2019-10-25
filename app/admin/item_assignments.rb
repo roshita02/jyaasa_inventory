@@ -41,9 +41,13 @@ ActiveAdmin.register ItemAssignment do
     column :transferred_date if params['scope'] == 'transferred'
     column('Action') do |item_assignment|
       span link_to 'View', admin_item_assignment_path(item_assignment), class: 'btn btn-primary'
-      if item_assignment.status == 'assigned'
+    end
+    column('Return/Transfer') do |item_assignment|
+      if item_assignment.quantity > 0
         span link_to 'Returned', returned_admin_item_assignment_path(item_assignment), method: :patch, class: 'btn btn-success', data: { confirm: 'Are you sure? ' }
         span link_to 'Transfer', transfer_admin_item_assignment_path(item_assignment), method: :patch, class: 'btn btn-danger'
+      else
+        para 'Not available'
       end
     end
   end
@@ -58,6 +62,19 @@ ActiveAdmin.register ItemAssignment do
           row :status
           row :assigned_date
           row :returned_date
+        end
+      end
+
+      column do
+        panel 'Item transfer statistics' do
+          paginated_collection(item_assignment.item_transfer.page(params[:page3]).per(5), download_links: false) do
+            table_for(collection) do
+              column('Transferred to') do |i|
+                Employee.find(i.employee_id).name.capitalize
+              end
+              column('Transferred Quantity', :quantity)
+            end
+          end
         end
       end
     end
@@ -105,7 +122,7 @@ ActiveAdmin.register ItemAssignment do
     @item_assignment = ItemAssignment.find(params[:id])
     session[:passed_variable] = @item_assignment
     # render 'admin/item_assignments/transfer'
-    redirect_to new_admin_item_transfer_path
+    redirect_to new_admin_item_assignment_item_transfer_path(@item_assignment)
   end
 
   controller do
