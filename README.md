@@ -39,6 +39,24 @@ $ rake db:seed
 email: admin@example.com 
 password: password
 
+## Running Tests
+```
+# Default: Run all spec files 
+$ bundle exec rspec
+
+# Run all spec files in a single directory (recursively)
+$ bundle exec rspec spec/models
+
+# Run a single spec file
+$ bundle exec rspec spec/controllers/admin/item_requests_controller_spec.rb
+
+# Run a single example from a spec file (by line number)
+$ bundle exec rspec spec/controllers/admin/item_requests_controller_spec.rb:15
+
+# See all options for running specs
+$ bundle exec rspec --help
+```
+
 ## Built With
 
 * [ActiveAdmin](https://activeadmin.info/) - The administration framework used
