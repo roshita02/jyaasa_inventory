@@ -18,9 +18,9 @@ Features include:
 
 ## Requirements
 
-* Ruby - ruby 2.6.3p62 (2019-04-16 revision 67580)
-* Rails - Rails 6.0.0.rc2
-* Postgresql - psql 10.10 
+* ruby 2.6.3p62 (2019-04-16 revision 67580)
+* Rails 6.0.0.rc2
+* psql 10.10 
 
 ## Installation
 ```
