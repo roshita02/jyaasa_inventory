@@ -16,7 +16,6 @@
 #  category_id    :bigint           not null
 #
 
-
 # Model for purchase table
 class Purchase < ApplicationRecord
   belongs_to :item

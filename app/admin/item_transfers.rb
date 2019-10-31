@@ -59,7 +59,7 @@ ActiveAdmin.register ItemTransfer do
         @transfer.item_assignment_id = params[:item_assignment_id]
         if @transfer.save
           flash[:success] = 'Item transfer successful'
-          redirect_to admin_item_assignments_path 
+          redirect_to admin_item_assignments_path
         end
       else
         flash[:error] = 'Transferred Quantity should not be greater than item assigned quantity'

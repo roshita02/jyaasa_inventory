@@ -12,7 +12,6 @@
 #  category_id :bigint
 #
 
-
 # Model for withdraw
 class Withdraw < ApplicationRecord
   belongs_to :item

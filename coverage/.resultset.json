@@ -1,7 +1,21 @@
 {
   "RSpec": {
     "coverage": {
+      "/home/roshita/Documents/projects/jyaasa_inventory/app/mailers/item_assignment_mailer.rb": [
+        null,
+        null,
+        1,
+        1,
+        null,
+        1,
+        0,
+        0,
+        0,
+        0,
+        null,
+        null
+      ]
     },
-    "timestamp": 1572489859
+    "timestamp": 1572501912
   }
 }

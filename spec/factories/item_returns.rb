@@ -14,7 +14,6 @@
 #  returned_date      :date
 #
 
-
 FactoryBot.define do
   factory :item_return do
     item_assignment { nil }

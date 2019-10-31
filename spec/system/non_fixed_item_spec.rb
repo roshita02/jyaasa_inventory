@@ -13,16 +13,17 @@ RSpec.describe 'NonFixedItem', type: :system do
     visit admin_non_fixed_items_path
   end
 
-  it 'is able to create new fixed item purchase' do
+  it 'is able to create new non fixed item purchase' do
     click_link 'Purchase'
     click_link 'New Purchase'
     # Creating purchase of above non fixed item
     select 'Stationaries', from: :non_fixed_item_purchase_category_id
     select 'Pen', from: :non_fixed_item_purchase_item_id
     fill_in 'non_fixed_item_purchase_quantity', with: '2'
+    fill_in 'non_fixed_item_purchase_purchased_date', with: '2019-01-01'
     expect  do
       click_button 'Create Non fixed item purchase'
-    end.to change(Purchase, :count).by(1)
+    end.to change(NonFixedItemPurchase, :count).by(1)
   end
 
   it 'is not able to create non fixed item purchase with null attributes' do

@@ -35,7 +35,6 @@
 #  last_sign_in_ip        :inet
 #
 
-
 require 'rails_helper'
 
 RSpec.describe Employee, type: :model do

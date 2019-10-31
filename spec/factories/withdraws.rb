@@ -12,7 +12,6 @@
 #  category_id :bigint
 #
 
-
 FactoryBot.define do
   factory :withdraw do
     quantity { 1 }

@@ -13,7 +13,6 @@
 #  updated_at      :datetime         not null
 #
 
-
 # Model for User comments
 class UserComment < ApplicationRecord
   validates_presence_of :body

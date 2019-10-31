@@ -16,7 +16,6 @@
 #  category_id    :bigint           not null
 #
 
-
 # STI for non fixed item purchase
 class NonFixedItemPurchase < Purchase
 end

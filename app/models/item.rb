@@ -67,8 +67,8 @@ class Item < ApplicationRecord
       purchase.quantity = row['purchased_quantity']
       purchase.category_id = Category.find_by_name(category).id
       purchase.item_id = Item.find_by_name(item_name).id
-      
-      if !vendor_name.nil?
+
+      unless vendor_name.nil?
         if Vendor.find_by_name(vendor_name).nil?
           vendor = Vendor.create(name: row['vendor'], pan_no: row['pan_no'])
           vendor.save!
