@@ -1,43 +1,7 @@
 {
   "RSpec": {
     "coverage": {
-      "/home/roshita/Documents/projects/jyaasa_inventory/app/controllers/user_comments_controller.rb": [
-        null,
-        null,
-        null,
-        1,
-        1,
-        0,
-        0,
-        null,
-        null,
-        1,
-        1,
-        0,
-        0,
-        0,
-        0,
-        0,
-        null,
-        0,
-        null,
-        null,
-        null,
-        1,
-        0,
-        0,
-        0,
-        0,
-        null,
-        null,
-        1,
-        null,
-        1,
-        0,
-        null,
-        null
-      ]
     },
-    "timestamp": 1571139972
+    "timestamp": 1572489859
   }
 }

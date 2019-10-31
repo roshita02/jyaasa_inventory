@@ -53,8 +53,8 @@ ActiveAdmin.register Employee do
 
   collection_action :send_invitation, method: :patch do
     @employee = Employee.invite!({ email: params[:employee][:email], name: params[:employee][:name],
-                                   designation: params[:employee][:designation], contact_no: params[:employee][:contact_no], address: params[:employee][:address] },
-                                 current_employee)
+                                   designation: params[:employee][:designation], contact_no: params[:employee][:contact_no],
+                                   address: params[:employee][:address] }, current_employee)
     if @employee.errors.empty?
       flash[:success] = 'Employee has been successfully invited.'
       redirect_to admin_employees_path

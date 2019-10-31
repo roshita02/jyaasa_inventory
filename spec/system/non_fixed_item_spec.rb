@@ -14,6 +14,7 @@ RSpec.describe 'NonFixedItem', type: :system do
   end
 
   it 'is able to create new fixed item purchase' do
+    click_link 'Purchase'
     click_link 'New Purchase'
     # Creating purchase of above non fixed item
     select 'Stationaries', from: :non_fixed_item_purchase_category_id
@@ -25,6 +26,7 @@ RSpec.describe 'NonFixedItem', type: :system do
   end
 
   it 'is not able to create non fixed item purchase with null attributes' do
+    click_link 'Purchase'
     click_link 'New Purchase'
     click_button 'Create Non fixed item purchase'
     expect(page).to have_text("can't be blank")

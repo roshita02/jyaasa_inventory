@@ -1,5 +1,19 @@
 # frozen_string_literal: true
 
+# == Schema Information
+#
+# Table name: item_requests
+#
+#  id            :bigint           not null, primary key
+#  item          :string
+#  quantity      :integer
+#  reason        :text
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#  employee_id   :integer
+#  status        :integer          default("pending")
+#  approved_date :date
+#
 require 'rails_helper'
 
 RSpec.describe ItemRequest, type: :model do

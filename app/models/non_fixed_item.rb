@@ -4,16 +4,22 @@
 #
 # Table name: items
 #
-#  id             :bigint           not null, primary key
-#  name           :string
-#  type           :string
-#  rate           :integer
-#  created_at     :datetime         not null
-#  updated_at     :datetime         not null
-#  vendor_id      :bigint
-#  quantity       :integer
-#  category_id    :bigint
-#  purchased_date :date
+#  id                   :bigint           not null, primary key
+#  name                 :string
+#  type                 :string
+#  rate                 :integer
+#  created_at           :datetime         not null
+#  updated_at           :datetime         not null
+#  vendor_id            :bigint
+#  quantity             :integer
+#  purchased_date       :date
+#  assigned_quantity    :integer
+#  category_id          :bigint
+#  withdrawn_quantity   :integer
+#  available_quantity   :integer
+#  remaining_quantity   :integer
+#  status               :integer          default("out of stock")
+#  transferred_quantity :integer
 #
 class NonFixedItem < Item
   after_update :update_remaining_quantity

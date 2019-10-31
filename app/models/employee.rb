@@ -12,8 +12,6 @@
 #  remember_created_at    :datetime
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
-#  first_name             :string
-#  last_name              :string
 #  invitation_token       :string
 #  invitation_created_at  :datetime
 #  invitation_sent_at     :datetime
@@ -22,6 +20,19 @@
 #  invited_by_type        :string
 #  invited_by_id          :bigint
 #  invitations_count      :integer          default(0)
+#  designation            :string
+#  name                   :string
+#  contact_no             :string
+#  address                :string
+#  confirmation_token     :string
+#  confirmed_at           :datetime
+#  unconfirmed_email      :string
+#  confirmation_sent_at   :datetime
+#  sign_in_count          :integer          default(0), not null
+#  current_sign_in_at     :datetime
+#  last_sign_in_at        :datetime
+#  current_sign_in_ip     :inet
+#  last_sign_in_ip        :inet
 #
 class Employee < ApplicationRecord
   # Include default devise modules. Others available are:

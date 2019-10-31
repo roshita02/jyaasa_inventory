@@ -53,7 +53,8 @@ ActiveAdmin.register ItemReturn do
       if item_transfer_id.nil?
         @item_assignment = ItemAssignment.find_by_id(item_assignment_id)
         if @item_assignment.quantity >= params[:item_return][:quantity].to_i
-          @return = ItemReturn.new(item_assignment_id: item_assignment_id, item_id: params[:item_return][:item_id], quantity: params[:item_return][:quantity], returned_date: params[:item_return][:returned_date])
+          @return = ItemReturn.new(item_return_params)
+          @return.item_assignment_id = item_assignment_id
           if @return.save!
             @borrowed_item = ItemAssignment.find(item_assignment_id).item
             @borrowed_item.decrement!(:assigned_quantity, params[:item_return][:quantity].to_i)
@@ -62,6 +63,7 @@ ActiveAdmin.register ItemReturn do
             @item_assignment.decrement!(:quantity, params[:item_return][:quantity].to_i)
             @item_assignment.save!
             redirect_to admin_item_assignments_path
+            flash[:success] = 'Item return successful'
           end
         else
           flash[:error] = 'Return Quantity should not be greater than item assigned quantity'
@@ -70,7 +72,8 @@ ActiveAdmin.register ItemReturn do
       else
         @item_transfer = ItemTransfer.find(item_transfer_id)
         if @item_transfer.quantity >= params[:item_return][:quantity].to_i
-          @return = ItemReturn.new(item_transfer_id: item_transfer_id, item_id: params[:item_return][:item_id], quantity: params[:item_return][:quantity], returned_date: params[:item_return][:returned_date])
+          @return = ItemReturn.new(item_return_params)
+          @return.item_transfer_id = item_transfer_id
           if @return.save!
             @transferred_item = ItemTransfer.find(item_transfer_id).item
             @transferred_item.decrement!(:transferred_quantity, params[:item_return][:quantity].to_i)
@@ -79,6 +82,7 @@ ActiveAdmin.register ItemReturn do
             @item_transfer.decrement!(:quantity, params[:item_return][:quantity].to_i)
             @item_transfer.save!
             redirect_to admin_item_transfers_path
+            flash[:success] = 'Item return successful'
           end
         else
           flash[:error] = 'Return Quantity should not be greater than item transferred quantity'

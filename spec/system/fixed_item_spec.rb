@@ -16,6 +16,7 @@ RSpec.describe 'FixedItem', type: :system do
   end
 
   it 'is able to create new fixed item purchase' do
+    click_link 'Purchase'
     click_link 'New Purchase'
     # Creating purchase of above fixed item
     select 'OFFICE EQUIPMENT', from: :fixed_item_purchase_category_id
@@ -30,12 +31,14 @@ RSpec.describe 'FixedItem', type: :system do
   end
 
   it 'is not able to create fixed item purchase with null attributes' do
+    click_link 'Purchase'
     click_link 'New Purchase'
     click_button 'Create Fixed item purchase'
     expect(page).to have_text("can't be blank")
   end
 
   it 'is able to create a new vendor within the purchase form' do
+    click_link 'Purchase'
     click_link 'New Purchase'
     click_link 'Add new Vendor'
     fill_in 'vendor_name', with: 'test'
@@ -46,7 +49,7 @@ RSpec.describe 'FixedItem', type: :system do
 
   it 'is able to create a new item assignment' do
     click_link 'Assign an Item'
-    select 'roshita, intern', from: :item_assignment_employee_id
+    select 'Roshita, Intern', from: :item_assignment_employee_id
     select 'OFFICE EQUIPMENT', from: :item_assignment_category_id
     select 'Tool', from: :item_assignment_item_id
     fill_in 'item_assignment_quantity', with: '1'
@@ -56,7 +59,7 @@ RSpec.describe 'FixedItem', type: :system do
 
   it 'is not able to create a new item assignment with quantity greater than remaining quantity' do
     click_link 'Assign an Item'
-    select 'roshita, intern', from: :item_assignment_employee_id
+    select 'Roshita, Intern', from: :item_assignment_employee_id
     select 'OFFICE EQUIPMENT', from: :item_assignment_category_id
     select 'Tool', from: :item_assignment_item_id
     fill_in 'item_assignment_quantity', with: '6'

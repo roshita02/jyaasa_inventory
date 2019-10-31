@@ -1,11 +1,28 @@
 # frozen_string_literal: true
 
+# == Schema Information
+#
+# Table name: purchases
+#
+#  id             :bigint           not null, primary key
+#  quantity       :integer
+#  rate           :integer
+#  purchased_date :date
+#  item_id        :bigint           not null
+#  vendor_id      :bigint
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  type           :string
+#  category_id    :bigint           not null
+#
+
+
 # Model for purchase table
 class Purchase < ApplicationRecord
   belongs_to :item
   belongs_to :vendor, optional: true
   belongs_to :category
-  validates_presence_of :quantity, :category_id, :item_id
+  validates_presence_of :quantity, :category_id, :item_id, :purchased_date
 
   after_save :increase_quantity
   after_destroy :decrease_quantity

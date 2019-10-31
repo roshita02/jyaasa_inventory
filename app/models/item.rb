@@ -4,16 +4,22 @@
 #
 # Table name: items
 #
-#  id             :bigint           not null, primary key
-#  name           :string
-#  type           :string
-#  rate           :integer
-#  created_at     :datetime         not null
-#  updated_at     :datetime         not null
-#  vendor_id      :bigint
-#  quantity       :integer
-#  category_id    :bigint
-#  purchased_date :date
+#  id                   :bigint           not null, primary key
+#  name                 :string
+#  type                 :string
+#  rate                 :integer
+#  created_at           :datetime         not null
+#  updated_at           :datetime         not null
+#  vendor_id            :bigint
+#  quantity             :integer
+#  purchased_date       :date
+#  assigned_quantity    :integer
+#  category_id          :bigint
+#  withdrawn_quantity   :integer
+#  available_quantity   :integer
+#  remaining_quantity   :integer
+#  status               :integer          default("out of stock")
+#  transferred_quantity :integer
 #
 class Item < ApplicationRecord
   validates :name, uniqueness: { case_sensitive: false }
@@ -61,11 +67,14 @@ class Item < ApplicationRecord
       purchase.quantity = row['purchased_quantity']
       purchase.category_id = Category.find_by_name(category).id
       purchase.item_id = Item.find_by_name(item_name).id
-      if Vendor.find_by_name(vendor_name).nil?
-        vendor = Vendor.create(name: row['vendor'], pan_no: row['pan_no'])
-        vendor.save!
+      
+      if !vendor_name.nil?
+        if Vendor.find_by_name(vendor_name).nil?
+          vendor = Vendor.create(name: row['vendor'], pan_no: row['pan_no'])
+          vendor.save!
+        end
+        purchase.vendor_id = Vendor.find_by_name(vendor_name).id
       end
-      purchase.vendor_id = Vendor.find_by_name(vendor_name).id
       purchase.purchased_date = row['purchased_date']
       purchase.rate = row['rate']
       purchase.type = "#{item.type}Purchase"

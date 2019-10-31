@@ -20,8 +20,13 @@ ActiveAdmin.register ItemTransfer do
     column('Transferred Quantity', :quantity)
     column('Action') do |item_transfer|
       span link_to 'View', admin_item_transfer_path(item_transfer), class: 'btn btn-primary'
-      if item_transfer.quantity > 0
-        span link_to 'Returned', returned_admin_item_transfer_path(item_transfer), method: :patch, class: 'btn btn-success', data: { confirm: 'Are you sure? ' }
+    end
+    column('Return') do |item_transfer|
+      if item_transfer.quantity.positive?
+        span
+        link_to 'Returned', returned_admin_item_transfer_path(item_transfer), method: :patch, class: 'btn btn-success', data: { confirm: 'Are you sure?' }
+      else
+        para 'Not available'
       end
     end
   end
@@ -50,18 +55,11 @@ ActiveAdmin.register ItemTransfer do
     def create
       @item_assignment = ItemAssignment.find(params[:item_assignment_id])
       if @item_assignment.quantity >= params[:item_transfer][:quantity].to_i
-        @transfer = ItemTransfer.new(item_assignment_id: params[:item_assignment_id], employee_id: params[:item_transfer][:employee_id],
-                                     item_id: params[:item_transfer][:item_id], quantity: params[:item_transfer][:quantity])
+        @transfer = ItemTransfer.new(item_transfer_params)
+        @transfer.item_assignment_id = params[:item_assignment_id]
         if @transfer.save
-          @borrowed_item = @item_assignment.item
-          @borrowed_item.decrement!(:assigned_quantity, params[:item_transfer][:quantity].to_i)
-          @borrowed_item.increment(:transferred_quantity, params[:item_transfer][:quantity].to_i)
-          @borrowed_item.save!
-          @item_assignment.decrement!(:quantity, params[:item_transfer][:quantity].to_i)
-          @item_assignment.save!
-          ItemTransferNotifierMailer.new_item_transfer(@transfer, @item_assignment).deliver_now
-          ItemTransferNotifierMailer.new_item_received(@transfer, @item_assignment).deliver_now
-          redirect_to admin_item_assignments_path
+          flash[:success] = 'Item transfer successful'
+          redirect_to admin_item_assignments_path 
         end
       else
         flash[:error] = 'Transferred Quantity should not be greater than item assigned quantity'
@@ -72,7 +70,7 @@ ActiveAdmin.register ItemTransfer do
     private
 
     def item_transfer_params
-      params.require(:item_transfer).permit(:employee_id, :item_id, :item_assignment_id, :quantity)
+      params.require(:item_transfer).permit(:employee_id, :item_id, :quantity)
     end
   end
 

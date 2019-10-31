@@ -36,14 +36,14 @@ ActiveAdmin.register ItemAssignment do
       i.employee.designation.capitalize
     end
     column :item
-    column :quantity if params['scope'] == 'assigned' || params['scope'] == 'returned' || params['scope'].nil?
+    column :quantity if params['scope'] == 'assigned' || params['scope'].nil?
     column :assigned_date
     column :transferred_date if params['scope'] == 'transferred'
     column('Action') do |item_assignment|
       span link_to 'View', admin_item_assignment_path(item_assignment), class: 'btn btn-primary'
     end
     column('Return/Transfer') do |item_assignment|
-      if item_assignment.quantity > 0
+      if item_assignment.quantity.positive?
         span link_to 'Returned', returned_admin_item_assignment_path(item_assignment), method: :patch, class: 'btn btn-success', data: { confirm: 'Are you sure? ' }
         span link_to 'Transfer', transfer_admin_item_assignment_path(item_assignment), method: :patch, class: 'btn btn-danger'
       else
