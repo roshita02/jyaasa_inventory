@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# MIgration for creating employee
 class DeviseCreateEmployees < ActiveRecord::Migration[6.0]
   def change
     create_table :employees do |t|

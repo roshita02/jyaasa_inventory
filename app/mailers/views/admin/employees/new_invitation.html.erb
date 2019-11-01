@@ -3,18 +3,31 @@
 <%= form_for @employee, :url => send_invitation_admin_employees_path do |f| %>
    
    <table style='width: 50%'>
-     <tr>
-      <td><%= f.label :first_name %></td>
-      <td><%= f.text_field :first_name %></td>
-    </tr>
     <tr>
-      <td><%= f.label :last_name %></td>
-      <td><%= f.text_field :last_name %></td>
+      <td><%= f.label :name %></td>
+      <td><%= f.text_field :name %></td>
     </tr>
+
+    <tr>
+      <td><%= f.label :designation %></td>
+      <td><%= f.text_field :designation %></td>
+    </tr>
+
     <tr>
       <td><%= f.label :email %></td>
       <td><%= f.text_field :email, :required => true %></td>
     </tr>
+
+    <tr>
+      <td><%= f.label :address %></td>
+      <td><%= f.text_field :address %></td>
+    </tr>
+
+    <tr>
+      <td><%= f.label :contact_no %></td>
+      <td><%= f.text_field :contact_no %></td>
+    </tr>
+
    </table>
    
   <%= f.submit  "Send an Invitation" %>

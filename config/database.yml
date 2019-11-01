@@ -23,7 +23,7 @@ default: &default
 
 development:
   <<: *default
-  database: jyaasa_inventory_development
+  database: jyaasa_inventory_development11
   username: roshita
   password: laptop01
 

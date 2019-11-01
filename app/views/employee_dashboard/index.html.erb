@@ -1,18 +1,48 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <title>Employee</title>
-</head>
-<body>
-<h1> Welcome to your dashboard </h1>
-<h4><%= @email %></h4><br>
-  <%= link_to destroy_employee_session_path, :method => 'delete' , class: "btn btn-default" do%>
-    <i class="glyphicon glyphicon-log-out"></i> 
-    Logout
-  <% end %>
-  <%= link_to edit_employee_registration_path do %>
-    Edit Profile
-  <% end %>  
-<h3>Your Items</h3>
-</body>
-</html>
+<%= render :partial => '/shared/nav' %>
+<div class="container white">
+<br>
+    <div class="text-right">
+        <%= link_to 'Request an Item',new_item_request_path, class: 'btn btn-success' %>
+        <%= link_to "Your Items", items_path, class: 'btn btn-warning' %>
+        <%= link_to "Your Item Requests (#{@item_requests.count})", item_requests_path, class: 'btn btn-blue' %> 
+    </div>
+
+   <div class="panel panel-default" style="width: 100%">
+        <div class="panel-heading text-center">
+            <strong> <h4>Recent Activity</strong></h4>
+         </div>
+        
+        <table class="table table-striped" %> 
+            <thead>
+                <tr>
+                <th>Item</th>
+                <th>Quantity (Qty)</th>
+                <th>Status</th>
+                <th>Requested Date</th>
+                <th colspan="3">Action</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <% if @item_requests.empty? %>
+                    <tr>
+                        <td colspan= "5">No entries found </td>
+                    </tr>
+                <% else %>
+                    <% @item_requests.order("created_at desc").limit(5).each do |item_request| %>
+                        <tr>
+                            <td><%= item_request.item.capitalize %></td>
+                            <td><%= item_request.quantity %></td> 
+                            <td><span class="<%= status_color(item_request.status) %>"><%= item_request.status.upcase %></span></td>
+                            <td><%= item_request.created_at.to_date %></td>
+                            <td><%= link_to 'Show', item_request, class: 'btn btn-primary' %></td>
+                        </tr>
+                    <% end %>
+                <% end %>
+            </tbody>
+        </table>
+       
+    </div>
+</div>
+
+

@@ -1,0 +1,11 @@
+Hello, 
+You have a new comment on your item request
+<%= @commentor.email %>: <%= @comment.body %>
+To reply, 
+<% if @comment.admin_user_id == nil %>
+  <%= link_to 'Click here', item_request_url(@item_request) %>
+<% else %>
+  <%= link_to 'Click here', admin_item_request_url(@item_request) %>
+<% end %>
+Thanks & Regards,
+Jyaasa Inventory
