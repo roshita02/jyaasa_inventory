@@ -47,7 +47,7 @@ ActiveAdmin.register ItemAssignment do
         span link_to 'Returned', returned_admin_item_assignment_path(item_assignment), method: :patch, class: 'btn btn-success', data: { confirm: 'Are you sure? ' }
         span link_to 'Transfer', transfer_admin_item_assignment_path(item_assignment), method: :patch, class: 'btn btn-danger'
       else
-        para 'Not available'
+        status_tag('Not available')
       end
     end
   end

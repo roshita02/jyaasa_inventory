@@ -8,6 +8,7 @@
         <th>Status</th>
         <th>Requested Date</th>
         <th>Approved Date</th>
+        <th>Action</th>
       </tr>
     </thead>
     <tbody>
@@ -20,7 +21,7 @@
           <tr>
             <td><%= item_request.item.capitalize %></td>
             <td><%= item_request.quantity %></td>
-            <td><%= item_request.status.capitalize %></td>
+             <td><span class="<%= status_color(item_request.status) %>"><%= item_request.status.upcase %></span></td>
             <td><%= item_request.created_at.to_date %></td>
             <td><%= item_request.approved_date %></td>
             <td><%= link_to 'Show', item_request, class: 'btn btn-primary' %></td>

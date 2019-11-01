@@ -26,7 +26,7 @@ ActiveAdmin.register ItemTransfer do
         span
         link_to 'Returned', returned_admin_item_transfer_path(item_transfer), method: :patch, class: 'btn btn-success', data: { confirm: 'Are you sure?' }
       else
-        para 'Not available'
+        status_tag('Not available')
       end
     end
   end

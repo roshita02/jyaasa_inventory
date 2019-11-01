@@ -10,23 +10,23 @@
         <table class="table table-striped" > 
           <thead>
             <tr>
-              <th>Item name</th>
+              <th>Item</th>
               <th>Assigned date</th>    
-              <th>Assigned Quantity</th> 
+              <th>Quantity (Qty)</th> 
             </tr>
           </thead>  
 
           <tbody>
             <% if @items.empty? %>
               <tr>
-                  <td colspan= "5">No items yet </td>
+                  <td colspan= "3">No items yet </td>
               </tr>
             <% else %>
               <% @items.order("created_at desc").where("quantity >=1").each do |item| %>
                 <tr>
                   <td><%= Item.find(item.item_id).name.capitalize %></td>
+                  <td><%= item.assigned_date %></td>
                   <td><%= item.quantity %></td>
-                  <td><%= item.created_at.to_date %></td>
                 </tr>
               <% end %>
             <% end %>
@@ -52,15 +52,15 @@
         <table class="table table-striped" > 
         <thead>
           <tr>
-            <th>Item name</th>
-            <th>Transferred Quantity</th> 
+            <th>Item</th>
+            <th>Transferred Quantity (Qty)</th> 
           </tr>
         </thead>
 
         <tbody>
           <% if @transferred_items.empty? %>
             <tr>
-                <td colspan= "5">No items transferred to you yet </td>
+                <td colspan= "2">No items transferred to you yet </td>
             </tr>
           <% else %>
             <% @transferred_items.order("created_at desc").where("quantity >=1").each do |item| %>

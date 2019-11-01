@@ -15,8 +15,8 @@
         <table class="table table-striped" %> 
             <thead>
                 <tr>
-                <th>Item name</th>
-                <th>Quantity</th>
+                <th>Item</th>
+                <th>Quantity (Qty)</th>
                 <th>Status</th>
                 <th>Requested Date</th>
                 <th colspan="3">Action</th>
@@ -31,9 +31,9 @@
                 <% else %>
                     <% @item_requests.order("created_at desc").limit(5).each do |item_request| %>
                         <tr>
-                            <td class><%= item_request.item.capitalize %></td>
-                            <td><%= item_request.quantity %></td>
-                            <td><%= item_request.status.capitalize %></td>
+                            <td><%= item_request.item.capitalize %></td>
+                            <td><%= item_request.quantity %></td> 
+                            <td><span class="<%= status_color(item_request.status) %>"><%= item_request.status.upcase %></span></td>
                             <td><%= item_request.created_at.to_date %></td>
                             <td><%= link_to 'Show', item_request, class: 'btn btn-primary' %></td>
                         </tr>

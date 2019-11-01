@@ -58,26 +58,10 @@ ActiveAdmin.register FixedItem do
           row :category
           row('Qty', &:quantity)
           row('Assigned Qty', &:assigned_quantity)
+          row('Transferred Qty', &:transferred_quantity)
         end
       end
 
-      column do
-        panel 'Item Assignment statistics' do
-          paginated_collection(fixed_item.item_assignment.page(params[:page1]).per(5), download_links: false) do
-            table_for(collection) do
-              column :employee_id do |i|
-                i.employee.name.capitalize
-              end
-              column 'Qty', :quantity
-              column 'Assigned date', :assigned_date
-              # column(:status) { |item_assignment| status_tag(item_assignment.status) }
-            end
-          end
-        end
-      end
-    end
-
-    columns do
       column max_width: '666px' do
         panel 'Purchase history' do
           paginated_collection(fixed_item.purchase.page(params[:page]).per(5)) do
@@ -89,6 +73,23 @@ ActiveAdmin.register FixedItem do
               column 'Total Amount' do |i|
                 i.quantity * i.rate
               end
+            end
+          end
+        end
+      end
+    end
+
+    columns do
+      column do
+        panel 'Item Assignment statistics' do
+          paginated_collection(fixed_item.item_assignment.page(params[:page1]).per(5), download_links: false) do
+            table_for(collection) do
+              column :employee_id do |i|
+                i.employee.name.capitalize
+              end
+              column 'Qty', :quantity
+              column 'Assigned date', :assigned_date
+              # column(:status) { |item_assignment| status_tag(item_assignment.status) }
             end
           end
         end
@@ -115,17 +116,17 @@ ActiveAdmin.register FixedItem do
   controller do
     def new
       super
-      @first_value = request.referer
-      session[:passed_variable] = @first_value
+      @old_path = request.referer
+      session[:path] = @old_path
     end
 
     def create
       params[:fixed_item][:remaining_quantity] = params[:fixed_item][:quantity]
       @item = FixedItem.new(item_params)
-      @first_value = session[:passed_variable]
+      @old_path = session[:path]
       if @item.save
         flash[:success] = 'Successfully created new fixed item'
-        redirect_to(@first_value)
+        redirect_to(@old_path)
       else
         super
       end

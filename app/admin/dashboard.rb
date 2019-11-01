@@ -18,19 +18,19 @@ ActiveAdmin.register_page 'Dashboard' do
 
       column do
         panel 'Items assigned' do
-          h1 ItemAssignment.all.where('status': 'assigned').count
+          h1 ItemAssignment.all.where('quantity > 0').count
+        end
+      end
+
+      column do
+        panel 'Items transferred' do
+          h1 ItemTransfer.all.where('quantity > 0').count
         end
       end
 
       column do
         panel 'Employees' do
           h1 Employee.count
-        end
-      end
-
-      column do
-        panel 'Vendors' do
-          h1 Vendor.count
         end
       end
     end
