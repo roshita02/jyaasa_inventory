@@ -1,11 +1,22 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  devise_for :employees, controllers: { invitations: 'employees_invitations' }
+  resources :item_requests
+  resources :items
+  resources :user_comments
+  resources :employee_login
+  devise_for :employees, controllers: { sessions: 'employees/sessions', invitations: 'employees_invitation', registrations: 'employees/registrations', confirmations: 'employees/confirmations' }
+  resources :employees_imports, only: %i[new create]
   resources :vendors
+  resources :employee_dashboard
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
+  get 'categories/:category_id/item_list', to: 'admin/fixed_item_purchases#item_list'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   resources :home
-  root 'home#index'
+  root to: 'home#index'
+  # root to: 'employee_dashboard#index'
+  # namespace :employee do
+  # root to: 'employee_dashboard#index'
+  # end
 end

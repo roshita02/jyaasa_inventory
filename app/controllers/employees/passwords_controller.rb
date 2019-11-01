@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Employees::PasswordsController < Devise::PasswordsController
+class EmployeesPasswordsController < Devise::PasswordsController
   # GET /resource/password/new
   # def new
   #   super
@@ -8,7 +8,7 @@ class Employees::PasswordsController < Devise::PasswordsController
 
   # POST /resource/password
   # def create
-  #   super
+  #  super
   # end
 
   # GET /resource/password/edit?reset_password_token=abcdef

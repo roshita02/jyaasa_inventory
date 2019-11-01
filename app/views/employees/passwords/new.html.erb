@@ -1,0 +1,21 @@
+<body id="homepage">
+  <div class="panel panel-default custom-panel-position">
+    <div class="panel-heading text-center">
+      <h4><strong>Confirm your email</strong></h4>
+    </div>
+    <div class="panel-body">
+      <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { "data-parsley-validate" => true, method: :post }) do |f| %>
+        
+        <div class="form-group">
+          <%= f.label :email %><br />
+          <%= f.email_field :email, autofocus: true, autocomplete: "email", class:"form-control", required: true, type: 'email' %>
+        </div><hr>
+
+        <div class="loginactions text-left">
+          <%= f.submit "Send confirmation link", class: "btn btn-success"%>
+          <%= link_to 'Back', new_employee_session_path, class: "btn btn-default" %>
+        </div>
+      <% end %> 
+    </div>
+  </div>
+</div>

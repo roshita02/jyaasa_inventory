@@ -1,0 +1,83 @@
+<%= render :partial => '/shared/nav' %>
+<div class="row">
+  <div class= "col-xs-12 col-sm-6">
+    <div class="panel panel-default" >
+      <div class="panel-heading">
+        <strong><h5>Items assigned to you</strong></h5>
+      </div>
+
+      <div class="panel-body">
+        <table class="table table-striped" > 
+          <thead>
+            <tr>
+              <th>Item</th>
+              <th>Assigned date</th>    
+              <th>Quantity (Qty)</th> 
+            </tr>
+          </thead>  
+
+          <tbody>
+            <% if @items.empty? %>
+              <tr>
+                  <td colspan= "3">No items yet </td>
+              </tr>
+            <% else %>
+              <% @items.order("created_at desc").where("quantity >=1").each do |item| %>
+                <tr>
+                  <td><%= Item.find(item.item_id).name.capitalize %></td>
+                  <td><%= item.assigned_date %></td>
+                  <td><%= item.quantity %></td>
+                </tr>
+              <% end %>
+            <% end %>
+          </tbody>
+          
+          <tfoot>
+            <tr>
+              <td><%= paginate @items, :param_name => "item_page" %></td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class= "col-xs-12 col-sm-6">
+    <div class="panel panel-default" >
+      <div class="panel-heading">
+        <strong><h5>Items transferred to you</strong></h5>
+      </div>
+
+      <div class="panel-body">
+        <table class="table table-striped" > 
+        <thead>
+          <tr>
+            <th>Item</th>
+            <th>Transferred Quantity (Qty)</th> 
+          </tr>
+        </thead>
+
+        <tbody>
+          <% if @transferred_items.empty? %>
+            <tr>
+                <td colspan= "2">No items transferred to you yet </td>
+            </tr>
+          <% else %>
+            <% @transferred_items.order("created_at desc").where("quantity >=1").each do |item| %>
+              <tr>
+                <td><%= Item.find(item.item_id).name.capitalize %></td>
+                <td><%= item.quantity %></td>
+              </tr>
+            <% end %>
+          <% end %>
+        </tbody>
+
+        <tfoot>
+          <tr>
+              <td><%= paginate @transferred_items, :param_name => "item_transfer_page" %></td>
+            </tr>
+        </tfoot>
+      </div>
+    </div>
+  </div>
+</div>

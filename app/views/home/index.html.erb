@@ -1,0 +1,16 @@
+<body id="homepage">
+<div class="login-form">    
+  <div class="avatar">
+	 <%= link_to image_tag("jyaasa-logo.png", alt: "logo"), '/' , class: "navbar-brand img" %>
+  </div>
+    	<h4 class="modal-title">Inventory System</h4>
+
+  <div class= "login-form-group">
+   <div class= "actions">
+      <%= link_to "Admin", new_admin_user_session_path , class: "btn btn-blue btn-lg" %>
+      <%= link_to "Employee", new_employee_session_path, class: "btn btn-orange pull-right btn-lg" %>
+    </div>
+  </div>
+</div>
+</body>
+

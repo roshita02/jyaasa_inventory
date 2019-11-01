@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Home ontroller for index page
+# Home controller for index page
 class HomeController < ApplicationController
   def index; end
 end

@@ -11,6 +11,7 @@
         "rubocop": true
     },
     "ruby.format": "rubocop",
+    "ruby.rubocop.configFilePath": "/home/roshita/Documents/projects/jyaasa_inventory/.rubocop.yml",
     "editor.formatOnSaveTimeout": 1500,
     "editor.tabSize": 2,
     "editor.fontLigatures": true,

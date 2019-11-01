@@ -1,0 +1,37 @@
+<body id="homepage">
+  <div class="panel panel-default custom-panel-position">
+    <div class="panel-heading text-center">
+      <h4><strong> <span class="glyphicon glyphicon-user"></span> Employee login</strong></h4>
+    </div>
+    <div class="panel-body">
+      <%= form_for(resource, as: resource_name, url: session_path(resource_name),:html => {"data-parsley-validate" => true} ) do |f| %>
+            
+        <div class="form-group">
+          <%= f.label :email %><br />
+          <%= f.email_field :email, autofocus: true, autocomplete: :off , class: "form-control", required: true, type: 'email' %>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :password %><br />
+          <%= f.password_field :password, autocomplete: "current-password" ,class: "form-control", required: true %>
+        </div>
+
+        <% if devise_mapping.rememberable? %>
+        <div class="form-group">
+          <%= f.check_box :remember_me %>
+          <%= f.label :remember_me %>
+          <%= link_to "Forgot your password?", new_password_path(resource_name) , class: "pull-right"%>
+        </div>
+        <% end %>        
+        <hr>
+        <div class="loginactions">
+          <%= f.submit "Log in", class: "btn btn-success", style:"width: 100%; " %>
+        </div>
+          <div class="text-centre">
+            <%= link_to "First time login? Set your password", new_employee_confirmation_path, class: 'text-centre', style: "align: centre;" %>
+          </div>
+       
+      <% end %>  
+    </div>
+  </div>
+  </body>

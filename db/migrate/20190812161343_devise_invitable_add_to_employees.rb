@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Migration for adding devise invitable to employee
 class DeviseInvitableAddToEmployees < ActiveRecord::Migration[6.0]
   def up
     change_table :employees do |t|
@@ -19,7 +20,8 @@ class DeviseInvitableAddToEmployees < ActiveRecord::Migration[6.0]
   def down
     change_table :employees do |t|
       t.remove_references :invited_by, polymorphic: true
-      t.remove :invitations_count, :invitation_limit, :invitation_sent_at, :invitation_accepted_at, :invitation_token, :invitation_created_at
+      t.remove :invitations_count, :invitation_limit, :invitation_sent_at,
+               :invitation_accepted_at, :invitation_token, :invitation_created_at
     end
   end
 end
