@@ -1,0 +1,38 @@
+<%= render :partial => '/shared/nav' %><br>
+  <strong> <h4>Item Requests History</strong></h4><hr>
+  <table class="table table-striped"> 
+    <thead>
+      <tr>
+        <th>Item</th>
+        <th>Quantity</th>
+        <th>Status</th>
+        <th>Requested Date</th>
+        <th>Approved Date</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% if @item_requests.empty? %>
+        <tr>
+            <td colspan= "5">No entries found </td>
+        </tr>
+      <% else %>
+        <% @item_requests.order("created_at desc").each do |item_request| %>
+          <tr>
+            <td><%= item_request.item.capitalize %></td>
+            <td><%= item_request.quantity %></td>
+             <td><span class="<%= status_color(item_request.status) %>"><%= item_request.status.upcase %></span></td>
+            <td><%= item_request.created_at.to_date %></td>
+            <td><%= item_request.approved_date %></td>
+            <td><%= link_to 'Show', item_request, class: 'btn btn-primary' %></td>
+        <% end %>
+      <% end %>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td> <%= paginate @item_requests %> </td>
+      </tr>
+    </tfoot>
+  </table>
+
+ 

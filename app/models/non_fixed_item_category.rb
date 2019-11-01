@@ -11,6 +11,7 @@
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
 #
+
 # Inherited from Category
 class NonFixedItemCategory < Category
 end

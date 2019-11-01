@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <p>
+      You have a new item request.
+    </p>
+    <h4>Request details </h4>
+    <p>Employee name: <%= @employee.name %></p>
+    <p>Requested Item: <%= @item_request.item %></p>
+    <p>Quantity: <%= @item_request.quantity %></p>
+    <p>Reason of need: <%= @item_request.reason %></p>
+    <br>
+    <p> <%= link_to "Click Here", admin_item_requests_url %> to accept/reject</p>
+  </body>
+</html>

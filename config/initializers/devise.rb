@@ -82,7 +82,7 @@ Devise.setup do |config|
   # to behave the same regardless if the e-mail provided was right or wrong.
   # Does not affect registerable.
   # config.paranoid = true
-
+  config.reconfirmable = true
   # By default Devise will store the user in session. You can skip storage for
   # particular strategies by setting this option.
   # Notice that if you are skipping storage for all authentication paths, you
@@ -169,7 +169,7 @@ Devise.setup do |config|
   # Auto-login after the user accepts the invite. If this is false,
   # the user will need to manually log in after accepting the invite.
   # Default: true
-  # config.allow_insecure_sign_in_after_accept = false
+  config.allow_insecure_sign_in_after_accept = false
 
   # ==> Configuration for :confirmable
   # A period that the user is allowed to access the website even without

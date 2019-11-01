@@ -1,0 +1,80 @@
+<div id="container">
+  <%= render :partial => '/shared/nav' %>
+  <div class="row">
+    <div class= "col-xs-12 col-sm-6">
+      <div class="panel panel-default" >
+        <div class="panel-heading text-center">
+           <strong><h5>Item Request details</strong></h5>
+        </div>
+
+        <div class="panel-body">
+          <p>
+            <strong>Item name:</strong>
+            <%= @item_request.item.capitalize %>
+          </p>
+
+          <p>
+            <strong>Quantity:</strong>
+            <%= @item_request.quantity %>
+          </p>
+
+          <p>
+            <strong>Reason of need:</strong>
+            <%= @item_request.reason %>
+          </p>
+
+          <p>
+            <strong>Requested date:</strong>
+            <%= @item_request.created_at.to_date %>
+          </p>
+
+          <p>
+            <strong>Approved date:</strong>
+            <%= @item_request.approved_date %>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class= "col-xs-12 col-sm-6">
+      <div class="panel panel-default" >
+        <div class="panel-heading text-center">
+            <strong> <h5>Comments (<%= @item_request.user_comment.count %>)</strong></h5>
+        </div>
+
+        <div class= "panel-body">
+          <% if @item_request.user_comment.count != 0 %>
+            <% @user_comments.order(:created_at).each do |comment| %>
+              <div>
+                <% if comment.employee_id != nil %>
+                  <p><b> <%= Employee.find(comment.employee_id).email %>:</b>
+                <% else %>
+                  <p><b> <%= AdminUser.find(comment.admin_user_id).email %>:</b>
+                <% end %>
+                <%= comment.body %>
+                <br>
+                <small><%= comment.created_at.strftime('%Y-%m-%d %H:%M') %>
+                <% if current_employee.id == comment.employee_id %>
+                  <%= link_to 'Delete', user_comment_path(comment, item_request_id: comment.item_request), method: :delete, data: { confirm: 'Are you sure?' }, class: 'orange' %></p>
+                <% end %>
+                </small>
+              </div>
+            <% end %>
+          <% else %>
+            <p> No comments yet </p>
+          <% end %>
+          <% if @item_request.status == "pending" %>
+            <%= form_for [@user_comment, UserComment.new] do |f| %>
+              <%= f.text_area :body, placeholder: 'Add a comment', cols: '80', rows: '4' %><br/>
+              <%= f.hidden_field :item_request_id, value: @item_request.id %>
+              <hr>
+              <%= f.submit 'Comment', class: 'btn btn-blue' %>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+    <br>
+  </div>
+</div>
+

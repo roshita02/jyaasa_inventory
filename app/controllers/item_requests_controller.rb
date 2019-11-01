@@ -1,19 +1,32 @@
 # frozen_string_literal: true
 
-# Controller for Item Requests
+# Controller for item requests
 class ItemRequestsController < InheritedResources::Base
+  before_action :authenticate_employee!
   def new
     @item_request = ItemRequest.new
+    @item_request.employee = current_employee
   end
 
   def create
     @item_request = ItemRequest.new(item_request_params)
-    @email = current_employee.email
+    @item_request.employee = current_employee
     if @item_request.save
-      flash[:success] = 'Request made successfully'
+      ItemRequestNotifierMailer.new_item_request(@item_request, @item_request.employee).deliver_later(wait: 1.second)
+      sleep 1
+      redirect_to employee_dashboard_index_path, flash: { success: 'Item Request successful' }
     else
       render 'new'
     end
+  end
+
+  def index
+    @item_requests = current_employee.item_request.all.page(params[:page]).per(5)
+  end
+
+  def show
+    @item_request = ItemRequest.find(params[:id])
+    @user_comments = @item_request.user_comment.all
   end
 
   private
