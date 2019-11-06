@@ -25,7 +25,12 @@ class EmployeesInvitationController < Devise::InvitationsController
       :invitation_token,
       :password,
       :password_confirmation,
-      :current_password
+      :current_password,
+      :name,
+      :email,
+      :designation,
+      :contact_no,
+      :address
     )
   end
 

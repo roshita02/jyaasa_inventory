@@ -3,9 +3,9 @@
 ActiveAdmin.register Employee do
   menu priority: 8
   # config.clear_action_items!
-  scope :invited, default: true
+  scope :invited
   scope :not_invited
-  scope :accepted
+  scope :accepted, default: true
   actions :all, except: %i[new]
   permit_params :email, :name, :designation, :contact_no, :address, :invitation_token
   index do
@@ -18,6 +18,11 @@ ActiveAdmin.register Employee do
     column('Action') do |employee|
       if params['scope'] == 'not_invited' 
         span link_to 'Invite', invite_admin_employee_path(employee), method: :post, class: 'btn btn-success'
+        span link_to 'Edit', edit_admin_employee_path(employee), method: :get, class: 'btn btn-warning'
+      end
+      if params['scope'] == 'invited' 
+        span link_to 'Reinvite', invite_admin_employee_path(employee), method: :post, class: 'btn btn-success'
+        span link_to 'Edit', edit_admin_employee_path(employee), method: :get, class: 'btn btn-warning'
       end
       span link_to 'View', admin_employee_path(employee), class: 'btn btn-primary'
       span link_to 'Delete', admin_employee_path(employee), method: :delete, class: 'btn btn-danger'
@@ -74,6 +79,14 @@ ActiveAdmin.register Employee do
       f.input :address
     end
     f.actions
+  end
+
+  controller do 
+    def update
+      @employee = Employee.find(params[:id])
+      @employee.skip_reconfirmation!
+      super
+    end
   end
 
   show do
