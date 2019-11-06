@@ -43,9 +43,8 @@ class Employee < ApplicationRecord
   has_many :items, through: :item_assignment
   has_many :items, through: :item_transfer
   has_many :user_comment, dependent: :destroy
-  scope :invited, -> { where(invitation_accepted_at: [nil]) && where.not(invitation_sent_at: [nil]) }
   scope :not_invited, -> { where(invitation_sent_at: [nil]) }
-  scope :accepted, -> { where.not(invitation_accepted_at: [nil]) }
+  scope :invitation_accepted, -> { where.not(invitation_accepted_at: [nil]) }
   validates_presence_of :name, :designation
   validates_length_of :contact_no, minimum: 7, maximum: 10, allow_blank: true
 

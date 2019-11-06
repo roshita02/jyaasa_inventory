@@ -3,9 +3,11 @@
 ActiveAdmin.register Employee do
   menu priority: 8
   # config.clear_action_items!
-  scope :invited
+  scope :invitation_pending do |employee|
+    (employee.where.not(invitation_sent_at: [nil])).where(invitation_accepted_at: [nil])
+  end
+  scope :invitation_accepted, default: true
   scope :not_invited
-  scope :accepted, default: true
   actions :all, except: %i[new]
   permit_params :email, :name, :designation, :contact_no, :address, :invitation_token
   index do
@@ -13,18 +15,17 @@ ActiveAdmin.register Employee do
     column :name
     column :designation
     column :email
-    column :invitation_sent_at if params['scope'] == 'invited'
-    column :invitation_accepted_at if params['scope'] == 'accepted'
+    column :invitation_sent_at if params['scope'] == 'invitation_pending'
+    column :invitation_accepted_at if params['scope'] == 'invitation_accepted'
     column('Action') do |employee|
       if params['scope'] == 'not_invited' 
         span link_to 'Invite', invite_admin_employee_path(employee), method: :post, class: 'btn btn-success'
-        span link_to 'Edit', edit_admin_employee_path(employee), method: :get, class: 'btn btn-warning'
       end
-      if params['scope'] == 'invited' 
+      if params['scope'] == 'invitation_pending' 
         span link_to 'Reinvite', invite_admin_employee_path(employee), method: :post, class: 'btn btn-success'
-        span link_to 'Edit', edit_admin_employee_path(employee), method: :get, class: 'btn btn-warning'
       end
       span link_to 'View', admin_employee_path(employee), class: 'btn btn-primary'
+      span link_to 'Edit', edit_admin_employee_path(employee), method: :get, class: 'btn btn-warning'
       span link_to 'Delete', admin_employee_path(employee), method: :delete, class: 'btn btn-danger'
     end
   end
@@ -74,7 +75,11 @@ ActiveAdmin.register Employee do
     f.inputs 'Employee details' do
       f.input :name
       f.input :designation
-      f.input :email
+      if f.object.invitation_accepted_at.nil?
+        f.input :email 
+      else
+        f.input :email, input_html: { disabled: true }
+      end
       f.input :contact_no
       f.input :address
     end
