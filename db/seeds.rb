@@ -167,4 +167,4 @@ non_fixed_items = [
   { name: 'METRONIDAZOLE', category_id: 8 },
   { name: 'VAPORUBS', category_id: 8 }
 ]
-non_fixed_items.each { |non_fixed_item| FixedItem.create non_fixed_item }
+non_fixed_items.each { |non_fixed_item| NonFixedItem.create non_fixed_item }

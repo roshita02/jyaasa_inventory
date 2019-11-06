@@ -35,8 +35,6 @@
 #  last_sign_in_ip        :inet
 #
 class Employee < ApplicationRecord
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :invitable, :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :confirmable, :trackable
   has_many :item_request
@@ -44,10 +42,11 @@ class Employee < ApplicationRecord
   has_many :item_transfer, dependent: :destroy
   has_many :items, through: :item_assignment
   has_many :items, through: :item_transfer
-  has_many :user_comment
-  scope :invited, -> { where.not(invitation_sent_at: [nil]) }
+  has_many :user_comment, dependent: :destroy
+  scope :invited, -> { where(invitation_accepted_at: [nil]) && where.not(invitation_sent_at: [nil]) }
   scope :not_invited, -> { where(invitation_sent_at: [nil]) }
-  # validates_presence_of :name, :designation
+  scope :accepted, -> { where.not(invitation_accepted_at: [nil])}
+  validates_presence_of :name, :designation
 
   def self.open_spreadsheet(file)
     case File.extname(file.original_filename)
@@ -66,6 +65,7 @@ class Employee < ApplicationRecord
       row = Hash[[header, spreadsheet.row(i)].transpose]
       employee = find_or_initialize_by(email: row['email'])
       employee.attributes = row.to_hash
+      employee.skip_confirmation!
       employee.update(name: row['name'], email: row['email'])
       send_invitation(employee)
     end
