@@ -18,10 +18,10 @@ ActiveAdmin.register Employee do
     column :invitation_sent_at if params['scope'] == 'invitation_pending'
     column :invitation_accepted_at if params['scope'] == 'invitation_accepted'
     column('Action') do |employee|
-      if params['scope'] == 'not_invited' 
+      if params['scope'] == 'not_invited'
         span link_to 'Invite', invite_admin_employee_path(employee), method: :post, class: 'btn btn-success'
       end
-      if params['scope'] == 'invitation_pending' 
+      if params['scope'] == 'invitation_pending'
         span link_to 'Reinvite', invite_admin_employee_path(employee), method: :post, class: 'btn btn-success'
       end
       span link_to 'View', admin_employee_path(employee), class: 'btn btn-primary'
@@ -76,7 +76,7 @@ ActiveAdmin.register Employee do
       f.input :name
       f.input :designation
       if f.object.invitation_accepted_at.nil?
-        f.input :email 
+        f.input :email
       else
         f.input :email, input_html: { disabled: true }
       end
@@ -86,7 +86,7 @@ ActiveAdmin.register Employee do
     f.actions
   end
 
-  controller do 
+  controller do
     def update
       @employee = Employee.find(params[:id])
       @employee.skip_reconfirmation!

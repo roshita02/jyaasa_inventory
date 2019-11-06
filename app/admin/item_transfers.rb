@@ -5,6 +5,7 @@ ActiveAdmin.register ItemTransfer do
   menu false
   permit_params :employee_id, :item_id, :item_assignment_id, :quantity
   config.clear_action_items!
+  scope :transferred, default: true
 
   index do
     column :id
@@ -88,6 +89,19 @@ ActiveAdmin.register ItemTransfer do
           end
         end
       end
+
+      column do
+        panel 'Item return statistics' do
+          paginated_collection(item_transfer.item_return.where('quantity > 0').page(params[:page3]).per(5), download_links: false) do            
+            table_for(collection) do
+              column('Returned Date', :returned_date)
+              column('Returned Quantity', :quantity)
+            end
+          end
+        end
+      end
     end
   end
+
+  filter :item_id, as: :select, collection: proc { FixedItem.all.map { |item| [item.name, item.id] } }
 end

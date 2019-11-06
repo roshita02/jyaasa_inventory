@@ -36,7 +36,7 @@
 #
 class Employee < ApplicationRecord
   devise :invitable, :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable, :confirmable, :trackable, :validate_on_invite => true
+         :recoverable, :rememberable, :validatable, :confirmable, :trackable, validate_on_invite: true
   has_many :item_request
   has_many :item_assignment, dependent: :destroy
   has_many :item_transfer, dependent: :destroy

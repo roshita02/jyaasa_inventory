@@ -28,7 +28,7 @@ class ItemAssignment < ApplicationRecord
   has_many :item_return, dependent: :destroy
   validates_presence_of :quantity, :employee_id, :category_id, :item_id
   enum status: { assigned: 1 }
-  scope :assigned, -> { where(status: 'assigned') }
+  scope :assigned, -> { where('quantity > 0') }
   after_save :remaining_quantity
 
   def remaining_quantity
