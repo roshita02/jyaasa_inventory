@@ -16,7 +16,7 @@ ActiveAdmin.register Employee do
     column :invitation_sent_at if params['scope'] == 'invited'
     column :invitation_accepted_at if params['scope'] == 'accepted'
     column('Action') do |employee|
-      if params['scope'] == 'not_invited'
+      if params['scope'] == 'not_invited' 
         span link_to 'Invite', invite_admin_employee_path(employee), method: :post, class: 'btn btn-success'
       end
       span link_to 'View', admin_employee_path(employee), class: 'btn btn-primary'
@@ -59,9 +59,10 @@ ActiveAdmin.register Employee do
       flash[:success] = 'Employee has been successfully invited.'
       redirect_to admin_employees_path
     else
-      messages = @employee.errors.full_messages.map { |msg| msg }.join(', ')
-      flash[:error] = 'Error : ' + messages
-      redirect_to new_invitation_admin_employees_path
+      # messages = @employee.errors.full_messages.map { |msg| msg }.join(', ')
+      # flash[:error] = messages
+      # redirect_to new_invitation_admin_employees_path
+      render 'new_invitation'
     end
   end
   form do |f|
