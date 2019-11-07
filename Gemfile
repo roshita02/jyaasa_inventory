@@ -67,6 +67,7 @@ gem 'chartkick'
 gem 'delayed_job_active_record'
 gem 'devise'
 gem 'devise_invitable'
+gem 'dotenv-rails', groups: [:development, :test]
 gem 'faker', '~> 1.6', '>= 1.6.6'
 gem 'iconv', '~> 1.0', '>= 1.0.4'
 gem 'kaminari'

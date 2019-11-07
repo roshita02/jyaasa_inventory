@@ -12,7 +12,7 @@ namespace :load_item do
     accessories = Category.find_or_create_by(name: 'ACCESSORIES', type: 'NonFixedItemCategory')
     groceries = Category.find_or_create_by(name: 'GROCERIES', type: 'NonFixedItemCategory')
     firstaid = Category.find_or_create_by(name: 'FIRST AID', type: 'NonFixedItemCategory')
-    
+
     office_equipment_items = [
       { name: 'LAPTOP', type: 'FixedItem' },
       { name: 'IMAC', type: 'FixedItem' },
@@ -52,15 +52,14 @@ namespace :load_item do
       { name: 'FILE RACK', type: 'FixedItem' }, { name: 'OFFICE PARTITION', type: 'FixedItem' },
       { name: 'BOX', type: 'FixedItem' },
     ]
-    
     land_items = [
       { name: 'LAND', type: 'FixedItem' }, { name: 'DEVELOPMENT WORKS' }
     ]
-    
+
     office_equipment_items.each { |item| office_equipment.items.find_or_create_by item }
     furniture_items.each { |item| furniture.items.find_or_create_by item }
     land_items.each { |item| land.items.find_or_create_by item }
-    
+
     stationary_items = [
       { name: 'SPIRAL DIARY', type: 'NonFixedItem' },
       { name: 'SPIRAL MINI NOTEBOOK', type: 'NonFixedItem' },
@@ -124,7 +123,6 @@ namespace :load_item do
       { name: 'BATHING SOAP', type: 'NonFixedItem' },
       { name: 'FINEL', type: 'NonFixedItem' },
     ]
-    
     accessories_items = [
       { name: 'CABLE / WIRES', type: 'NonFixedItem' },
       { name: 'DUSTBIN', type: 'NonFixedItem' },
@@ -149,7 +147,6 @@ namespace :load_item do
       { name: 'CLAMPERS', type: 'NonFixedItem' },
       { name: 'CUTTERS/KNIFE', type: 'NonFixedItem' }
     ]
-    
     groceries_items = [
       { name: 'SUGAR', type: 'NonFixedItem' },
       { name: 'COFFEE', type: 'NonFixedItem' },
@@ -157,7 +154,6 @@ namespace :load_item do
       { name: 'HONEY', type: 'NonFixedItem' },
       { name: 'JUICE', type: 'NonFixedItem' }
     ]
-    
     firstaid_items = [
       { name: 'CETAMOL', type: 'NonFixedItem' },
       { name: 'FLEXON', type: 'NonFixedItem' },
@@ -177,7 +173,7 @@ namespace :load_item do
       { name: 'SANITARY PAD', type: 'NonFixedItem' },
       { name: 'METRONIDAZOLE', type: 'NonFixedItem' },
       { name: 'VAPORUBS', type: 'NonFixedItem' }
-    ]  
+    ]
     stationary_items.each { |item| stationaries.items.find_or_create_by item }
     accessories_items.each { |item| accessories.items.find_or_create_by item }
     cleaning_items.each { |item| cleaning.items.find_or_create_by item }
