@@ -28,10 +28,17 @@ $ git clone https://github.com/roshita02/jyaasa_inventory.git
 $ cd jyaasa_inventory
 
 $ bundle install
+$ yarn install
 $ rake db:create
 $ rake db:migrate
 $ rake db:seed
 ```
+
+**Load preset items and categories**
+```
+rake load_item:item_list
+```
+
 ## Login
 
 **For admin login**
