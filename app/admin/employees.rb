@@ -6,14 +6,20 @@ ActiveAdmin.register Employee do
   scope :invitation_pending do |employee|
     (employee.where.not(invitation_sent_at: [nil])).where(invitation_accepted_at: [nil])
   end
+  scope :not_invited do |employee|
+    (employee.where(invitation_sent_at: [nil])).where(invitation_accepted_at: [nil])
+  end
   scope :invitation_accepted, default: true
-  scope :not_invited
   actions :all, except: %i[new]
   permit_params :email, :name, :designation, :contact_no, :address, :invitation_token
   index do
     column :id
-    column :name
-    column :designation
+    column('Name') do |i|
+      i.name.capitalize
+    end
+    column('Designation') do |i|
+      i.designation.capitalize
+    end
     column :email
     column :invitation_sent_at if params['scope'] == 'invitation_pending'
     column :invitation_accepted_at if params['scope'] == 'invitation_accepted'

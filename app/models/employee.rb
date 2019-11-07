@@ -37,13 +37,13 @@
 class Employee < ApplicationRecord
   devise :invitable, :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :confirmable, :trackable, validate_on_invite: true
-  has_many :item_request
+  has_many :item_request, dependent: :destroy
   has_many :item_assignment, dependent: :destroy
   has_many :item_transfer, dependent: :destroy
   has_many :items, through: :item_assignment
   has_many :items, through: :item_transfer
   has_many :user_comment, dependent: :destroy
-  scope :not_invited, -> { where(invitation_sent_at: [nil]) }
+  # scope :not_invited, -> { where(invitation_sent_at: [nil]) }
   scope :invitation_accepted, -> { where.not(invitation_accepted_at: [nil]) }
   validates_presence_of :name, :designation
   validates_length_of :contact_no, minimum: 7, maximum: 10, allow_blank: true

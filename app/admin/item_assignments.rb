@@ -60,7 +60,6 @@ ActiveAdmin.register ItemAssignment do
           row :item
           row :quantity
           row :assigned_date
-          row :returned_date
         end
       end
 

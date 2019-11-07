@@ -12,10 +12,14 @@ ActiveAdmin.register AdminUser do
   end
 
   show do
-    attributes_table do
-      row :email
-      row :created_at do |i|
-        i.created_at.to_date
+    columns do
+      column max_width: '666px' do
+        attributes_table do
+          row :email
+          row :created_at do |i|
+            i.created_at.to_date
+          end
+        end
       end
     end
   end
