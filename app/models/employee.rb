@@ -35,19 +35,18 @@
 #  last_sign_in_ip        :inet
 #
 class Employee < ApplicationRecord
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :invitable, :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable, :confirmable, :trackable
-  has_many :item_request
+         :recoverable, :rememberable, :validatable, :confirmable, :trackable, validate_on_invite: true
+  has_many :item_request, dependent: :destroy
   has_many :item_assignment, dependent: :destroy
   has_many :item_transfer, dependent: :destroy
   has_many :items, through: :item_assignment
   has_many :items, through: :item_transfer
-  has_many :user_comment
-  scope :invited, -> { where.not(invitation_sent_at: [nil]) }
-  scope :not_invited, -> { where(invitation_sent_at: [nil]) }
-  # validates_presence_of :name, :designation
+  has_many :user_comment, dependent: :destroy
+  # scope :not_invited, -> { where(invitation_sent_at: [nil]) }
+  scope :invitation_accepted, -> { where.not(invitation_accepted_at: [nil]) }
+  validates_presence_of :name, :designation
+  validates_length_of :contact_no, minimum: 7, maximum: 10, allow_blank: true
 
   def self.open_spreadsheet(file)
     case File.extname(file.original_filename)
@@ -61,11 +60,12 @@ class Employee < ApplicationRecord
 
   def self.import(file)
     spreadsheet = open_spreadsheet(file)
-    header = spreadsheet.row(4)
-    (5..spreadsheet.last_row).each do |i|
+    header = spreadsheet.row(1)
+    (2..spreadsheet.last_row).each do |i|
       row = Hash[[header, spreadsheet.row(i)].transpose]
       employee = find_or_initialize_by(email: row['email'])
       employee.attributes = row.to_hash
+      employee.skip_confirmation!
       employee.update(name: row['name'], email: row['email'])
       send_invitation(employee)
     end

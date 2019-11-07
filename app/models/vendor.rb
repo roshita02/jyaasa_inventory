@@ -13,7 +13,6 @@
 # Model for vendor
 class Vendor < ApplicationRecord
   validates_presence_of :name, :pan_no
-  validates_length_of :pan_no, is: 9
-  # has_many :items
-  has_many :purchase
+  validates :pan_no, length: { is: 9 }, uniqueness: true
+  has_many :purchase, dependent: :destroy
 end

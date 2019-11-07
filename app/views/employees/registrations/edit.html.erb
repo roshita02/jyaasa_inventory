@@ -28,9 +28,6 @@
             <%= f.label :email %><br />
             <%= f.email_field :email, autocomplete: "email", class: "form-control", :readonly => true %>
           </div>
-          <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-            <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
-          <% end %>
 
           <div class="form-group col-md-6">
             <%= f.label :contact_no %><br />

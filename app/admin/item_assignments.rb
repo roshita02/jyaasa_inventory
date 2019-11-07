@@ -36,7 +36,7 @@ ActiveAdmin.register ItemAssignment do
       i.employee.designation.capitalize
     end
     column :item
-    column :quantity if params['scope'] == 'assigned' || params['scope'].nil?
+    column :quantity 
     column :assigned_date
     column :transferred_date if params['scope'] == 'transferred'
     column('Action') do |item_assignment|
@@ -59,20 +59,34 @@ ActiveAdmin.register ItemAssignment do
           row :employee
           row :item
           row :quantity
-          row :status
           row :assigned_date
-          row :returned_date
         end
       end
 
       column do
         panel 'Item transfer statistics' do
-          paginated_collection(item_assignment.item_transfer.page(params[:page3]).per(5), download_links: false) do
+          paginated_collection(item_assignment.item_transfer.where('quantity > 0').page(params[:page3]).per(5), download_links: false) do            
             table_for(collection) do
               column('Transferred to') do |i|
                 Employee.find(i.employee_id).name.capitalize
               end
+              column('Transferred date') do |i|
+                i.created_at.to_date
+              end
               column('Transferred Quantity', :quantity)
+            end
+          end
+        end
+      end
+    end
+
+    columns do
+      column max_width: '662px' do
+        panel 'Item return statistics' do
+          paginated_collection(item_assignment.item_return.where('quantity > 0').page(params[:page4]).per(5), download_links: false) do
+            table_for(collection) do
+              column('Returned Date', :returned_date)
+              column('Returned Quantity', :quantity)
             end
           end
         end
@@ -159,7 +173,6 @@ ActiveAdmin.register ItemAssignment do
   filter :employee_id, as: :select, collection: proc { Employee.all.map { |employee| [employee.email, employee.id] } }
   filter :item_id, as: :select, collection: proc { FixedItem.all.map { |fixeditem| [fixeditem.name, fixeditem.id] } }
   filter :assigned_date, label: 'Assigned at'
-  filter :returned_date, label: 'Returned at'
 
   csv do
     column :employee do |i|

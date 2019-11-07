@@ -44,8 +44,8 @@ class Item < ApplicationRecord
 
   def self.import(file)
     spreadsheet = open_spreadsheet(file)
-    header = spreadsheet.row(3)
-    (4..spreadsheet.last_row).each do |i|
+    header = spreadsheet.row(1)
+    (2..spreadsheet.last_row).each do |i|
       row = Hash[[header, spreadsheet.row(i)].transpose]
       values = row.to_hash
       item = find_or_initialize_by(name: row['name'])

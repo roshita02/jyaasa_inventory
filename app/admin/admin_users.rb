@@ -5,15 +5,22 @@ ActiveAdmin.register AdminUser do
   permit_params :email, :password, :password_confirmation
   index do
     column :email
-    column :created_at
+    column :created_at do |i|
+      i.created_at.to_date
+    end
     actions
   end
 
   show do
-    attributes_table do
-      row :email
-      row :created_at
-      row :updated_at
+    columns do
+      column max_width: '666px' do
+        attributes_table do
+          row :email
+          row :created_at do |i|
+            i.created_at.to_date
+          end
+        end
+      end
     end
   end
 
@@ -21,7 +28,7 @@ ActiveAdmin.register AdminUser do
   filter :created_at
 
   form do |f|
-    f.inputs do
+    f.inputs 'Admin details' do
       f.input :email
       f.input :password
       f.input :password_confirmation
