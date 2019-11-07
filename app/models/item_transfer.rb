@@ -7,6 +7,7 @@ class ItemTransfer < ApplicationRecord
   belongs_to :item_assignment
   validates_presence_of :quantity
   has_many :item_return, dependent: :destroy
+  scope :transferred, -> { where('quantity > 0') }
   after_save :send_mail, :update_quantity
 
   def send_mail

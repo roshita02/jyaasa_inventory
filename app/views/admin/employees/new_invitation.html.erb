@@ -3,7 +3,7 @@
     <%= f.input :name %>
     <%= f.input :designation %>
     <%= f.input :email %>
-    <%= f.input :contact_no %>
+    <%= f.input :contact_no, :as => "number" %>
     <%= f.input :address %>
   <% end %>
   <%= f.actions do %>

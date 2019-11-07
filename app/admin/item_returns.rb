@@ -10,9 +10,9 @@ ActiveAdmin.register ItemReturn do
     column :id
     column('Employee') do |i|
       if i.item_transfer_id.nil?
-        Employee.find(ItemAssignment.find(i.item_assignment_id).employee_id).name
+        Employee.find(ItemAssignment.find(i.item_assignment_id).employee_id).name.capitalize
       else
-        Employee.find(ItemTransfer.find(i.item_transfer_id).employee_id).name
+        Employee.find(ItemTransfer.find(i.item_transfer_id).employee_id).name.capitalize
       end
     end
     column('Item name') do |i|
@@ -98,4 +98,5 @@ ActiveAdmin.register ItemReturn do
       params.require(:item_return).permit(:item_id, :item_assignment_id, :item_transfer_id, :quantity, :returned_date)
     end
   end
+  filter :item_id, as: :select, collection: proc { FixedItem.all.map { |fixeditem| [fixeditem.name, fixeditem.id] } }
 end

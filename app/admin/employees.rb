@@ -3,23 +3,35 @@
 ActiveAdmin.register Employee do
   menu priority: 8
   # config.clear_action_items!
-  scope :invited, default: true
-  scope :not_invited
+  scope :invitation_pending do |employee|
+    (employee.where.not(invitation_sent_at: [nil])).where(invitation_accepted_at: [nil])
+  end
+  scope :not_invited do |employee|
+    (employee.where(invitation_sent_at: [nil])).where(invitation_accepted_at: [nil])
+  end
+  scope :invitation_accepted, default: true
   actions :all, except: %i[new]
   permit_params :email, :name, :designation, :contact_no, :address, :invitation_token
   index do
     column :id
-    column :name
-    column :designation
+    column('Name') do |i|
+      i.name.capitalize
+    end
+    column('Designation') do |i|
+      i.designation.capitalize
+    end
     column :email
-    column :invitation_sent_at if params['scope'] == 'invited'
-    column :invitation_accepted_at if params['scope'] == 'invited'
+    column :invitation_sent_at if params['scope'] == 'invitation_pending'
+    column :invitation_accepted_at if params['scope'] == 'invitation_accepted'
     column('Action') do |employee|
       if params['scope'] == 'not_invited'
-        span link_to 'Invite', invite_admin_employee_path(employee), method: :post, class: 'btn btn-danger'
+        span link_to 'Invite', invite_admin_employee_path(employee), method: :post, class: 'btn btn-success'
+      end
+      if params['scope'] == 'invitation_pending'
+        span link_to 'Reinvite', invite_admin_employee_path(employee), method: :post, class: 'btn btn-success'
       end
       span link_to 'View', admin_employee_path(employee), class: 'btn btn-primary'
-      span link_to 'Edit', edit_admin_employee_path(employee), class: 'btn btn-success'
+      span link_to 'Edit', edit_admin_employee_path(employee), method: :get, class: 'btn btn-warning'
       span link_to 'Delete', admin_employee_path(employee), method: :delete, class: 'btn btn-danger'
     end
   end
@@ -51,7 +63,7 @@ ActiveAdmin.register Employee do
     @employee = Employee.new
   end
 
-  collection_action :send_invitation, method: :patch do
+  collection_action :send_invitation, method: :post do
     @employee = Employee.invite!({ email: params[:employee][:email], name: params[:employee][:name],
                                    designation: params[:employee][:designation], contact_no: params[:employee][:contact_no],
                                    address: params[:employee][:address] }, current_employee)
@@ -59,20 +71,33 @@ ActiveAdmin.register Employee do
       flash[:success] = 'Employee has been successfully invited.'
       redirect_to admin_employees_path
     else
-      messages = @employee.errors.full_messages.map { |msg| msg }.join(', ')
-      flash[:error] = 'Error : ' + messages
-      redirect_to new_invitation_admin_employees_path
+      # messages = @employee.errors.full_messages.map { |msg| msg }.join(', ')
+      # flash[:error] = messages
+      # redirect_to new_invitation_admin_employees_path
+      render 'new_invitation'
     end
   end
   form do |f|
     f.inputs 'Employee details' do
       f.input :name
       f.input :designation
-      f.input :email
+      if f.object.invitation_accepted_at.nil?
+        f.input :email
+      else
+        f.input :email, input_html: { disabled: true }
+      end
       f.input :contact_no
       f.input :address
     end
     f.actions
+  end
+
+  controller do
+    def update
+      @employee = Employee.find(params[:id])
+      @employee.skip_reconfirmation!
+      super
+    end
   end
 
   show do

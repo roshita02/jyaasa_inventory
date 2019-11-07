@@ -14,8 +14,8 @@
 # Model for Category
 class Category < ApplicationRecord
   validates_presence_of :name
-  has_many :items, foreign_key: 'category_id'
-  has_many :purchase
-  has_many :item_assignment
-  has_many :withdraw
+  has_many :items, foreign_key: 'category_id', dependent: :destroy
+  has_many :purchase, dependent: :destroy
+  has_many :item_assignment, dependent: :destroy
+  has_many :withdraw, dependent: :destroy
 end

@@ -64,7 +64,9 @@ ActiveAdmin.register ItemRequest do
           row :employee
           row :item
           row :quantity
-          row('Requested at', &:created_at)
+          row('Requested at') do |i|
+            i.created_at.to_date
+          end
           row :status
           row :reason
         end

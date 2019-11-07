@@ -13,9 +13,11 @@ class Employees::ConfirmationsController < Devise::ConfirmationsController
         super
       else
         flash[:error] = 'Email already confirmed. Sign in instead'
+        redirect_to new_employee_confirmation_path
       end
     else
-      super
+      flash[:error] = 'Email not registered'
+      redirect_to new_employee_confirmation_path
     end
   end
 

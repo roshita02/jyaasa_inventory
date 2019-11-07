@@ -6,19 +6,6 @@ ActiveAdmin.register FixedItemPurchase do
   config.clear_action_items!
   permit_params :category_id, :item_id, :vendor_id, :quantity, :rate, :purchased_date
 
-  action_item only: :index do
-    link_to 'Import item purchase', action: 'import_item_purchase'
-  end
-
-  collection_action :import_item_purchase do
-    render 'admin/csv/upload_item_purchase'
-  end
-
-  collection_action :import_purchase_file, method: :post do
-    FixedItemPurchase.import(params[:file])
-    redirect_to action: :index, notice: 'Imported successfully!'
-  end
-
   action_item :new do
     link_to 'New Purchase', new_admin_fixed_item_purchase_path
   end
