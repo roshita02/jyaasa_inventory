@@ -28,7 +28,6 @@ ul
     b purchased_date
     |  Purchased Date (Date type)
 
-i Note: Duplicate records are not allowed.
 br
 = form_tag({:action => "import_file"}, :multipart => true) do |f|
   =file_field_tag 'file', :required => true

@@ -46,9 +46,6 @@ ActiveAdmin.register_page 'Dashboard' do
         panel 'Pending Item requests' do
           if ItemRequest.where(status: 'pending').count != 0
             table_for ItemRequest.where(status: 'pending').order(created_at: :desc).limit(5) do |t|
-              
-              binding.pry
-              
               t.column('Employee') do |i|
                 i.employee.name.capitalize
               end

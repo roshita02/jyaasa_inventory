@@ -50,24 +50,21 @@ class ItemAssignment < ApplicationRecord
 
   def self.import(file)
     spreadsheet = open_spreadsheet(file)
-    header = spreadsheet.row(3)
-    (4..spreadsheet.last_row).each do |i|
+    header = spreadsheet.row(1)
+    (2..spreadsheet.last_row).each do |i|
       row = Hash[[header, spreadsheet.row(i)].transpose]
       values = row.to_hash
       item_assignment = find_by_id(row['id']) || new
-      item_assignment.attributes = values
-      employee = values['employee_id']
+      # item_assignment.attributes = values
+      employee = values['employee']
       item_assignment.employee_id = Employee.find_by_name(employee).id
-      category = values['category_id']
+      category = values['category']
       item_assignment.category_id = Category.find_by_name(category).id
-      item = values['item_id']
+      item = values['item']
       item_assignment.item_id = FixedItem.find_by_name(item).id
+      item_assignment.quantity = values['quantity']
+      item_assignment.assigned_date = values['assigned_date']
       item_assignment.save!
-      next unless item_assignment.save
-
-      @item = Item.find(item_assignment.item_id)
-      @item.increment!(:assigned_quantity, values['quantity'])
-      @item.save
     end
   end
 end
