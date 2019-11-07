@@ -26,6 +26,7 @@ ActiveAdmin.register NonFixedItem do
     link_to 'Withdraw an Item', new_admin_withdraw_path
   end
   index do
+    column :id
     column :name
     column :category
     column 'Total Quantity', :quantity
