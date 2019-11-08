@@ -1,21 +1,46 @@
 {
   "RSpec": {
     "coverage": {
-      "/home/roshita/Documents/projects/jyaasa_inventory/app/mailers/item_assignment_mailer.rb": [
+      "/home/roshita/Documents/projects/jyaasa_inventory/app/controllers/item_requests_controller.rb": [
+        null,
         null,
         null,
         1,
         1,
+        1,
+        0,
+        0,
+        null,
         null,
         1,
         0,
         0,
         0,
+        0,
+        0,
+        0,
+        null,
+        0,
+        null,
+        null,
+        null,
+        1,
+        0,
+        null,
+        null,
+        1,
+        0,
+        0,
+        null,
+        null,
+        1,
+        null,
+        1,
         0,
         null,
         null
       ]
     },
-    "timestamp": 1572501912
+    "timestamp": 1573198071
   }
 }

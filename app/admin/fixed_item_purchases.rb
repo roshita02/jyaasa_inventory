@@ -83,6 +83,13 @@ ActiveAdmin.register FixedItemPurchase do
       end
     end
 
+    def update
+      @purchase = Purchase.find(params[:id])
+      super do
+        redirect_to admin_fixed_item_purchases_path, flash: { notice: 'Purchase updated succcessfully' } and return if resource.valid?
+      end
+    end
+
     private
 
     def purchase_params

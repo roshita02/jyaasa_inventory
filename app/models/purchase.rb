@@ -23,7 +23,7 @@ class Purchase < ApplicationRecord
   belongs_to :category
   validates_presence_of :quantity, :category_id, :item_id, :purchased_date
 
-  after_save :increase_quantity
+  after_create :increase_quantity
   after_destroy :decrease_quantity
   before_update :get_old_quantity
   after_update :update_quantity
