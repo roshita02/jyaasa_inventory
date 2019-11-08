@@ -36,8 +36,8 @@ $ rake db:seed
 
 **For admin login**
 
-email: admin@example.com   
-password: password
+email: inventory@example.com   
+password: Jy@@s@
 
 ## Running Tests
 ```
