@@ -64,7 +64,7 @@ ActiveAdmin.register FixedItem do
 
       column max_width: '666px' do
         panel 'Purchase history' do
-          paginated_collection(fixed_item.purchase.page(params[:page]).per(5)) do
+          paginated_collection(fixed_item.purchase.page(params[:page]).per(5), download_links: false) do
             table_for(collection) do
               column :purchased_date
               column :vendor
