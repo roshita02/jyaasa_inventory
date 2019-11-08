@@ -63,6 +63,14 @@ ActiveAdmin.register Vendor do
       end
     end
 
+    def update
+      @vendor = Vendor.find(params[:id])
+      super do |format|
+        redirect_to admin_vendors_path and return if resource.valid?
+      end
+    end
+
+
     private
 
     def vendor_params
