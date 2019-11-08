@@ -15,4 +15,5 @@
 # STI model for Fixed item category
 class FixedItemCategory < Category
   validates_presence_of :depreciation_rate
+  validates_numericality_of :depreciation_rate, less_than_or_equal_to: 100
 end

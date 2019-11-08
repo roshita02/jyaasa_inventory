@@ -18,5 +18,5 @@ class AdminUser < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable,
          :recoverable, :rememberable, :validatable
-  has_many :user_comment
+  has_many :user_comment, dependent: :destroy
 end

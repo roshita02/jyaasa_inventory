@@ -36,5 +36,13 @@ ActiveAdmin.register NonFixedItemCategory do
       end
     end
   end
+  controller do
+    def update
+      @category = Category.find(params[:id])
+      super do
+        redirect_to admin_non_fixed_item_categories_path, flash: { notice: 'Category updated succcessfully' } and return if resource.valid?
+      end
+    end
+  end
   filter :name
 end

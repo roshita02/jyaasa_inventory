@@ -1,3 +1,3 @@
 # frozen_string_literal: true
 
-AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password')
+AdminUser.create!(email: 'inventory@example.com', password: 'Jy@@s@', password_confirmation: 'Jy@@s@')

@@ -317,7 +317,7 @@ ActiveAdmin.setup do |config|
   #
   # config.order_clause = MyOrderClause
   config.namespace :admin do |admin|
-    admin.download_links = %i[csv json]
+    admin.download_links = %i[csv]
     admin.build_menu do |menu|
       menu.add label: 'Items', priority: 2
       menu.add label: 'Category', priority: 6

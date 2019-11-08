@@ -96,7 +96,9 @@ ActiveAdmin.register Employee do
     def update
       @employee = Employee.find(params[:id])
       @employee.skip_reconfirmation!
-      super
+      super do
+        redirect_to admin_employees_path, flash: { notice: 'Employee updated succcessfully' } and return if resource.valid?
+      end
     end
   end
 
