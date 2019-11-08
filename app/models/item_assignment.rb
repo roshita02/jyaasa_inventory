@@ -65,6 +65,11 @@ class ItemAssignment < ApplicationRecord
       item_assignment.quantity = values['quantity']
       item_assignment.assigned_date = values['assigned_date']
       item_assignment.save!
+      if item_assignment.save
+        @assigned_item = FixedItem.find(item_assignment.item_id)
+        @assigned_item.increment!(:assigned_quantity, values['quantity'])
+        @assigned_item.save!
+      end
     end
   end
 end
