@@ -65,8 +65,8 @@ ActiveAdmin.register Vendor do
 
     def update
       @vendor = Vendor.find(params[:id])
-      super do |format|
-        redirect_to admin_vendors_path and return if resource.valid?
+      super do
+        redirect_to admin_vendors_path, flash: { notice: 'Vendor updated succcessfully' } and return if resource.valid?
       end
     end
 

@@ -24,6 +24,15 @@ ActiveAdmin.register AdminUser do
     end
   end
 
+  controller do
+    def update
+      @admin = AdminUser.find(params[:id])
+      super do
+        redirect_to admin_admin_users_path, flash: { notice: 'Admin user updated succcessfully' } and return if resource.valid?
+      end
+    end
+  end
+
   filter :email
   filter :created_at
 
