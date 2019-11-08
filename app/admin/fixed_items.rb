@@ -82,7 +82,7 @@ ActiveAdmin.register FixedItem do
     columns do
       column do
         panel 'Item Assignment statistics' do
-          paginated_collection(fixed_item.item_assignment.page(params[:page1]).per(5), download_links: false) do
+          paginated_collection(fixed_item.item_assignment.where('quantity > 0').page(params[:page1]).per(5), download_links: false) do
             table_for(collection) do
               column :employee_id do |i|
                 i.employee.name.capitalize
@@ -97,7 +97,7 @@ ActiveAdmin.register FixedItem do
 
       column do
         panel 'Item transfer statistics' do
-          paginated_collection(fixed_item.item_transfer.page(params[:page3]).per(5), download_links: false) do
+          paginated_collection(fixed_item.item_transfer.where('quantity > 0').page(params[:page3]).per(5), download_links: false) do
             table_for(collection) do
               column('Transferred from') do |i|
                 Employee.find(ItemAssignment.find(i.item_assignment_id).employee_id).name.capitalize
