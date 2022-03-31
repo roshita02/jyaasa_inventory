@@ -246,7 +246,8 @@ GEM
       pry (>= 0.10.4)
     psych (3.1.0)
     public_suffix (3.1.1)
-    puma (3.12.1)
+    puma (4.3.12)
+      nio4r (~> 2.0)
     rack (2.0.7)
     rack-proxy (0.6.5)
       rack
@@ -458,7 +459,7 @@ DEPENDENCIES
   parsley-rails
   pg (>= 0.18, < 2.0)
   pry-rails
-  puma (~> 3.11)
+  puma (~> 4.3)
   rails (~> 6.0.0.rc2)
   rails-controller-testing
   rails_best_practices (~> 1.15, >= 1.15.7)
